@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources><tabs>
+    <tab
+        id="@+id/lightTab"
+        icon="@drawable/lightbulb"
+        title="Lights"
+        barColorWhenSelected="#BA68C8" />
+
+    <tab
+        id="@+id/roomTab"
+        icon="@drawable/room"
+        title="Rooms"
+        barColorWhenSelected="#BA68C8"/>
+
+    <tab
+        id="@+id/moodTab"
+        icon="@drawable/mood"
+        title="Moods"
+        barColorWhenSelected="#BA68C8"/>
+</tabs></resources>
