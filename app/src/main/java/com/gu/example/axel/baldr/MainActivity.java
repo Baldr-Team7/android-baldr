@@ -57,37 +57,25 @@ public class MainActivity extends ActionBarActivity {
                     LightFragment f = new LightFragment();
                     fabState = 1;
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame,f).commit();
+                    setTitle("Lights");
 
                 }
                 else if (tabId == R.id.roomTab){
                     RoomFragment f = new RoomFragment();
                     fabState = 2;
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame,f).commit();
-
+                    setTitle("Rooms");
                 }
                 else if (tabId == R.id.moodTab){
                     MoodFragment f = new MoodFragment();
                     fabState = 3;
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame,f).commit();
-
+                    setTitle("Moods");
                 }
             }
 
         });
     }
-
-    /*public void startAdd(View view){
-        if (fabState == 1){
-
-
-        }
-        else if (fabState == 2){
-            //Add room
-        }
-        else if (fabState == 3){
-            //Add mood
-        }
-    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

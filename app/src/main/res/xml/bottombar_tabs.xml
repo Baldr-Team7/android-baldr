@@ -4,17 +4,17 @@
         id="@+id/lightTab"
         icon="@drawable/lightbulb"
         title="Lights"
-        barColorWhenSelected="#BA68C8" />
+        barColorWhenSelected="#E5D4CE" />
 
     <tab
         id="@+id/roomTab"
         icon="@drawable/room"
         title="Rooms"
-        barColorWhenSelected="#BA68C8"/>
+        barColorWhenSelected="#7FD1B9"/>
 
     <tab
         id="@+id/moodTab"
         icon="@drawable/mood"
         title="Moods"
-        barColorWhenSelected="#BA68C8"/>
+        barColorWhenSelected="#DE6E4B"/>
 </tabs></resources>

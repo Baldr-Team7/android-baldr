@@ -15,7 +15,7 @@ public class AddMoodActivity extends AppCompatActivity {
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_mood);
-
+        setTitle("New Mood");
     }
 
     public void exitAdd(View view){
