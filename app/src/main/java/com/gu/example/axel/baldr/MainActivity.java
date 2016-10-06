@@ -5,6 +5,7 @@ import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
@@ -13,7 +14,7 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     private int fabState = 1;
     BottomBar bottomBar;
@@ -28,6 +29,8 @@ public class MainActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
 
         fab = (FloatingActionButton)findViewById(R.id.fab);
+        fab.bringToFront();
+
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

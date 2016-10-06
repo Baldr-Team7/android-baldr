@@ -8,7 +8,9 @@ import android.support.v4.widget.ListViewAutoScrollHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * Created by Axel on 02-Oct-16.
@@ -29,7 +31,7 @@ public class LightFragment extends Fragment {
 
         lArray = new LightObject[20];
 
-        lArray[0] = new LightObject("Light1", "No Room", 0, 1);
+        lArray[0] = new LightObject("Master switch", "", 0, 1);
         lArray[1] = new LightObject("Light2", "No Room", 0, 2);
         lArray[2] = new LightObject("Light3", "Kitchen", 0, 3);
         lArray[3] = new LightObject("Light4", "Kitchen", 0, 4);
@@ -52,6 +54,13 @@ public class LightFragment extends Fragment {
 
         adapter = new CustomAdapter(getContext(), lArray);
         lList.setAdapter(adapter);
+
+        lList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getContext(),"Clicked light " + view.getTag(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         return view;
