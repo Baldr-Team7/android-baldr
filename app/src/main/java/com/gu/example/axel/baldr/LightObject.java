@@ -7,40 +7,46 @@ package com.gu.example.axel.baldr;
 public class LightObject {
 
     private String name;
+    private String room;
     private int state;
     private int id;
 
-    public LightObject(String n, int s, int i){
-        name = n;
-        state = s;
-        id = i;
+    public LightObject(String name, String room, int state, int id){
+        this.name = name;
+        this.room = room;
+        this.state = state;
+        this.id = id;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public String setName(String n){
-        name = n;
-        return name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getState(){
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
+    public int getState() {
         return state;
     }
 
-    public int setState(int s){
-        state = s;
-        return s;
+    public void setState(int state) {
+        this.state = state;
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 
-    public int setId(int i){
-        id = i;
-        return id;
+    public void setId(int id) {
+        this.id = id;
     }
-
 }
