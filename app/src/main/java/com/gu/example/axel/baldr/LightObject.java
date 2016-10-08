@@ -8,10 +8,10 @@ public class LightObject {
 
     private String name;
     private String room;
-    private int state;
+    private boolean state;
     private int id;
 
-    public LightObject(String name, String room, int state, int id){
+    public LightObject(String name, String room, boolean state, int id){
         this.name = name;
         this.room = room;
         this.state = state;
@@ -34,11 +34,11 @@ public class LightObject {
         this.room = room;
     }
 
-    public int getState() {
+    public boolean getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(boolean state) {
         this.state = state;
     }
 
