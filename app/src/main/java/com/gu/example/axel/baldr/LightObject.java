@@ -49,4 +49,12 @@ public class LightObject {
     public void setId(int id) {
         this.id = id;
     }
+    public String getStateText(){
+        String s = null;
+        if (this.state)
+            s = "On";
+        else
+            s="Off";
+        return s;
+    }
 }

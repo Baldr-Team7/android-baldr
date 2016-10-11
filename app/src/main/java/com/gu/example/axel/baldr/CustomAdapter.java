@@ -5,8 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by Axel on 06-Oct-16.
@@ -39,24 +42,30 @@ public class CustomAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View vi = View.inflate(context, R.layout.light_row, null);
         TextView lName = (TextView) vi.findViewById(R.id.lightName);
         TextView lRoom = (TextView) vi.findViewById(R.id.lightRoom);
+        final TextView lState= (TextView) vi.findViewById(R.id.lightState);
         Switch lSwitch = (Switch) vi.findViewById(R.id.lightSwitch);
 
         lName.setText(data[position].getName());
         lRoom.setText(data[position].getRoom());
+        lState.setText(data[position].getStateText());
 
         vi.setTag(data[position].getId());
 
         lSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(data[position].getState()){
-                    data[position].setState(false);
+                long pTemp = getItemId(position);
+                int p = (int)pTemp;
+                if(data[p].getState()){
+                    data[p].setState(false);
+                    lState.setText(data[position].getStateText());
                 }
                 else{
-                    data[position].setState(true);
+                    data[p].setState(true);
+                    lState.setText(data[position].getStateText());
                 }
             }
         });
