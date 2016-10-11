@@ -50,6 +50,17 @@ public class CustomAdapter extends BaseAdapter {
 
         vi.setTag(data[position].getId());
 
+        lSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(data[position].getState()){
+                    data[position].setState(false);
+                }
+                else{
+                    data[position].setState(true);
+                }
+            }
+        });
+
         return vi;
     }
 }
