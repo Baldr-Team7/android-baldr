@@ -12,6 +12,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.eclipse.paho.android.service.MqttAndroidClient;
+import org.eclipse.paho.android.service.MqttAndroidClient;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+
+
 /**
  * Created by Axel on 02-Oct-16.
  */
@@ -21,6 +27,8 @@ public class LightFragment extends Fragment {
     private ListView lList = null;
     private CustomAdapter adapter;
     private LightObject[] lArray;
+
+
 
 
     @Override
@@ -58,6 +66,7 @@ public class LightFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getContext(),"Clicked light " + view.getTag(), Toast.LENGTH_SHORT).show();
+
             }
         });*/
 
