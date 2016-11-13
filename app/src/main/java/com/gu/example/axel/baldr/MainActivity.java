@@ -13,6 +13,9 @@ import android.view.View;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
+import org.eclipse.paho.client.mqttv3.*;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,10 +23,14 @@ public class MainActivity extends AppCompatActivity {
     BottomBar bottomBar;
     private Toolbar toolbar;
     FloatingActionButton fab;
+    public TestClient client;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        client = new TestClient();
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);

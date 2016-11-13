@@ -18,12 +18,14 @@ import org.w3c.dom.Text;
 public class CustomAdapter extends BaseAdapter {
 
     Context context;
+    TestClient sender;
     LightObject[] data;
     private static LayoutInflater xInflater = null;
 
     public CustomAdapter(Context context, LightObject[] data){
         this.context = context;
         this.data = data;
+        sender = new TestClient();
     }
 
     @Override
@@ -60,10 +62,12 @@ public class CustomAdapter extends BaseAdapter {
                 long pTemp = getItemId(position);
                 int p = (int)pTemp;
                 if(data[p].getState()){
+                    sender.sendMessage(data[p].getId() + "off");
                     data[p].setState(false);
                     lState.setText(data[position].getStateText());
                 }
                 else{
+                    sender.sendMessage(data[p].getId() + "on");
                     data[p].setState(true);
                     lState.setText(data[position].getStateText());
                 }
