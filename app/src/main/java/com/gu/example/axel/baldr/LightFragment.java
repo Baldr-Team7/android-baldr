@@ -37,7 +37,7 @@ public class LightFragment extends Fragment {
         View view = inflater.inflate(R.layout.lights, container, false);
         lList = (ListView) view.findViewById(R.id.lightList);
 
-        lArray = new LightObject[20];
+        lArray = new LightObject[19];
 
         lArray[0] = new LightObject("Light2", "No Room", false, 1);
         lArray[1] = new LightObject("Light3", "Kitchen", true, 2);

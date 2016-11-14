@@ -30,12 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/app_bar">
 
-        <Button
-            android:text="Button"
-            android:onClick="publish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button2" />
     </FrameLayout>
 
     <android.support.design.widget.CoordinatorLayout

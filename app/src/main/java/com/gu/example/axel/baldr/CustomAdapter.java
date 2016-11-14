@@ -18,14 +18,15 @@ import org.w3c.dom.Text;
 public class CustomAdapter extends BaseAdapter {
 
     Context context;
-    TestClient sender;
     LightObject[] data;
+    MqttConnection sender;
     private static LayoutInflater xInflater = null;
 
     public CustomAdapter(Context context, LightObject[] data){
         this.context = context;
         this.data = data;
-        sender = new TestClient();
+        sender = new MqttConnection(context);
+        sender.connect();
     }
 
     @Override
@@ -55,6 +56,8 @@ public class CustomAdapter extends BaseAdapter {
         lRoom.setText(data[position].getRoom());
         lState.setText(data[position].getStateText());
 
+
+
         vi.setTag(data[position].getId());
 
         lSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -62,12 +65,18 @@ public class CustomAdapter extends BaseAdapter {
                 long pTemp = getItemId(position);
                 int p = (int)pTemp;
                 if(data[p].getState()){
-                    sender.sendMessage(data[p].getId() + "off");
+                    //data[p].getId() + "off"
+
+                    sender.publish();
+
                     data[p].setState(false);
                     lState.setText(data[position].getStateText());
                 }
                 else{
-                    sender.sendMessage(data[p].getId() + "on");
+                    //data[p].getId() + "on"
+
+                    sender.publish();
+
                     data[p].setState(true);
                     lState.setText(data[position].getStateText());
                 }
