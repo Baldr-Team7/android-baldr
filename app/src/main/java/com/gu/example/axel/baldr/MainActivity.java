@@ -71,7 +71,10 @@ public class MainActivity extends AppCompatActivity {
                 if (tabId == R.id.lightTab){
                     LightFragment f = new LightFragment();
                     fabState = 1;
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame,f).commit();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.frame,f)
+                            .commit();
 
                     setTitle("Lights");
 
@@ -79,13 +82,19 @@ public class MainActivity extends AppCompatActivity {
                 else if (tabId == R.id.roomTab){
                     RoomFragment f = new RoomFragment();
                     fabState = 2;
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame,f).commit();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.frame,f)
+                            .commit();
                     setTitle("Rooms");
                 }
                 else if (tabId == R.id.moodTab){
                     MoodFragment f = new MoodFragment();
                     fabState = 3;
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame,f).commit();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.frame,f)
+                            .commit();
                     setTitle("Moods");
                 }
             }
@@ -93,11 +102,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void editLight(){
+        try {
+            EditLight f = new EditLight();
+            this.getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.frame, f)
+                    .commit();
+        }catch (IllegalStateException e){
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
 
 }

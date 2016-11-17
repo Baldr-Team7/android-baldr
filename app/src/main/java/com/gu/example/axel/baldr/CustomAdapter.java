@@ -1,5 +1,6 @@
 package com.gu.example.axel.baldr;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ public class CustomAdapter extends BaseAdapter {
     LightObject[] data;
     MqttConnection sender;
     private static LayoutInflater xInflater = null;
+
 
     public CustomAdapter(Context context, LightObject[] data){
         this.context = context;
@@ -49,16 +51,26 @@ public class CustomAdapter extends BaseAdapter {
         View vi = View.inflate(context, R.layout.light_row, null);
         TextView lName = (TextView) vi.findViewById(R.id.lightName);
         TextView lRoom = (TextView) vi.findViewById(R.id.lightRoom);
-        final TextView lState= (TextView) vi.findViewById(R.id.lightState);
         Switch lSwitch = (Switch) vi.findViewById(R.id.lightSwitch);
+        TextView edit = (TextView) vi.findViewById(R.id.touchEdit);
 
         lName.setText(data[position].getName());
         lRoom.setText(data[position].getRoom());
-        lState.setText(data[position].getStateText());
-
-
 
         vi.setTag(data[position].getId());
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+                long pTemp = getItemId(position);
+                int p = (int)pTemp;
+
+                MainActivity ma = (MainActivity) context;
+                ma.editLight();
+
+
+            }
+        });
 
         lSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -70,7 +82,7 @@ public class CustomAdapter extends BaseAdapter {
                     sender.publish();
 
                     data[p].setState(false);
-                    lState.setText(data[position].getStateText());
+                    System.out.println(context);
                 }
                 else{
                     //data[p].getId() + "on"
@@ -78,7 +90,7 @@ public class CustomAdapter extends BaseAdapter {
                     sender.publish();
 
                     data[p].setState(true);
-                    lState.setText(data[position].getStateText());
+                    System.out.println(context);
                 }
             }
         });

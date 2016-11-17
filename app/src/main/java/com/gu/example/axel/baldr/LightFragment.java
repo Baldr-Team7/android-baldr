@@ -1,9 +1,12 @@
 package com.gu.example.axel.baldr;
 
 import android.content.Context;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.ListViewAutoScrollHelper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +20,8 @@ import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
+import java.lang.reflect.Field;
+
 
 /**
  * Created by Axel on 02-Oct-16.
@@ -27,6 +32,7 @@ public class LightFragment extends Fragment {
     private ListView lList = null;
     private CustomAdapter adapter;
     private LightObject[] lArray;
+
 
 
 
@@ -73,7 +79,6 @@ public class LightFragment extends Fragment {
 
         return view;
     }
-
 
     //lightList = (ListView)findViewByID(R.layout.light_row);
 }

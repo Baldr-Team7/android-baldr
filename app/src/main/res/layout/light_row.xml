@@ -23,16 +23,6 @@
         android:layout_below="@+id/lightSwitch"
         android:layout_alignParentStart="true" />
 
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/lightSwitch"
-        android:layout_toEndOf="@+id/lightName"
-        android:layout_marginStart="67dp"
-        android:textColor="#555555"
-        android:id="@+id/lightState" />
-
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,6 +31,15 @@
         android:textColor="#000000"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text=" "
+        android:id="@+id/touchEdit"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/lightName"
+        android:layout_marginStart="18dp"
+        android:layout_width="210dp" />
 
 
 </RelativeLayout>
