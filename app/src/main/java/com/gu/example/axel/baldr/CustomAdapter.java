@@ -66,7 +66,7 @@ public class CustomAdapter extends BaseAdapter {
                 int p = (int)pTemp;
 
                 MainActivity ma = (MainActivity) context;
-                ma.editLight();
+                ma.editLight(data[p]);
 
 
             }

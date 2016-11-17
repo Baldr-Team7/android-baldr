@@ -49,17 +49,20 @@ public class MainActivity extends AppCompatActivity {
                 if (fabState == 1) {
                     Intent intent = new Intent(MainActivity.this, AddLightActivity.class);
                     startActivity(intent);
+                    fab.hide();
 
                 }
                 else if (fabState == 2){
                     //Add room
                     Intent intent = new Intent(MainActivity.this, AddRoomActivity.class);
                     startActivity(intent);
+                    fab.hide();
                 }
                 else if (fabState == 3){
                     //Add mood
                     Intent intent = new Intent(MainActivity.this, AddMoodActivity.class);
                     startActivity(intent);
+                    fab.hide();
                 }
             }
         });
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                             .beginTransaction()
                             .replace(R.id.frame,f)
                             .commit();
+                    fab.show();
 
                     setTitle("Lights");
 
@@ -86,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                             .beginTransaction()
                             .replace(R.id.frame,f)
                             .commit();
+                    fab.show();
                     setTitle("Rooms");
                 }
                 else if (tabId == R.id.moodTab){
@@ -95,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                             .beginTransaction()
                             .replace(R.id.frame,f)
                             .commit();
+                    fab.show();
                     setTitle("Moods");
                 }
             }
@@ -102,16 +108,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void editLight(){
-        try {
+    public void editLight(LightObject data){
+            LightObject light = data;
             EditLight f = new EditLight();
             this.getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.frame, f)
                     .commit();
-        }catch (IllegalStateException e){
-            e.printStackTrace();
-        }
+            fab.hide();
+            setTitle("Edit " + light.getName());
     }
 
     @Override
