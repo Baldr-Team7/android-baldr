@@ -62,6 +62,7 @@ public class MqttConnection {
                 client.publish("test", "Hello".getBytes(), 0, false);
             } catch (MqttException e) {
                 e.printStackTrace();
+
             }
 
 

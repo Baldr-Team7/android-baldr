@@ -2,6 +2,7 @@ package com.gu.example.axel.baldr;
 
 import android.app.Activity;
 import android.content.Context;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import org.w3c.dom.Text;
 
 public class CustomAdapter extends BaseAdapter {
 
+    JSONParser jsonParser;
     Context context;
     LightObject[] data;
     MqttConnection sender;
@@ -80,7 +82,6 @@ public class CustomAdapter extends BaseAdapter {
                     //data[p].getId() + "off"
 
                     sender.publish();
-
                     data[p].setState(false);
                     System.out.println(context);
                 }
@@ -97,4 +98,14 @@ public class CustomAdapter extends BaseAdapter {
 
         return vi;
     }
+
+
+
+
+
+
+
+
 }
+
+
