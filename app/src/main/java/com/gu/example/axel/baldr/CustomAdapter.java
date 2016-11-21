@@ -3,7 +3,6 @@ package com.gu.example.axel.baldr;
 import android.app.Activity;
 import android.content.Context;
 import android.provider.Settings;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,6 +10,8 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.MqttTopic;
 import org.w3c.dom.Text;
 
 /**
@@ -23,7 +24,6 @@ public class CustomAdapter extends BaseAdapter {
     Context context;
     LightObject[] data;
     MqttConnection sender;
-    private static LayoutInflater xInflater = null;
 
 
     public CustomAdapter(Context context, LightObject[] data){
@@ -31,6 +31,7 @@ public class CustomAdapter extends BaseAdapter {
         this.data = data;
         sender = new MqttConnection(context);
         sender.connect();
+
     }
 
     @Override
@@ -47,6 +48,7 @@ public class CustomAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
+
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -80,6 +82,7 @@ public class CustomAdapter extends BaseAdapter {
                 int p = (int)pTemp;
                 if(data[p].getState()){
                     //data[p].getId() + "off"
+
 
                     sender.publish();
                     data[p].setState(false);

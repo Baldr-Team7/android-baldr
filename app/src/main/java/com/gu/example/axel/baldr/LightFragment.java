@@ -68,6 +68,10 @@ public class LightFragment extends Fragment {
         adapter = new CustomAdapter(getContext(), lArray);
         lList.setAdapter(adapter);
 
+       /* MqttConnection sender = new MqttConnection(getContext());
+        sender.connect();
+        sender.subscribe();*/
+
         /*lList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

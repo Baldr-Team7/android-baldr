@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
+import org.eclipse.paho.android.service.MqttService;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
@@ -14,7 +15,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * Created by Axel on 04-Nov-16.
  */
 
-public class MqttConnection {
+public class MqttConnection implements MqttCallback{
 
     MqttAndroidClient client;
     Context c;
@@ -43,6 +44,7 @@ public class MqttConnection {
                 public void onSuccess(IMqttToken asyncActionToken) {
                     // We are connected
                     System.out.println("Connected");
+                    subscribe();
                 }
 
                 @Override
@@ -56,8 +58,7 @@ public class MqttConnection {
         }
     }
 
-
-        public void publish (){
+        public void publish(){
             try {
                 client.publish("test", "Hello".getBytes(), 0, false);
             } catch (MqttException e) {
@@ -67,5 +68,35 @@ public class MqttConnection {
 
 
         }
+    public void subscribe(){
+            try {
+                client.setCallback(this);
+                client.subscribe("test", 0);
+                System.out.println("Subscribed");
+            } catch (MqttException e) {
+                e.printStackTrace();
 
+            }
+
+        }
+
+    /*@Override
+    public void messageArrived(MqttTopic topic, MqttMessage message){
+        System.out.println(message);
+    }*/
+
+    @Override
+    public void messageArrived(String topic, MqttMessage message) throws Exception {
+        System.out.println(message);
+    }
+
+    @Override
+    public void deliveryComplete(IMqttDeliveryToken token) {
+
+    }
+
+    @Override
+    public void connectionLost(Throwable cause) {
+
+    }
 }

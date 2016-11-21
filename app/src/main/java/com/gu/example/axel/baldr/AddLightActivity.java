@@ -39,7 +39,7 @@ public class AddLightActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                new JSONParserr().execute("http://jsonparsing.parseapp.com/jsonData/moviesDemoItem.txt");
+                new JSONParser().execute("http://jsonparsing.parseapp.com/jsonData/moviesDemoItem.txt");
 
                 // textView.setText(s);
 
@@ -59,7 +59,7 @@ public class AddLightActivity extends AppCompatActivity {
 
 
 
-   public class JSONParserr extends AsyncTask<String, String, String> {
+   /*public class JSONParser extends AsyncTask<String, String, String> {
 
         //TextView textView;
         @Override
@@ -112,6 +112,6 @@ public class AddLightActivity extends AppCompatActivity {
             textView.setText(s);
 
         }
-    }
+    }*/
 
 }

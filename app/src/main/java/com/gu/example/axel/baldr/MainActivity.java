@@ -1,6 +1,8 @@
 package com.gu.example.axel.baldr;
 
+import android.content.Context;
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBarActivity;
@@ -35,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        System.out.println("heeey " + getApplicationContext());
+        /* MqttConnection connection = new MqttConnection(getApplicationContext());
+        connection.connect();*/
+
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -47,26 +53,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (fabState == 1) {
+                    //Add light
                     Intent intent = new Intent(MainActivity.this, AddLightActivity.class);
                     startActivity(intent);
-                    fab.hide();
-
                 }
                 else if (fabState == 2){
                     //Add room
                     Intent intent = new Intent(MainActivity.this, AddRoomActivity.class);
                     startActivity(intent);
-                    fab.hide();
                 }
                 else if (fabState == 3){
                     //Add mood
                     Intent intent = new Intent(MainActivity.this, AddMoodActivity.class);
                     startActivity(intent);
-                    fab.hide();
                 }
             }
         });
 
+        //Setting listners for the bottombar, switching fragments and altering the FAB.
         bottomBar = (BottomBar) findViewById(R.id.bottomBar);
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
