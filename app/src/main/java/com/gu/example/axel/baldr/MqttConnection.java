@@ -20,6 +20,8 @@ public class MqttConnection implements MqttCallback{
     MqttAndroidClient client;
     Context c;
 
+    int homeID, lightID;
+
 
     public MqttConnection(Context context) {
         c = context;
@@ -44,7 +46,7 @@ public class MqttConnection implements MqttCallback{
                 public void onSuccess(IMqttToken asyncActionToken) {
                     // We are connected
                     System.out.println("Connected");
-                    subscribe();
+                    subscribe(homeID,lightID);
                 }
 
                 @Override
@@ -65,13 +67,13 @@ public class MqttConnection implements MqttCallback{
                 e.printStackTrace();
 
             }
-
-
         }
-    public void subscribe(){
+
+    // lightcontrol/home/{homeID}/light/{lightUUID}/commands
+    public void subscribe(int homeID, int lightID){
             try {
                 client.setCallback(this);
-                client.subscribe("test", 0);
+                client.subscribe("lightcontrol/home/" + homeID +"/light/" + lightID + "commands", 0);
                 System.out.println("Subscribed");
             } catch (MqttException e) {
                 e.printStackTrace();

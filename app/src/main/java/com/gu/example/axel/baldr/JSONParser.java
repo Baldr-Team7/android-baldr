@@ -16,49 +16,20 @@ import java.net.URL;
  */
 
 public class JSONParser extends AsyncTask<String, String, String> {
-    AddLightActivity ad;
-        //TextView textView;
+
+    String data;
+    String protocolName;
+    String color;
+    String state;
+    String room;
+    String mood;
+
+    
     @Override
     protected String doInBackground(String... params) {
-        HttpURLConnection connection = null;
-        BufferedReader reader = null;
+     return null;
 
-        try {
-            URL url  = new URL(params[0]);
-            connection = (HttpURLConnection) url.openConnection();
-            connection.connect();
 
-            InputStream stream = connection.getInputStream();
-
-            reader = new BufferedReader(new InputStreamReader(stream));
-
-            StringBuffer buffer = new StringBuffer();
-
-            String line = "";
-
-            while ((line = reader.readLine()) != null) {
-                buffer.append(line);
-            }
-
-            buffer.toString();
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if(connection != null) {
-                connection.disconnect();
-            }
-            try {
-                if(reader != null) {
-                    reader.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-            return  null;
     }
 
     @Override
