@@ -39,7 +39,7 @@ public class AddLightActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                new JSONParser().execute("http://jsonparsing.parseapp.com/jsonData/moviesDemoItem.txt");
+                //new JSONParser().execute("http://jsonparsing.parseapp.com/jsonData/moviesDemoItem.txt");
 
                 // textView.setText(s);
 

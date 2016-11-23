@@ -12,8 +12,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
@@ -24,6 +26,8 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,10 +36,28 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     FloatingActionButton fab;
 
+    ListView listView;
+    Json res;
+    CustomAdapter ca;
+    Gson gson;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        listView = (ListView) findViewById(R.id.lightList);
+
+        String  resString = res.getLightInfo().getRoom();
+        gson = new Gson();
+        res = gson.fromJson(resString,Json.class);
+        ca = new CustomAdapter(MainActivity.this, (List<Json>) res.getLightInfo());
+
+        listView.setAdapter(ca);
+
+
+
 
         System.out.println("heeey " + getApplicationContext());
         /* MqttConnection connection = new MqttConnection(getApplicationContext());
