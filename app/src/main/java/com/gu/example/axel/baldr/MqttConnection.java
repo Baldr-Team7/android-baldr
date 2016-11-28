@@ -101,6 +101,7 @@ public class MqttConnection implements MqttCallback {
                 , json.getString("color"), json.getString("room"));
         counter++;
         setLightArray(light);
+        
     }
 
     @Override

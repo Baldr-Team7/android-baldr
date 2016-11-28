@@ -1,30 +1,11 @@
 package com.gu.example.axel.baldr;
 
-import android.content.Context;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.ListViewAutoScrollHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import org.eclipse.paho.android.service.MqttAndroidClient;
-import org.eclipse.paho.android.service.MqttAndroidClient;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
-
-import java.lang.reflect.Field;
-import java.util.List;
-
-import static android.R.id.list;
-
 
 /**
  * Created by Axel on 02-Oct-16.
@@ -60,21 +41,11 @@ public class LightFragment extends Fragment {
         adapter = new CustomAdapter(getContext(), lArray, connection);
         lList.setAdapter(adapter);
 
-       /* MqttConnection sender = new MqttConnection(getContext());
-        sender.connect();
-        sender.subscribe();*/
-
-        /*lList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(),"Clicked light " + view.getTag(), Toast.LENGTH_SHORT).show();
-
-            }
-        });*/
-
 
         return view;
     }
+
+
 
 
     //lightList = (ListView)findViewByID(R.layout.light_row);
