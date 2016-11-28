@@ -21,6 +21,9 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.lang.reflect.Field;
+import java.util.List;
+
+import static android.R.id.list;
 
 
 /**
@@ -31,7 +34,8 @@ public class LightFragment extends Fragment {
     //View v;
     private ListView lList = null;
     private CustomAdapter adapter;
-    private LightObject[] lArray;
+    private LightObject[] lArray = new LightObject[0];
+    public MqttConnection connection;
 
 
 
@@ -43,29 +47,17 @@ public class LightFragment extends Fragment {
         View view = inflater.inflate(R.layout.lights, container, false);
         lList = (ListView) view.findViewById(R.id.lightList);
 
-        lArray = new LightObject[19];
+        connection = new MqttConnection(getContext());
+        connection.connect();
 
-        lArray[0] = new LightObject("Light2", "No Room", false, 1);
-        lArray[1] = new LightObject("Light3", "Kitchen", true, 2);
-        lArray[2] = new LightObject("Light4", "Kitchen", false, 3);
-        lArray[3] = new LightObject("Light5", "Living room", true, 4);
-        lArray[4] = new LightObject("Light6", "Living room", false, 5);
-        lArray[5] = new LightObject("Light7", "Living room", true, 6);
-        lArray[6] = new LightObject("Light8", "Living room", false, 7);
-        lArray[7] = new LightObject("Light9", "Living room", false, 8);
-        lArray[8] = new LightObject("Light10", "Living room", false, 9);
-        lArray[9] = new LightObject("Light11", "Living room", false, 10);
-        lArray[10] = new LightObject("Light12", "Living room", false, 11);
-        lArray[11] = new LightObject("Light13", "Living room", false, 12);
-        lArray[12] = new LightObject("Light14", "Living room", false, 13);
-        lArray[13] = new LightObject("Light15", "Living room", false, 14);
-        lArray[14] = new LightObject("Light16", "Living room", false, 15);
-        lArray[15] = new LightObject("Light17", "Living room", false, 16);
-        lArray[16] = new LightObject("Light18", "Living room", false, 17);
-        lArray[17] = new LightObject("Light19", "Living room", false, 18);
-        lArray[18] = new LightObject("Light20", "Living room", false, 19);
+        lArray = connection.getLightArray();
 
-        adapter = new CustomAdapter(getContext(), lArray);
+
+        System.out.println("Larry lrngth " + lArray.length);
+
+
+
+        adapter = new CustomAdapter(getContext(), lArray, connection);
         lList.setAdapter(adapter);
 
        /* MqttConnection sender = new MqttConnection(getContext());
@@ -83,6 +75,7 @@ public class LightFragment extends Fragment {
 
         return view;
     }
+
 
     //lightList = (ListView)findViewByID(R.layout.light_row);
 }

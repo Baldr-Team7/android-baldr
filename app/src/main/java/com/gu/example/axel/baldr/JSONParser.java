@@ -20,18 +20,6 @@ import java.net.URL;
 
 public class JSONParser {
 
-    Context c;
-int homeID, lightID;
-     MqttConnection mqttConnection = new MqttConnection(c);
-
-
-    public MqttConnection getMessage(MqttConnection message) throws IOException {
-
-        message.subscribe(6, 6);
-return null;
-    }
-
-
 
 
     public static String[] getLightInfo() {
@@ -39,7 +27,6 @@ return null;
         try {
            // json = mqttConnection.subscribe(4,4);
         }
-
         catch (Exception e) {
             e.printStackTrace();
         }

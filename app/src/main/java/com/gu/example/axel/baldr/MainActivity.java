@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
+//import com.google.gson.Gson;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
@@ -35,11 +35,8 @@ public class MainActivity extends AppCompatActivity {
     BottomBar bottomBar;
     private Toolbar toolbar;
     FloatingActionButton fab;
+    MqttConnection connection;
 
-    ListView listView;
-    Json res;
-    CustomAdapter ca;
-    Gson gson;
 
 
     @Override
@@ -47,21 +44,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listView = (ListView) findViewById(R.id.lightList);
-
-        String  resString = res.getLightInfo().getRoom();
-        gson = new Gson();
-        res = gson.fromJson(resString,Json.class);
-        ca = new CustomAdapter(MainActivity.this, (List<Json>) res.getLightInfo());
-
-        listView.setAdapter(ca);
-
-
-
 
         System.out.println("heeey " + getApplicationContext());
-        /* MqttConnection connection = new MqttConnection(getApplicationContext());
-        connection.connect();*/
+
 
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -142,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.frame, f)
                     .commit();
             fab.hide();
-            setTitle("Edit " + light.getName());
+            setTitle("Edit");
     }
 
     @Override

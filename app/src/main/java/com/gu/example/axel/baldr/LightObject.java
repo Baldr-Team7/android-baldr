@@ -6,24 +6,25 @@ package com.gu.example.axel.baldr;
 
 public class LightObject {
 
-    private String name;
+    private String color;
     private String room;
-    private boolean state;
-    private int id;
+    private String state;
+    private String id;
 
-    public LightObject(String name, String room, boolean state, int id){
-        this.name = name;
+    public LightObject(String id, String state, String color, String room){
+
+        this.id = id;
+        this.color = color;
         this.room = room;
         this.state = state;
-        this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getColor() {
+        return color;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String color) {
+        this.color = color;
     }
 
     public String getRoom() {
@@ -34,27 +35,19 @@ public class LightObject {
         this.room = room;
     }
 
-    public boolean getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(boolean state) {
+    public void setState(String state) {
         this.state = state;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
-    }
-    public String getStateText(){
-        String s = null;
-        if (this.state)
-            s = "On";
-        else
-            s="Off";
-        return s;
     }
 }
