@@ -26,14 +26,16 @@ public class MqttConnection implements MqttCallback {
     Context c;
     JSONObject json;
     private int counter = 0;
+    CustomListener cl;
 
     int homeID, lightID;
 
     private LightObject[] lightList = new LightObject[0];
 
 
-    public MqttConnection(Context context) {
+    public MqttConnection(Context context, CustomListener cl) {
         c = context;
+        this.cl = cl;
     }
 
     //  MqttConnectOptions options = new MqttConnectOptions();
@@ -101,7 +103,8 @@ public class MqttConnection implements MqttCallback {
                 , json.getString("color"), json.getString("room"));
         counter++;
         setLightArray(light);
-        
+        pingFragment();
+
     }
 
     @Override
@@ -154,5 +157,9 @@ public class MqttConnection implements MqttCallback {
 
     public LightObject[] getLightArray() {
         return lightList;
+    }
+
+    public void pingFragment(){
+        cl.callback("success");
     }
 }

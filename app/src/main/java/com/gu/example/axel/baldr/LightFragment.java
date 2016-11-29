@@ -11,7 +11,7 @@ import android.widget.ListView;
  * Created by Axel on 02-Oct-16.
  */
 
-public class LightFragment extends Fragment {
+public class LightFragment extends Fragment implements CustomListener {
     //View v;
     private ListView lList = null;
     private CustomAdapter adapter;
@@ -28,25 +28,27 @@ public class LightFragment extends Fragment {
         View view = inflater.inflate(R.layout.lights, container, false);
         lList = (ListView) view.findViewById(R.id.lightList);
 
-        connection = new MqttConnection(getContext());
+        connection = new MqttConnection(getContext(), this);
         connection.connect();
 
-        lArray = connection.getLightArray();
+
 
 
         System.out.println("Larry lrngth " + lArray.length);
 
 
-
-        adapter = new CustomAdapter(getContext(), lArray, connection);
-        lList.setAdapter(adapter);
-
-
         return view;
     }
 
-
+    @Override
+    public void callback(String result){
+        lArray = connection.getLightArray();
+        adapter = new CustomAdapter(getContext(), lArray, connection);
+        lList.setAdapter(adapter);
+    }
 
 
     //lightList = (ListView)findViewByID(R.layout.light_row);
+
 }
+
