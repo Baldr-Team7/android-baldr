@@ -80,6 +80,12 @@ public class CustomAdapter extends BaseAdapter {
         lName.setText("Test" + data[position].getId());
         lRoom.setText(data[position].getRoom());
 
+        //lSwitch.setChecked(true);
+
+        if(data[position].getState() == "on"){
+            lSwitch.setChecked(true);
+        }
+
         vi.setTag(data[position].getId());
 
         edit.setOnClickListener(new View.OnClickListener() {

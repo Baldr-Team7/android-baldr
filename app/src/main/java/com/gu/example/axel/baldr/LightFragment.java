@@ -2,10 +2,14 @@ package com.gu.example.axel.baldr;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+
+import java.util.List;
 
 /**
  * Created by Axel on 02-Oct-16.
@@ -32,9 +36,10 @@ public class LightFragment extends Fragment implements CustomListener {
         connection.connect();
 
 
-
-
         System.out.println("Larry lrngth " + lArray.length);
+
+        adapter = new CustomAdapter(getContext(), lArray, connection);
+        lList.setAdapter(adapter);
 
 
         return view;

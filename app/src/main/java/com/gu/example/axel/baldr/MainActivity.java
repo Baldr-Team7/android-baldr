@@ -122,12 +122,15 @@ public class MainActivity extends AppCompatActivity {
     public void editLight(LightObject data){
             LightObject light = data;
             EditLight f = new EditLight();
+            Bundle bundle = new Bundle();
+            bundle.putString("color", light.getColor());
+            f.setArguments(bundle);
             this.getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.frame, f)
                     .commit();
             fab.hide();
-            setTitle("Edit");
+            setTitle("Edit " + light.getId());
     }
 
     @Override
