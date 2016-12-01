@@ -72,12 +72,26 @@ public class CustomAdapter extends BaseAdapter {
         if(adapterCheck == 1) {
             vi = View.inflate(context, R.layout.light_row, null);
             lightAdapter(position, vi);
+        } else if(adapterCheck == 2) {
+            vi = View.inflate(context, R.layout.room_row, null);
+
         }
 
         return vi;
     }
 
-    public void lightAdapter(int position, View vi){
+
+
+    public void roomAdapter(final int postion, View vi){
+        final  int p = postion;
+        TextView roomName = (TextView) vi.findViewById(R.id.roomName);
+        Switch roomSwitch = (Switch) vi.findViewById(R.id.roomSwitch);
+
+        roomName.setText(data[postion].getRoom());
+
+
+    }
+    public void lightAdapter(final int position, View vi){
         final int p = position;
         //View vi = View.inflate(context, R.layout.light_row, null);
         TextView lName = (TextView) vi.findViewById(R.id.lightName);
@@ -99,8 +113,8 @@ public class CustomAdapter extends BaseAdapter {
         edit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
-                long pTemp = getItemId(p);
-                int p = (int)pTemp;
+                //long pTemp = getItemId(p);
+                int p = position;
 
                 MainActivity ma = (MainActivity) context;
                 ma.editLight(data[p]);
