@@ -26,17 +26,19 @@ public class CustomAdapter extends BaseAdapter {
     JSONParser jsonParser;
     Context context;
     LightObject[] data;
-    MqttConnection sender;
+    MqttConnection connection;
+    private int adapterCheck = 0;
 
     public List<Json> lightItems;
     public LayoutInflater inflater;
 
 
-    public CustomAdapter(Context context, LightObject[] lightItems, MqttConnection sender){
+    public CustomAdapter(Context context, LightObject[] lightItems, MqttConnection connection, int adapterCheck){
         this.context = context;
        // this.lightItems = lightItems;
         data = lightItems;
-        this.sender = sender;
+        this.connection = connection;
+        this.adapterCheck = adapterCheck;
 
 
     }
@@ -65,19 +67,25 @@ public class CustomAdapter extends BaseAdapter {
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
 
-        /*View rowView = inflater.inflate(R.layout.light_row, parent,false);
-        Json items = (Json) getItem(position);
-        TextView lName = (TextView) rowView.findViewById(R.id.lightName);
-        //TextView lRoom = (TextView) rowView.findViewById(R.id.lightRoom);
-        Switch lSwitch = (Switch) rowView.findViewById(R.id.lightSwitch);*/
+        View vi = null;
 
-        View vi = View.inflate(context, R.layout.light_row, null);
+        if(adapterCheck == 1) {
+            vi = View.inflate(context, R.layout.light_row, null);
+            lightAdapter(position, vi);
+        }
+
+        return vi;
+    }
+
+    public void lightAdapter(int position, View vi){
+        final int p = position;
+        //View vi = View.inflate(context, R.layout.light_row, null);
         TextView lName = (TextView) vi.findViewById(R.id.lightName);
         TextView lRoom = (TextView) vi.findViewById(R.id.lightRoom);
         Switch lSwitch = (Switch) vi.findViewById(R.id.lightSwitch);
         TextView edit = (TextView) vi.findViewById(R.id.touchEdit);
 
-        lName.setText("Test" + data[position].getId());
+        lName.setText(data[position].getState() + data[position].getId());
         lRoom.setText(data[position].getRoom());
 
         //lSwitch.setChecked(true);
@@ -91,7 +99,7 @@ public class CustomAdapter extends BaseAdapter {
         edit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
-                long pTemp = getItemId(position);
+                long pTemp = getItemId(p);
                 int p = (int)pTemp;
 
                 MainActivity ma = (MainActivity) context;
@@ -101,32 +109,24 @@ public class CustomAdapter extends BaseAdapter {
             }
         });
 
-       // lName.setText(items.getLightInfo().getRoom());
 
         lSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                long pTemp = getItemId(position);
+                long pTemp = getItemId(p);
                 int p = (int)pTemp;
                 if(data[p].getState() == "on"){
-                    //data[p].getId() + "off"
 
-
-                    sender.publish();
-                    data[p].setState("off");
+                    connection.publish(data[p]);
                     System.out.println(context);
                 }
                 else{
                     //data[p].getId() + "on"
 
-                    sender.publish();
-
-                    data[p].setState("on");
+                    connection.publish(data[p]);
                     System.out.println(context);
                 }
             }
         });
-
-        return vi;
     }
 
 

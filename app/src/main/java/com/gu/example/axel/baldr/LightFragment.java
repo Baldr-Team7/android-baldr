@@ -23,9 +23,6 @@ public class LightFragment extends Fragment implements CustomListener {
     public MqttConnection connection;
 
 
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -38,7 +35,7 @@ public class LightFragment extends Fragment implements CustomListener {
 
         System.out.println("Larry lrngth " + lArray.length);
 
-        adapter = new CustomAdapter(getContext(), lArray, connection);
+        adapter = new CustomAdapter(getContext(), lArray, connection, 1);
         lList.setAdapter(adapter);
 
 
@@ -48,7 +45,11 @@ public class LightFragment extends Fragment implements CustomListener {
     @Override
     public void callback(String result){
         lArray = connection.getLightArray();
-        adapter = new CustomAdapter(getContext(), lArray, connection);
+        for (int i = 0; i < lArray.length; i++) {
+            System.out.println("in lightfragment callback : LightList["+ i + "] = " + lArray[i].getId() + " " + lArray[i].getState() + " "
+                    + lArray[i].getColor() + " " + lArray[i].getRoom());
+        }
+        adapter = new CustomAdapter(getContext(), lArray, connection, 1);
         lList.setAdapter(adapter);
     }
 

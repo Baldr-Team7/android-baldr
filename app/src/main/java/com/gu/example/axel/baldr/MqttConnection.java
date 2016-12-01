@@ -71,9 +71,11 @@ public class MqttConnection implements MqttCallback {
         }
     }
 
-    public void publish() {
+    public void publish(LightObject light) {
+        MessageHandler messageHandler = new MessageHandler();
         try {
-            client.publish("test", "Hello".getBytes(), 0, false);
+            client.publish(messageHandler.changeState(light).toString(), "Hello".getBytes(), 0, false);
+            System.out.println(messageHandler.changeState(light).toString());
         } catch (MqttException e) {
             e.printStackTrace();
 
@@ -156,6 +158,10 @@ public class MqttConnection implements MqttCallback {
     }
 
     public LightObject[] getLightArray() {
+        for (int i = 0; i < lightList.length; i++) {
+            System.out.println("In mqttconnection getLightArray : LightList["+ i + "] = " + lightList[i].getId() + " " + lightList[i].getState() + " "
+                    + lightList[i].getColor() + " " + lightList[i].getRoom());
+        }
         return lightList;
     }
 

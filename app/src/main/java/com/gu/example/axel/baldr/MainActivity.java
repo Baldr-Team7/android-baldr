@@ -47,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
         System.out.println("heeey " + getApplicationContext());
 
-
+        /*connection = new MqttConnection();
+        connection.connect();*/
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);

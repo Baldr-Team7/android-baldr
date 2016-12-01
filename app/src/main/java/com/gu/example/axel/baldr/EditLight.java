@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 //import android.app.Fragment;
 import android.support.v4.app.Fragment;
+import android.widget.Button;
 
 import java.lang.reflect.Field;
 
@@ -20,6 +21,7 @@ public class EditLight extends Fragment {
 
     private String colorStr;
     private int color;
+    public AmbilWarnaDialog dialog;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.edit_light, container, false);
@@ -34,7 +36,7 @@ public class EditLight extends Fragment {
 
         }
 
-        AmbilWarnaDialog dialog = new AmbilWarnaDialog(getContext(), 000000, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+        dialog = new AmbilWarnaDialog(getContext(), 000000, new AmbilWarnaDialog.OnAmbilWarnaListener() {
             @Override
             public void onCancel(AmbilWarnaDialog dialog) {
 
@@ -42,11 +44,18 @@ public class EditLight extends Fragment {
 
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
-
+                System.out.println("Send new color: " + color);
             }
         });
 
-        dialog.show();
+        Button colorBtn = (Button) view.findViewById(R.id.colorBtn);
+
+        colorBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
+
 
         return view;
     }
