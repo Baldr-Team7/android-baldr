@@ -86,7 +86,7 @@ public class CustomAdapter extends BaseAdapter {
         final  int p = postion;
         TextView roomName = (TextView) vi.findViewById(R.id.roomName);
         Switch roomSwitch = (Switch) vi.findViewById(R.id.roomSwitch);
-
+        
         roomName.setText(data[postion].getRoom());
 
 
