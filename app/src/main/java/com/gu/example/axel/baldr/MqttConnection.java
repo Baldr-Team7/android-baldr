@@ -134,7 +134,8 @@ public class MqttConnection implements MqttCallback {
             lightList[counter-1] = light;
         } else {
             for (int i = 0; i < lightList.length; i++) {
-                if (lightList[i].getId() == light.getId()) {
+                System.out.println("lightList[i] id = " + lightList[i].getId() + "other = " + light.getId());
+                if (lightList[i].getId().equals(light.getId())) {
                     pos = i;
                     check = true;
                     break;
