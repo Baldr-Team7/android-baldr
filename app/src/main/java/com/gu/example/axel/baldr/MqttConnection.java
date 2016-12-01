@@ -70,12 +70,16 @@ public class MqttConnection implements MqttCallback {
             e.printStackTrace();
         }
     }
-
+    //lightcontrol/home/asdf/light/LIGHTID/commands <- publish to that topic.
     public void publish(LightObject light) {
         MessageHandler messageHandler = new MessageHandler();
         try {
-            client.publish(messageHandler.changeState(light).toString(), "Hello".getBytes(), 0, false);
-            System.out.println(messageHandler.changeState(light).toString());
+            String message = messageHandler.changeState(light).toString();
+            client.publish("lightcontrol/home/asdf/light/"+light.getId()+"/commands"
+                    , message.getBytes(), 0, false);
+
+            System.out.println("Sending: " + message + "to topic: lightcontrol/home/asdf/" +
+                    "light/"+light.getId()+"/commands");
         } catch (MqttException e) {
             e.printStackTrace();
 

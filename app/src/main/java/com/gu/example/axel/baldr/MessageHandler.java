@@ -18,20 +18,25 @@ public class MessageHandler {
 
     public JSONObject changeState(LightObject light){
         String state = light.getState();
-        if(state == "on") {
+        if(state.equals("on"))
             state = "off";
-        }else{
+        else
             state = "on";
-        }
 
+        JSONObject jsonOuter = new JSONObject();
         json = new JSONObject();
+
         try {
-            json.put("state", state);
-        }catch (JSONException e){
+            jsonOuter.put("version", 1);
+            jsonOuter.put("protocolName", "baldr");
+            jsonOuter.put("lightCommand", json.put("state", state));
+        }catch(JSONException e){
             System.out.println(e);
         }
 
-        return json;
+        light.setState(state);
+
+        return jsonOuter;
     }
 
 }

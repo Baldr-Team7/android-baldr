@@ -63,21 +63,53 @@ public class CustomAdapter extends BaseAdapter {
 
 
     @Override
-    public View getView( final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
 
-        View vi = null;
 
-        if(adapterCheck == 1) {
-            vi = View.inflate(context, R.layout.light_row, null);
-            lightAdapter(position, vi);
+        View vi = View.inflate(context, R.layout.light_row, null);
+        TextView lName = (TextView) vi.findViewById(R.id.lightName);
+        TextView lRoom = (TextView) vi.findViewById(R.id.lightRoom);
+        Switch lSwitch = (Switch) vi.findViewById(R.id.lightSwitch);
+        TextView edit = (TextView) vi.findViewById(R.id.touchEdit);
+
+        lName.setText(data[position].getState() + data[position].getId());
+        lRoom.setText(data[position].getRoom());
+
+        //lSwitch.setChecked(true);
+
+        if(data[position].getState().equals("on")){
+            lSwitch.setChecked(true);
         }
+
+        vi.setTag(data[position].getId());
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+
+                MainActivity ma = (MainActivity) context;
+                ma.editLight(data[position]);
+
+
+            }
+        });
+
+
+        lSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                System.out.println(data[position].getState());
+                System.out.println(data[position].getId());
+
+                connection.publish(data[position]);
+            }
+        });
 
         return vi;
     }
 
-    public void lightAdapter(int position, View vi){
+    public void lightAdapter(final int position, View vi){
         final int p = position;
         //View vi = View.inflate(context, R.layout.light_row, null);
         TextView lName = (TextView) vi.findViewById(R.id.lightName);
@@ -114,17 +146,8 @@ public class CustomAdapter extends BaseAdapter {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 long pTemp = getItemId(p);
                 int p = (int)pTemp;
-                if(data[p].getState() == "on"){
-
+                    System.out.println(data[p].getState());
                     connection.publish(data[p]);
-                    System.out.println(context);
-                }
-                else{
-                    //data[p].getId() + "on"
-
-                    connection.publish(data[p]);
-                    System.out.println(context);
-                }
             }
         });
     }
