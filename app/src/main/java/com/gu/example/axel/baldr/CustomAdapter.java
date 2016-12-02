@@ -72,8 +72,10 @@ public class CustomAdapter extends BaseAdapter {
         if(adapterCheck == 1) {
             vi = View.inflate(context, R.layout.light_row, null);
             lightAdapter(position, vi);
-        } else if(adapterCheck == 2) {
+        }
+       else if(adapterCheck == 2) {
             vi = View.inflate(context, R.layout.room_row, null);
+            roomAdapter(position, vi);
 
         }
 
@@ -82,15 +84,64 @@ public class CustomAdapter extends BaseAdapter {
 
 
 
-    public void roomAdapter(final int postion, View vi){
-        final  int p = postion;
+    public void roomAdapter(final int postion, View vi) {
+        final int p = postion;
         TextView roomName = (TextView) vi.findViewById(R.id.roomName);
         Switch roomSwitch = (Switch) vi.findViewById(R.id.roomSwitch);
-        
-        roomName.setText(data[postion].getRoom());
 
+
+        /*for(int i = 0; i < data.length; i ++){
+            for (int j = i+1; j< data.length; j++){
+                if(!data[i].getRoom().equals(data[j].getRoom())){
+
+                    System.out.println("SAME");
+                    roomName.setText(data[postion].getRoom());
+                } else {
+                    roomName.setText(data[j].getRoom());
+                }
+
+            }
+
+        }
+*/
+
+        if(data[postion].equals(data[postion])) {
+            roomName.setText(data[postion].getRoom());
+
+
+
+
+
+
+
+
+
+
+  /*      if(data[postion].getState() == "on"){
+            roomSwitch.setChecked(true);
+        }
+
+        roomSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+            }
+        });*/
+
+
+        }
 
     }
+
+
+
+
+
+
+
+
+
+
+
     public void lightAdapter(final int position, View vi){
         final int p = position;
         //View vi = View.inflate(context, R.layout.light_row, null);
@@ -123,14 +174,27 @@ public class CustomAdapter extends BaseAdapter {
 
         lSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+<<<<<<< HEAD
+                long pTemp = getItemId(p);
+                int p = (int)pTemp;
+                if(data[position].getState() == "on"){
+
+                    connection.publish(data[position]);
+                    System.out.println(context);
+=======
                 if(data[p].getState() == "on"){
 
                     connection.publish(data[position]);
+>>>>>>> origin/master
                 }
                 else{
                     //data[p].getId() + "on"
 
                     connection.publish(data[position]);
+<<<<<<< HEAD
+                    System.out.println(context);
+=======
+>>>>>>> origin/master
                 }
             }
         });
