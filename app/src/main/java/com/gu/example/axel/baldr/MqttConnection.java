@@ -161,6 +161,8 @@ public class MqttConnection implements MqttCallback {
 
                     System.out.println("ROOMS IN MQTT " + light.getRoom());
 
+                } else {
+                    System.out.println("DIFF ROOMS IN MQTT " + light.getRoom());
                 }
             }
         }
