@@ -134,14 +134,6 @@ public class CustomAdapter extends BaseAdapter {
 
 
 
-
-
-
-
-
-
-
-
     public void lightAdapter(final int position, View vi){
         final int p = position;
         //View vi = View.inflate(context, R.layout.light_row, null);
@@ -153,7 +145,9 @@ public class CustomAdapter extends BaseAdapter {
         lName.setText(data[position].getState() + data[position].getId());
         lRoom.setText(data[position].getRoom());
 
-        if(data[position].getState().equals("on")) {
+        //lSwitch.setChecked(true);
+
+        if(data[position].getState() == "on"){
             lSwitch.setChecked(true);
         }
 
@@ -163,9 +157,10 @@ public class CustomAdapter extends BaseAdapter {
             public void onClick(View v) {
                 // Perform action on click
                 //long pTemp = getItemId(p);
+                int p = position;
 
                 MainActivity ma = (MainActivity) context;
-                ma.editLight(data[position]);
+                ma.editLight(data[p]);
 
 
             }
@@ -174,27 +169,18 @@ public class CustomAdapter extends BaseAdapter {
 
         lSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-<<<<<<< HEAD
                 long pTemp = getItemId(p);
                 int p = (int)pTemp;
-                if(data[position].getState() == "on"){
-
-                    connection.publish(data[position]);
-                    System.out.println(context);
-=======
                 if(data[p].getState() == "on"){
 
-                    connection.publish(data[position]);
->>>>>>> origin/master
+                    connection.publish(data[p]);
+                    System.out.println(context);
                 }
                 else{
                     //data[p].getId() + "on"
 
-                    connection.publish(data[position]);
-<<<<<<< HEAD
+                    connection.publish(data[p]);
                     System.out.println(context);
-=======
->>>>>>> origin/master
                 }
             }
         });
