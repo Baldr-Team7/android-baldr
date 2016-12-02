@@ -169,6 +169,16 @@ public class MqttConnection implements MqttCallback {
         return lightList;
     }
 
+    public String[] getRoomArray(){
+        String[] roomArray;
+        LightObject[] lightList  = getLightArray();
+        roomArray = new String[lightList.length];
+
+        
+
+        return roomArray;
+    }
+
     public void pingFragment(){
         cl.callback("success");
     }
