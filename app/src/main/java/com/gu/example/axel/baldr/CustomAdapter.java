@@ -102,9 +102,7 @@ public class CustomAdapter extends BaseAdapter {
         lName.setText(data[position].getState() + data[position].getId());
         lRoom.setText(data[position].getRoom());
 
-        //lSwitch.setChecked(true);
-
-        if(data[position].getState() == "on"){
+        if(data[position].getState().equals("on")) {
             lSwitch.setChecked(true);
         }
 
@@ -114,10 +112,9 @@ public class CustomAdapter extends BaseAdapter {
             public void onClick(View v) {
                 // Perform action on click
                 //long pTemp = getItemId(p);
-                int p = position;
 
                 MainActivity ma = (MainActivity) context;
-                ma.editLight(data[p]);
+                ma.editLight(data[position]);
 
 
             }
@@ -126,18 +123,14 @@ public class CustomAdapter extends BaseAdapter {
 
         lSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                long pTemp = getItemId(p);
-                int p = (int)pTemp;
                 if(data[p].getState() == "on"){
 
-                    connection.publish(data[p]);
-                    System.out.println(context);
+                    connection.publish(data[position]);
                 }
                 else{
                     //data[p].getId() + "on"
 
-                    connection.publish(data[p]);
-                    System.out.println(context);
+                    connection.publish(data[position]);
                 }
             }
         });
