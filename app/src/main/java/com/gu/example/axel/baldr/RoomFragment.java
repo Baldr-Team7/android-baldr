@@ -30,11 +30,16 @@ public class RoomFragment extends Fragment implements CustomListener {
         v = inflater.inflate(R.layout.rooms, container, false);
         roomList = (ListView) v.findViewById(R.id.roomList);
 
-        for(int i = 0; i < roomArray.length; i++) {
-            System.out.println(roomArray[i].getRoom());
-        }
+        connection = new MqttConnection(getContext(), this);
+        connection.connect();
 
-        adapter = new CustomAdapter(getContext(), roomArray, connection, 1);
+       /* for(int i = 0; i < roomArray.length; i++) {
+            System.out.println(roomArray[i].getRoom());
+        }*/
+
+
+
+        adapter = new CustomAdapter(getContext(), roomArray, connection, 2);
         roomList.setAdapter(adapter);
 
         return v;
@@ -42,11 +47,11 @@ public class RoomFragment extends Fragment implements CustomListener {
 
     @Override
     public void callback(String result){
-        roomArray = connection.getLightArray();
+        roomArray = connection.getRoomArray();
         for (int i = 0; i < roomArray.length; i++) {
             System.out.println("in roomfragment callback : RoomList["+ i + "] = " + roomArray[i].getRoom());
         }
-        adapter = new CustomAdapter(getContext(), roomArray, connection, 1);
+        adapter = new CustomAdapter(getContext(), roomArray, connection, 2);
         roomList.setAdapter(adapter);
     }
 }
