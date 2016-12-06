@@ -23,13 +23,11 @@ import java.util.List;
 
 public class CustomAdapter extends BaseAdapter {
 
-    JSONParser jsonParser;
     Context context;
     LightObject[] data;
     MqttConnection connection;
     private int adapterCheck = 0;
 
-    public List<Json> lightItems;
     public LayoutInflater inflater;
 
 
@@ -84,40 +82,18 @@ public class CustomAdapter extends BaseAdapter {
 
 
 
-    public void roomAdapter(final int postion, View vi) {
-        final int p = postion;
+    public void roomAdapter(final int position, View vi) {
+        final int p = position;
         TextView roomName = (TextView) vi.findViewById(R.id.roomName);
         Switch roomSwitch = (Switch) vi.findViewById(R.id.roomSwitch);
 
 
-        /*for(int i = 0; i < data.length; i ++){
-            for (int j = i+1; j< data.length; j++){
-                if(!data[i].getRoom().equals(data[j].getRoom())){
-
-                    System.out.println("SAME");
-                    roomName.setText(data[postion].getRoom());
-                } else {
-                    roomName.setText(data[j].getRoom());
-                }
-
-            }
-
+        if(data[position].equals(data[position])) {
+            roomName.setText(data[position].getRoom());
         }
-*/
-
-        if(data[postion].equals(data[postion])) {
-            roomName.setText(data[postion].getRoom());
 
 
-
-
-
-
-
-
-
-
-  /*      if(data[postion].getState() == "on"){
+       if(data[position].getState() == "on"){
             roomSwitch.setChecked(true);
         }
 
@@ -125,10 +101,26 @@ public class CustomAdapter extends BaseAdapter {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
             }
-        });*/
+        });
+            roomSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    long pTemp = getItemId(p);
+                    int p = (int)pTemp;
+                    if(data[position].getState() == "on"){
+
+                        connection.publishRoom(data[position]);
+                        System.out.println(context);
+                    }
+                    else{
+                        //data[p].getId() + "on"
+
+                        connection.publishRoom(data[position]);
+                        System.out.println(context);
+                    }
+                }
+            });
 
 
-        }
 
     }
 
@@ -171,15 +163,15 @@ public class CustomAdapter extends BaseAdapter {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 long pTemp = getItemId(p);
                 int p = (int)pTemp;
-                if(data[p].getState() == "on"){
+                if(data[position].getState() == "on"){
 
-                    connection.publish(data[p]);
+                    connection.publish(data[position]);
                     System.out.println(context);
                 }
                 else{
                     //data[p].getId() + "on"
 
-                    connection.publish(data[p]);
+                    connection.publish(data[position]);
                     System.out.println(context);
                 }
             }
