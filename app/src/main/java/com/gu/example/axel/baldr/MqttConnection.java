@@ -180,7 +180,7 @@ public class MqttConnection implements MqttCallback {
 
 
         for (int i = 0; i < roomArray.length; i++) {
-            System.out.println("ROOMLIST IN MQTT CLASS ["+ i + "] = " + roomArray[i].getRoom());
+            System.out.println("Rooms in MQTTC class ["+ i + "] = " + roomArray[i].getRoom());
         }
 
 

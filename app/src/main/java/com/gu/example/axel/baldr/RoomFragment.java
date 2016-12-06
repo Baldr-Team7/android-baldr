@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 /**
  * Created by Axel on 02-Oct-16.
+ *
  */
 
 public class RoomFragment extends Fragment implements CustomListener {
@@ -36,7 +37,6 @@ public class RoomFragment extends Fragment implements CustomListener {
        /* for(int i = 0; i < roomArray.length; i++) {
             System.out.println(roomArray[i].getRoom());
         }*/
-        System.out.println("ROOM ARAY LENGHTTTh  " + roomArray.length);
 
 
         adapter = new CustomAdapter(getContext(), roomArray, connection, 2);
@@ -48,9 +48,9 @@ public class RoomFragment extends Fragment implements CustomListener {
     @Override
     public void callback(String result){
         roomArray = connection.getRoomArray();
-        for (int i = 0; i < roomArray.length; i++) {
-            System.out.println("in roomfragment callback : RoomList["+ i + "] = " + roomArray[i].getRoom());
-        }
+      /*  for (int i = 0; i < roomArray.length; i++) {
+            System.out.println("in Roomfragment callback : RoomList["+ i + "] = " + roomArray[i].getRoom());
+        }*/
         adapter = new CustomAdapter(getContext(), roomArray, connection, 2);
         roomList.setAdapter(adapter);
     }
