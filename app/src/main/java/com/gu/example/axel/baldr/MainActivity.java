@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.frame,lightF)
+                            .addToBackStack(null)
                             .commit();
                     fab.show();
                     setTitle("Lights");
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.frame,f)
+                            .addToBackStack(null)
                             .commit();
                     fab.show();
                     setTitle("Rooms");
@@ -104,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.frame,f)
+                            .addToBackStack(null)
                             .commit();
                     fab.show();
                     setTitle("Moods");
@@ -118,13 +122,31 @@ public class MainActivity extends AppCompatActivity {
             EditLight f = new EditLight();
             Bundle bundle = new Bundle();
             bundle.putString("color", light.getColor());
+            bundle.putString("name", light.getState()+light.getId());
             f.setArguments(bundle);
             this.getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.frame, f)
+                    .addToBackStack(null)
                     .commit();
             fab.hide();
             setTitle("Edit " + light.getId());
+    }
+
+    public void editRoom(LightObject data){
+        LightObject light = data;
+        EditLight f = new EditLight();
+        Bundle bundle = new Bundle();
+        bundle.putString("color", light.getColor());
+        bundle.putString("name", light.getRoom());
+        f.setArguments(bundle);
+        this.getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frame, f)
+                .addToBackStack(null)
+                .commit();
+        fab.hide();
+        setTitle("Edit " + light.getRoom());
     }
 
     @Override
@@ -146,5 +168,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     }*/
-
+    @Override
+    public void onBackPressed() {
+        if(getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            super.onBackPressed();
+        }
+        else {
+            getSupportFragmentManager().popBackStack();
+        }
+    }
 }

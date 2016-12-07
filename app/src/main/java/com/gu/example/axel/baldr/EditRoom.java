@@ -18,11 +18,11 @@ import yuku.ambilwarna.widget.AmbilWarnaPrefWidgetView;
  * Created by Axel on 06-Oct-16.
  */
 
-public class EditLight extends Fragment {
+public class EditRoom extends Fragment {
 
     private String colorStr;
     private int color;
-    private String lName;
+    private String rName;
     public AmbilWarnaDialog dialog;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class EditLight extends Fragment {
             System.out.println(colorStr);
             colorStr = colorStr.substring(1);
             System.out.println(colorStr);
-            lName = bundle.getString("name");
+            rName = bundle.getString("name");
             //color = Integer.valueOf(colorStr);
 
         }
@@ -60,7 +60,7 @@ public class EditLight extends Fragment {
         });
 
         EditText lNameEdit = (EditText) view.findViewById(R.id.lNameEdit);
-        lNameEdit.setText(lName);
+        lNameEdit.setText(rName);
 
 
 

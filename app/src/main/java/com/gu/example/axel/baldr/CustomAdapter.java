@@ -85,6 +85,7 @@ public class CustomAdapter extends BaseAdapter {
     public void roomAdapter(final int position, View vi) {
         TextView roomName = (TextView) vi.findViewById(R.id.roomName);
         Switch roomSwitch = (Switch) vi.findViewById(R.id.roomSwitch);
+        TextView editRoom = (TextView) vi.findViewById(R.id.touchEditRoom);
 
         System.out.println("Nr " +data[position].getId() + " is " + data[position].getState());
 
@@ -94,6 +95,19 @@ public class CustomAdapter extends BaseAdapter {
         if(data[position].equals(data[position])) {
             roomName.setText(data[position].getRoom());
         }
+
+        editRoom.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+                //long pTemp = getItemId(p);
+                int p = position;
+
+                MainActivity ma = (MainActivity) context;
+                ma.editRoom(data[p]);
+
+
+            }
+        });
 
 
 
@@ -130,7 +144,7 @@ public class CustomAdapter extends BaseAdapter {
         TextView lName = (TextView) vi.findViewById(R.id.lightName);
         TextView lRoom = (TextView) vi.findViewById(R.id.lightRoom);
         Switch lSwitch = (Switch) vi.findViewById(R.id.lightSwitch);
-        TextView edit = (TextView) vi.findViewById(R.id.touchEdit);
+        TextView editLight = (TextView) vi.findViewById(R.id.touchEditLight);
 
         lName.setText(data[position].getState() + data[position].getId());
         lRoom.setText(data[position].getRoom());
@@ -145,7 +159,7 @@ public class CustomAdapter extends BaseAdapter {
 
         vi.setTag(data[position].getId());
 
-        edit.setOnClickListener(new View.OnClickListener() {
+        editLight.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
                 //long pTemp = getItemId(p);
