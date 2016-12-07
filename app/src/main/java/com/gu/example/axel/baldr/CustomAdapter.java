@@ -84,11 +84,13 @@ public class CustomAdapter extends BaseAdapter {
 
     public void roomAdapter(final int position, View vi) {
         TextView roomName = (TextView) vi.findViewById(R.id.roomName);
-        final Switch roomSwitch = (Switch) vi.findViewById(R.id.roomSwitch);
+        Switch roomSwitch = (Switch) vi.findViewById(R.id.roomSwitch);
 
-      /*  if(data[position].getState().equals("on")){
+        System.out.println("Nr " +data[position].getId() + " is " + data[position].getState());
+
+        if(data[position].getState().equals("on")){
             roomSwitch.setChecked(true);
-        }*/
+        }
         if(data[position].equals(data[position])) {
             roomName.setText(data[position].getRoom());
         }
@@ -105,8 +107,6 @@ public class CustomAdapter extends BaseAdapter {
 
                 if(data[position].getState().equals("on")){
 
-
-                    roomSwitch.setChecked(true);
                     connection.publishRoom(data[position]);
                     System.out.println(context);
                 }
@@ -137,7 +137,9 @@ public class CustomAdapter extends BaseAdapter {
 
         //lSwitch.setChecked(true);
 
-        if(data[position].getState() == "on"){
+        System.out.println("Nr " +data[position].getId() + " is " + data[position].getState());
+
+        if(data[position].getState().equals("on")){
             lSwitch.setChecked(true);
         }
 
