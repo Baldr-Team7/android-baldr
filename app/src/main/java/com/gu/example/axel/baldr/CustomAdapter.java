@@ -99,10 +99,12 @@ public class CustomAdapter extends BaseAdapter {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             }
         });*/
+
         roomSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 if(data[position].getState().equals("on")){
+
 
                     roomSwitch.setChecked(true);
                     connection.publishRoom(data[position]);
@@ -114,6 +116,7 @@ public class CustomAdapter extends BaseAdapter {
                 }
             }
         });
+
 
 
 
