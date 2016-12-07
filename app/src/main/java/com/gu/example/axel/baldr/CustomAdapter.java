@@ -23,19 +23,17 @@ import java.util.List;
 
 public class CustomAdapter extends BaseAdapter {
 
-    JSONParser jsonParser;
     Context context;
     LightObject[] data;
     MqttConnection connection;
     private int adapterCheck = 0;
 
-    public List<Json> lightItems;
     public LayoutInflater inflater;
 
 
     public CustomAdapter(Context context, LightObject[] lightItems, MqttConnection connection, int adapterCheck){
         this.context = context;
-       // this.lightItems = lightItems;
+        // this.lightItems = lightItems;
         data = lightItems;
         this.connection = connection;
         this.adapterCheck = adapterCheck;
@@ -73,7 +71,7 @@ public class CustomAdapter extends BaseAdapter {
             vi = View.inflate(context, R.layout.light_row, null);
             lightAdapter(position, vi);
         }
-       else if(adapterCheck == 2) {
+        else if(adapterCheck == 2) {
             vi = View.inflate(context, R.layout.room_row, null);
             roomAdapter(position, vi);
 
@@ -84,61 +82,42 @@ public class CustomAdapter extends BaseAdapter {
 
 
 
-    public void roomAdapter(final int postion, View vi) {
-        final int p = postion;
+    public void roomAdapter(final int position, View vi) {
         TextView roomName = (TextView) vi.findViewById(R.id.roomName);
-        Switch roomSwitch = (Switch) vi.findViewById(R.id.roomSwitch);
+        final Switch roomSwitch = (Switch) vi.findViewById(R.id.roomSwitch);
 
-
-        /*for(int i = 0; i < data.length; i ++){
-            for (int j = i+1; j< data.length; j++){
-                if(!data[i].getRoom().equals(data[j].getRoom())){
-
-                    System.out.println("SAME");
-                    roomName.setText(data[postion].getRoom());
-                } else {
-                    roomName.setText(data[j].getRoom());
-                }
-
-            }
-
-        }
-*/
-
-        if(data[postion].equals(data[postion])) {
-            roomName.setText(data[postion].getRoom());
-
-
-
-
-
-
-
-
-
-
-  /*      if(data[postion].getState() == "on"){
+      /*  if(data[position].getState().equals("on")){
             roomSwitch.setChecked(true);
+        }*/
+        if(data[position].equals(data[position])) {
+            roomName.setText(data[position].getRoom());
         }
 
+
+
+    /*    roomSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            }
+        });*/
         roomSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
+                if(data[position].getState().equals("on")){
+
+                    roomSwitch.setChecked(true);
+                    connection.publishRoom(data[position]);
+                    System.out.println(context);
+                }
+                else{
+                    connection.publishRoom(data[position]);
+                    System.out.println(context);
+                }
             }
-        });*/
+        });
 
 
-        }
 
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -153,7 +132,9 @@ public class CustomAdapter extends BaseAdapter {
         lName.setText(data[position].getState() + data[position].getId());
         lRoom.setText(data[position].getRoom());
 
-        if(data[position].getState().equals("on")) {
+        //lSwitch.setChecked(true);
+
+        if(data[position].getState() == "on"){
             lSwitch.setChecked(true);
         }
 
@@ -163,9 +144,10 @@ public class CustomAdapter extends BaseAdapter {
             public void onClick(View v) {
                 // Perform action on click
                 //long pTemp = getItemId(p);
+                int p = position;
 
                 MainActivity ma = (MainActivity) context;
-                ma.editLight(data[position]);
+                ma.editLight(data[p]);
 
 
             }
@@ -174,27 +156,18 @@ public class CustomAdapter extends BaseAdapter {
 
         lSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-<<<<<<< HEAD
                 long pTemp = getItemId(p);
                 int p = (int)pTemp;
                 if(data[position].getState() == "on"){
 
                     connection.publish(data[position]);
                     System.out.println(context);
-=======
-                if(data[p].getState() == "on"){
-
-                    connection.publish(data[position]);
->>>>>>> origin/master
                 }
                 else{
                     //data[p].getId() + "on"
 
                     connection.publish(data[position]);
-<<<<<<< HEAD
                     System.out.println(context);
-=======
->>>>>>> origin/master
                 }
             }
         });
@@ -208,5 +181,4 @@ public class CustomAdapter extends BaseAdapter {
 
 
 }
-
 

@@ -33,6 +33,7 @@ public class MqttConnection implements MqttCallback {
 
     private LightObject[] lightList = new LightObject[0];
     private LightObject[] roomArray = new LightObject[0];
+    private int roomCounter = 0;
 
 
     public MqttConnection(Context context, CustomListener cl) {
@@ -89,17 +90,16 @@ public class MqttConnection implements MqttCallback {
     }
 
 
-    public void publishRoom(LightObject light) {
+    public void publishRoom(LightObject room) {
         MessageHandler messageHandler = new MessageHandler();
 
 
         try {
-            String message = messageHandler.changeState(light).toString();
-            client.publish("lightcontrol/home/asdf/light/"+light.getId()+"/commands"
+            String message = messageHandler.changeState(room).toString();
+            client.publish("lightcontrol/home/asdf/room/" + room.getRoom() + "/commands"
                     , message.getBytes(), 0, false);
 
-            System.out.println("Sending: " + message + "to topic: lightcontrol/home/asdf/" +
-                    "light/"+light.getId()+"/commands");
+            System.out.println("Sending: " + message + "to topic: lightcontrol/home/asdf/" + room.getRoom() + "/commands");
         } catch (MqttException e) {
             e.printStackTrace();
 
@@ -127,8 +127,10 @@ public class MqttConnection implements MqttCallback {
 
         LightObject light = new LightObject(json.getString("id"), json.getString("state")
                 , json.getString("color"), json.getString("room"));
+        LightObject roomLight = new LightObject(json.getString("id"), json.getString("state")
+                , json.getString("color"), json.getString("room"));
         counter++;
-        setRoomArray(light);
+        setRoomArray(roomLight);
         setLightArray(light);
         pingFragment();
 
@@ -148,25 +150,39 @@ public class MqttConnection implements MqttCallback {
 
 
     public void setRoomArray(LightObject light) throws IOException {
-        LightObject[] lights;
+        LightObject[] temp;
+        boolean check = false;
+        int pos = 0;
 
-        if (lightList.length == 0) {
-            System.out.println("no rooms");
-            lightList = new LightObject[counter];
-            lightList[counter-1] = light;
+        if (roomArray.length == 0) {
+            roomArray = new LightObject[counter];
+            roomArray[counter -1] = light;
         } else {
-            for (int i = 0; i < lightList.length; i++) {
-                // for (int k = i+1; k < lightList.length; k++){
-                if (lightList[i].getRoom().equals(light.getRoom())) {
-
-                    System.out.println("ROOMS IN MQTT " + light.getRoom());
-
+            for (int i = 0; i < roomArray.length; i++) {
+                if (roomArray[i].getRoom().equals(light.getRoom())) {
+                    pos = i;
+                    check = true;
+                    break;
                 }
             }
         }
-        /*for (int i = 0; i < roomArray.length; i++) {
-            System.out.println("in roomfragment callback : RoomList["+ i + "] = " + roomArray[i].getRoom());
-        }*/
+
+        if (check) {
+            roomArray[pos] = light;
+        } else {
+            temp = roomArray;
+            roomArray = new LightObject[counter];
+            for (int i = 0; i < temp.length; i++) {
+                roomArray[i] = temp[i];
+            }
+            roomArray[counter-1] = light;
+        }
+
+
+        for (int i = 0; i < roomArray.length; i++) {
+            System.out.println("Rooms in MQTTC class ["+ i + "] = " + roomArray[i].getRoom());
+        }
+
 
     }
 
@@ -208,9 +224,10 @@ public class MqttConnection implements MqttCallback {
     }
 
 
+
     public LightObject[] getRoomArray() {
         for (int i = 0; i < lightList.length; i++) {
-            System.out.println("In mqttconnection roomArray : RoomList["+ i + "] = " + lightList[i].getRoom());
+            System.out.println("In mqttconnection roomArray : RoomList["+ i + "] = " + roomArray[i].getRoom());
         }
         return lightList;
     }
@@ -222,16 +239,6 @@ public class MqttConnection implements MqttCallback {
                     + lightList[i].getColor() + " " + lightList[i].getRoom());
         }
         return lightList;
-    }
-
-    public String[] getRoomArray(){
-        String[] roomArray;
-        LightObject[] lightList  = getLightArray();
-        roomArray = new String[lightList.length];
-
-        
-
-        return roomArray;
     }
 
     public void pingFragment(){
