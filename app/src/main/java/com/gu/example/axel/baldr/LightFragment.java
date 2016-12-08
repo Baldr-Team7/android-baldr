@@ -53,6 +53,12 @@ public class LightFragment extends Fragment implements CustomListener {
         lList.setAdapter(adapter);
     }
 
+    public void setLights(LightObject[] lightArray){
+        lArray = lightArray;
+        adapter = new CustomAdapter(getContext(), lArray, connection, 1);
+        lList.setAdapter(adapter);
+    }
+
 
     //lightList = (ListView)findViewByID(R.layout.light_row);
 

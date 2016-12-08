@@ -33,7 +33,7 @@ public class CustomAdapter extends BaseAdapter {
 
     public CustomAdapter(Context context, LightObject[] lightItems, MqttConnection connection, int adapterCheck){
         this.context = context;
-       // this.lightItems = lightItems;
+        // this.lightItems = lightItems;
         data = lightItems;
         this.connection = connection;
         this.adapterCheck = adapterCheck;
@@ -71,7 +71,7 @@ public class CustomAdapter extends BaseAdapter {
             vi = View.inflate(context, R.layout.light_row, null);
             lightAdapter(position, vi);
         }
-       else if(adapterCheck == 2) {
+        else if(adapterCheck == 2) {
             vi = View.inflate(context, R.layout.room_row, null);
             roomAdapter(position, vi);
 
@@ -85,11 +85,34 @@ public class CustomAdapter extends BaseAdapter {
     public void roomAdapter(final int position, View vi) {
         TextView roomName = (TextView) vi.findViewById(R.id.roomName);
         Switch roomSwitch = (Switch) vi.findViewById(R.id.roomSwitch);
+<<<<<<< HEAD
 
 
+=======
+        TextView editRoom = (TextView) vi.findViewById(R.id.touchEditRoom);
+
+        System.out.println("Nr " +data[position].getId() + " is " + data[position].getState());
+
+        if(data[position].getState().equals("on")){
+            roomSwitch.setChecked(true);
+        }
+>>>>>>> origin/master
         if(data[position].equals(data[position])) {
             roomName.setText(data[position].getRoom());
         }
+
+        editRoom.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+                //long pTemp = getItemId(p);
+                int p = position;
+
+                MainActivity ma = (MainActivity) context;
+                ma.editRoom(data[p]);
+
+
+            }
+        });
 
 
             if(data[position].getState().equals("on")) {
@@ -97,9 +120,9 @@ public class CustomAdapter extends BaseAdapter {
         }
     /*    roomSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
             }
         });*/
+<<<<<<< HEAD
             roomSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
@@ -112,8 +135,24 @@ public class CustomAdapter extends BaseAdapter {
                         connection.publishRoom(data[position]);
                         System.out.println(context);
                     }
+=======
+
+        roomSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(data[position].getState().equals("on")){
+
+                    connection.publishRoom(data[position]);
+                    System.out.println(context);
+>>>>>>> origin/master
                 }
-            });
+                else{
+                    connection.publishRoom(data[position]);
+                    System.out.println(context);
+                }
+            }
+        });
+
 
 
 
@@ -127,20 +166,25 @@ public class CustomAdapter extends BaseAdapter {
         TextView lName = (TextView) vi.findViewById(R.id.lightName);
         TextView lRoom = (TextView) vi.findViewById(R.id.lightRoom);
         Switch lSwitch = (Switch) vi.findViewById(R.id.lightSwitch);
-        TextView edit = (TextView) vi.findViewById(R.id.touchEdit);
+        TextView editLight = (TextView) vi.findViewById(R.id.touchEditLight);
 
         lName.setText(data[position].getState() + data[position].getId());
         lRoom.setText(data[position].getRoom());
 
         //lSwitch.setChecked(true);
 
+<<<<<<< HEAD
+=======
+        System.out.println("Nr " +data[position].getId() + " is " + data[position].getState());
+
+>>>>>>> origin/master
         if(data[position].getState().equals("on")){
             lSwitch.setChecked(true);
         }
 
         vi.setTag(data[position].getId());
 
-        edit.setOnClickListener(new View.OnClickListener() {
+        editLight.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
                 //long pTemp = getItemId(p);
@@ -181,5 +225,4 @@ public class CustomAdapter extends BaseAdapter {
 
 
 }
-
 

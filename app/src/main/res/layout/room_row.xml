@@ -25,6 +25,15 @@
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true" />
 
+    <TextView
+        android:text=" "
+        android:id="@+id/touchEditRoom"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/roomName"
+        android:layout_marginStart="18dp"
+        android:layout_width="210dp" />
+
 
 
 

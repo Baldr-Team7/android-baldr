@@ -60,7 +60,11 @@ public class MqttConnection implements MqttCallback {
                 public void onSuccess(IMqttToken asyncActionToken) {
                     // We are connected
                     System.out.println("Connected");
+<<<<<<< HEAD
                     subscribe();
+=======
+                    subscribe(homeID);
+>>>>>>> origin/master
                 }
 
                 @Override
@@ -73,7 +77,7 @@ public class MqttConnection implements MqttCallback {
             e.printStackTrace();
         }
     }
-    //lightcontrol/home/asdf/light/LIGHTID/commands <- publish to that topic.
+
     public void publish(LightObject light) {
         MessageHandler messageHandler = new MessageHandler();
         try {
@@ -107,7 +111,11 @@ public class MqttConnection implements MqttCallback {
     }
 
     // lightcontrol/home/{homeID}/light/{lightUUID}/commands
+<<<<<<< HEAD
     public void subscribe() {
+=======
+    public void subscribe(int homeID) {
+>>>>>>> origin/master
         try {
             client.setCallback(this);
             client.subscribe("lightcontrol/home/asdf/light/+/info", 0);
@@ -169,6 +177,10 @@ public class MqttConnection implements MqttCallback {
 
                     pos = i;
                     check = true;
+                    if(light.getState().equals("off")){
+                        roomArray[i].setState("off");
+                        System.out.println("turn "+roomArray[i].getRoom()+" off");
+                    }
                     break;
                 }
 
@@ -187,6 +199,7 @@ public class MqttConnection implements MqttCallback {
             }
             roomArray[counter-1] = light;
         }
+
 
 
         for (int i = 0; i < roomArray.length; i++) {
@@ -236,8 +249,8 @@ public class MqttConnection implements MqttCallback {
 
 
     public LightObject[] getRoomArray() {
-        for (int i = 0; i < lightList.length; i++) {
-            System.out.println("In mqttconnection roomArray : RoomList["+ i + "] = " + roomArray[i].getRoom());
+        for (int i = 0; i < roomArray.length; i++) {
+            System.out.println("In mqttconnection roomArray : RoomList["+ i + "] = id = " + roomArray[i].getId() + " " + roomArray[i].getRoom() + " " + roomArray[i].getState());
         }
         return roomArray;
     }

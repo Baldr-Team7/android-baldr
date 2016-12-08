@@ -1,24 +1,24 @@
 package com.gu.example.axel.baldr;
 
-import android.content.Context;
+
 import android.content.Intent;
-import android.provider.Settings;
+
 import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBarActivity;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+
 import android.view.Menu;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.Toast;
+
 
 //import com.google.gson.Gson;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
+<<<<<<< HEAD
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
@@ -29,6 +29,8 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 
 import java.util.List;
 
+=======
+>>>>>>> origin/master
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -37,7 +39,11 @@ public class MainActivity extends AppCompatActivity  {
     private Toolbar toolbar;
     FloatingActionButton fab;
     MqttConnection connection;
+<<<<<<< HEAD
     CustomListener cl;
+=======
+    LightFragment lightF;
+>>>>>>> origin/master
 
 
 
@@ -53,12 +59,20 @@ public class MainActivity extends AppCompatActivity  {
 
         System.out.println("heeey " + getApplicationContext());
 
+<<<<<<< HEAD
+=======
+        /*connection = new MqttConnection(getApplicationContext(), this);
+        connection.connect();*/
+>>>>>>> origin/master
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
 
         fab = (FloatingActionButton)findViewById(R.id.fab);
         fab.bringToFront();
+
+
+
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -88,14 +102,14 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onTabSelected(@IdRes int tabId) {
                 if (tabId == R.id.lightTab){
-                    LightFragment f = new LightFragment();
+                    lightF = new LightFragment();
                     fabState = 1;
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.frame,f)
+                            .replace(R.id.frame,lightF)
+                            .addToBackStack(null)
                             .commit();
                     fab.show();
-
                     setTitle("Lights");
 
 
@@ -106,6 +120,7 @@ public class MainActivity extends AppCompatActivity  {
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.frame,f)
+                            .addToBackStack(null)
                             .commit();
                     fab.show();
                     setTitle("Rooms");
@@ -116,6 +131,7 @@ public class MainActivity extends AppCompatActivity  {
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.frame,f)
+                            .addToBackStack(null)
                             .commit();
                     fab.show();
                     setTitle("Moods");
@@ -130,13 +146,31 @@ public class MainActivity extends AppCompatActivity  {
             EditLight f = new EditLight();
             Bundle bundle = new Bundle();
             bundle.putString("color", light.getColor());
+            bundle.putString("name", light.getState()+light.getId());
             f.setArguments(bundle);
             this.getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.frame, f)
+                    .addToBackStack(null)
                     .commit();
             fab.hide();
             setTitle("Edit " + light.getId());
+    }
+
+    public void editRoom(LightObject data){
+        LightObject light = data;
+        EditLight f = new EditLight();
+        Bundle bundle = new Bundle();
+        bundle.putString("color", light.getColor());
+        bundle.putString("name", light.getRoom());
+        f.setArguments(bundle);
+        this.getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frame, f)
+                .addToBackStack(null)
+                .commit();
+        fab.hide();
+        setTitle("Edit " + light.getRoom());
     }
 
     @Override
@@ -145,7 +179,32 @@ public class MainActivity extends AppCompatActivity  {
         return true;
     }
 
+<<<<<<< HEAD
 
 
 
+=======
+    /*@Override
+    public void callback(String result){
+        LightObject[] lArray = new LightObject[connection.getLightArray().length];
+        lArray = connection.getLightArray();
+        for (int i = 0; i < lArray.length; i++) {
+            System.out.println("in lightfragment callback : LightList["+ i + "] = " + lArray[i].getId() + " " + lArray[i].getState() + " "
+                    + lArray[i].getColor() + " " + lArray[i].getRoom());
+        }
+
+        lightF.setLights(lArray);
+
+
+    }*/
+    @Override
+    public void onBackPressed() {
+        if(getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            super.onBackPressed();
+        }
+        else {
+            getSupportFragmentManager().popBackStack();
+        }
+    }
+>>>>>>> origin/master
 }
