@@ -22,6 +22,7 @@ import com.roughike.bottombar.OnTabSelectListener;
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -29,13 +30,15 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     private int fabState = 1;
     BottomBar bottomBar;
     private Toolbar toolbar;
     FloatingActionButton fab;
     MqttConnection connection;
+    CustomListener cl;
+
 
 
 
@@ -44,11 +47,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+      /*  connection = new MqttConnection(this, cl);
+        connection.connect();
+       // connection.subscribe();*/
 
         System.out.println("heeey " + getApplicationContext());
 
-        /*connection = new MqttConnection();
-        connection.connect();*/
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -93,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                     fab.show();
 
                     setTitle("Lights");
+
 
                 }
                 else if (tabId == R.id.roomTab){
@@ -139,5 +144,8 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
+
+
 
 }
