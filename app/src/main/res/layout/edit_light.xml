@@ -27,7 +27,15 @@
         android:id="@+id/colorBtn"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="142dp" />
+        android:layout_marginBottom="92dp" />
+
+    <Button
+        android:text="Color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/colorBtn"
+        android:layout_toStartOf="@+id/colorBtn"
+        android:id="@+id/button4" />
 
 
 </RelativeLayout>

@@ -129,8 +129,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void editLight(LightObject data){
             LightObject light = data;
-            EditLight f = new EditLight();
+        String color = light.getColor();
+            EditLight f = new EditLight(color, light);
             Bundle bundle = new Bundle();
+
+           // bundle.getString(light.getColor());
             bundle.putString("color", light.getColor());
             bundle.putString("name", light.getState()+light.getId());
             f.setArguments(bundle);
@@ -143,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
             setTitle("Edit " + light.getId());
     }
 
-    public void editRoom(LightObject data){
+   /* public void editRoom(LightObject data){
         LightObject light = data;
         EditLight f = new EditLight();
         Bundle bundle = new Bundle();
@@ -157,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
         fab.hide();
         setTitle("Edit " + light.getRoom());
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

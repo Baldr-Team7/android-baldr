@@ -239,7 +239,7 @@ public class MqttConnection implements MqttCallback {
         for (int i = 0; i < roomArray.length; i++) {
             System.out.println("In mqttconnection roomArray : RoomList["+ i + "] = id = " + roomArray[i].getId() + " " + roomArray[i].getRoom() + " " + roomArray[i].getState());
         }
-        return lightList;
+        return roomArray;
     }
 
 

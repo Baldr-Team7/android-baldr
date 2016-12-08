@@ -24,15 +24,32 @@ public class EditLight extends Fragment {
     private int color;
     private String lName;
     public AmbilWarnaDialog dialog;
+    Button colorBtn;
+
+    LightObject light;
+
+
+    public EditLight(String colorStr, LightObject light){
+        this.colorStr = colorStr;
+        this.light = light;
+
+    }
+
+
+
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.edit_light, container, false);
 
         Bundle bundle = this.getArguments();
         if(bundle != null){
-            colorStr = bundle.getString("color", "#FFFFFF");
+            colorStr = bundle.getString("color", light.getColor());
+
+
+
             System.out.println(colorStr);
-            colorStr = colorStr.substring(1);
+            //colorStr = colorStr.substring(1);
             System.out.println(colorStr);
             lName = bundle.getString("name");
             //color = Integer.valueOf(colorStr);
@@ -47,11 +64,15 @@ public class EditLight extends Fragment {
 
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
-                System.out.println("Send new color: " + color);
+                System.out.println("Send new color: " +  " #" +Integer.toHexString(color).substring(2).toUpperCase());
+                light.setColor("#" + Integer.toHexString(color).substring(2).toUpperCase());
+
+
             }
         });
 
-        Button colorBtn = (Button) view.findViewById(R.id.colorBtn);
+
+        colorBtn = (Button) view.findViewById(R.id.button4);
 
         colorBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

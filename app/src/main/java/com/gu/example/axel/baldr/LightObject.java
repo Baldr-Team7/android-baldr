@@ -23,9 +23,13 @@ public class LightObject {
         return color;
     }
 
-    public void setName(String color) {
+    public void setColor(String color) {
         this.color = color;
     }
+
+   /* public void setName(String color) {
+        this.color = color;
+    }*/
 
     public String getRoom() {
         return room;
