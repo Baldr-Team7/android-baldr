@@ -85,10 +85,7 @@ public class CustomAdapter extends BaseAdapter {
     public void roomAdapter(final int position, View vi) {
         TextView roomName = (TextView) vi.findViewById(R.id.roomName);
         Switch roomSwitch = (Switch) vi.findViewById(R.id.roomSwitch);
-<<<<<<< HEAD
 
-
-=======
         TextView editRoom = (TextView) vi.findViewById(R.id.touchEditRoom);
 
         System.out.println("Nr " +data[position].getId() + " is " + data[position].getState());
@@ -96,7 +93,6 @@ public class CustomAdapter extends BaseAdapter {
         if(data[position].getState().equals("on")){
             roomSwitch.setChecked(true);
         }
->>>>>>> origin/master
         if(data[position].equals(data[position])) {
             roomName.setText(data[position].getRoom());
         }
@@ -135,7 +131,6 @@ public class CustomAdapter extends BaseAdapter {
                         connection.publishRoom(data[position]);
                         System.out.println(context);
                     }
-=======
 
         roomSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -144,7 +139,7 @@ public class CustomAdapter extends BaseAdapter {
 
                     connection.publishRoom(data[position]);
                     System.out.println(context);
->>>>>>> origin/master
+
                 }
                 else{
                     connection.publishRoom(data[position]);
@@ -173,11 +168,8 @@ public class CustomAdapter extends BaseAdapter {
 
         //lSwitch.setChecked(true);
 
-<<<<<<< HEAD
-=======
         System.out.println("Nr " +data[position].getId() + " is " + data[position].getState());
 
->>>>>>> origin/master
         if(data[position].getState().equals("on")){
             lSwitch.setChecked(true);
         }

@@ -22,7 +22,6 @@ import com.roughike.bottombar.OnTabSelectListener;
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -32,7 +31,7 @@ import java.util.List;
 =======
 >>>>>>> origin/master
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
 
     private int fabState = 1;
     BottomBar bottomBar;
@@ -40,11 +39,14 @@ public class MainActivity extends AppCompatActivity  {
     FloatingActionButton fab;
     MqttConnection connection;
 <<<<<<< HEAD
+<<<<<<< HEAD
     CustomListener cl;
 =======
     LightFragment lightF;
 >>>>>>> origin/master
 
+=======
+>>>>>>> parent of 079ef65... HomeID & LightDd deleted
 
 
 
@@ -53,17 +55,19 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-      /*  connection = new MqttConnection(this, cl);
-        connection.connect();
-       // connection.subscribe();*/
 
         System.out.println("heeey " + getApplicationContext());
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
         /*connection = new MqttConnection(getApplicationContext(), this);
         connection.connect();*/
 >>>>>>> origin/master
+=======
+        /*connection = new MqttConnection();
+        connection.connect();*/
+>>>>>>> parent of 079ef65... HomeID & LightDd deleted
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -111,7 +115,6 @@ public class MainActivity extends AppCompatActivity  {
                             .commit();
                     fab.show();
                     setTitle("Lights");
-
 
                 }
                 else if (tabId == R.id.roomTab){
@@ -180,6 +183,7 @@ public class MainActivity extends AppCompatActivity  {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 
@@ -207,4 +211,6 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 >>>>>>> origin/master
+=======
+>>>>>>> parent of 079ef65... HomeID & LightDd deleted
 }
