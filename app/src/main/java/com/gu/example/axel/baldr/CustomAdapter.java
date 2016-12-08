@@ -118,39 +118,24 @@ public class CustomAdapter extends BaseAdapter {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             }
         });*/
-<<<<<<< HEAD
+
             roomSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                    if(data[position].getState().equals("on")){
+                    if (data[position].getState().equals("on")) {
 
                         connection.publishRoom(data[position]);
                         System.out.println(context);
-                    }
-                    else{
+                    } else {
                         connection.publishRoom(data[position]);
                         System.out.println(context);
                     }
+                });
 
-        roomSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if(data[position].getState().equals("on")){
 
-                    connection.publishRoom(data[position]);
-                    System.out.println(context);
-
-                }
-                else{
-                    connection.publishRoom(data[position]);
-                    System.out.println(context);
                 }
             }
-        });
-
-
-
-
     }
 
 
@@ -208,13 +193,6 @@ public class CustomAdapter extends BaseAdapter {
             }
         });
     }
-
-
-
-
-
-
-
-
 }
+
 

@@ -102,7 +102,7 @@ public class MqttConnection implements MqttCallback {
             client.publish("lightcontrol/home/"+ homeID +"/room/" + room.getRoom() + "/commands"
                     , message.getBytes(), 0, false);
 
-            System.out.println("Sending: " + message + "to topic: lightcontrol/home/asdf/" + room.getRoom());
+            System.out.println("Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/" + room.getRoom());
         } catch (MqttException e) {
             e.printStackTrace();
 
