@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -22,16 +25,37 @@ public class LightFragment extends Fragment implements CustomListener {
     private LightObject[] lArray = new LightObject[0];
     public MqttConnection connection;
 
+    /*@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.activity_menu_item:
+
+                // Do Activity menu item stuff here
+                return true;
+
+            case R.id.fragment_menu_item:
+
+                // Not implemented here
+                return false;
+            default:
+                break;
+        }
+
+        return false;
+    }*/
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.lights, container, false);
         lList = (ListView) view.findViewById(R.id.lightList);
+        //setHasOptionsMenu(true);
+
 
         connection = new MqttConnection(getContext(), this);
         connection.connect();
-
 
         System.out.println("Larry lrngth " + lArray.length);
 

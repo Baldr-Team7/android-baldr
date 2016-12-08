@@ -13,6 +13,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 
 //import com.google.gson.Gson;
 import com.roughike.bottombar.BottomBar;
@@ -25,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
     BottomBar bottomBar;
     private Toolbar toolbar;
     FloatingActionButton fab;
-    MqttConnection connection;
     LightFragment lightF;
+    public String homeID;
 
 
 
@@ -35,6 +38,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        homeID = preferences.getString("homeID", "");
+        if(homeID.equals("")){
+            homeID = "asdf";
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("homeID", homeID);
+            editor.commit();
+        }
 
 
         System.out.println("heeey " + getApplicationContext());
