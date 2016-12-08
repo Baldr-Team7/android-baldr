@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     BottomBar bottomBar;
     private Toolbar toolbar;
     FloatingActionButton fab;
-    LightFragment lightF;
+
     public String homeID;
 
 
@@ -51,8 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
         System.out.println("heeey " + getApplicationContext());
 
-        /*connection = new MqttConnection(getApplicationContext(), this);
-        connection.connect();*/
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -91,11 +89,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(@IdRes int tabId) {
                 if (tabId == R.id.lightTab){
-                    lightF = new LightFragment();
+                    LightFragment f = new LightFragment();
                     fabState = 1;
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.frame,lightF)
+                            .replace(R.id.frame,f)
                             .addToBackStack(null)
                             .commit();
                     fab.show();
@@ -167,19 +165,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    /*@Override
-    public void callback(String result){
-        LightObject[] lArray = new LightObject[connection.getLightArray().length];
-        lArray = connection.getLightArray();
-        for (int i = 0; i < lArray.length; i++) {
-            System.out.println("in lightfragment callback : LightList["+ i + "] = " + lArray[i].getId() + " " + lArray[i].getState() + " "
-                    + lArray[i].getColor() + " " + lArray[i].getRoom());
-        }
 
-        lightF.setLights(lArray);
-
-
-    }*/
     @Override
     public void onBackPressed() {
         if(getSupportFragmentManager().getBackStackEntryCount() == 0) {
@@ -189,4 +175,5 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().popBackStack();
         }
     }
+
 }

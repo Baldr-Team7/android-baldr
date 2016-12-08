@@ -62,6 +62,7 @@ public class MqttConnection implements MqttCallback {
                 public void onSuccess(IMqttToken asyncActionToken) {
                     // We are connected
                     System.out.println("Connected");
+
                     subscribe();
                 }
 
@@ -109,7 +110,9 @@ public class MqttConnection implements MqttCallback {
     }
 
     // lightcontrol/home/{homeID}/light/{lightUUID}/commands
+
     public void subscribe() {
+
         try {
             client.setCallback(this);
             client.subscribe("lightcontrol/home/"+ homeID +"/light/+/info", 0);
@@ -236,7 +239,7 @@ public class MqttConnection implements MqttCallback {
         for (int i = 0; i < roomArray.length; i++) {
             System.out.println("In mqttconnection roomArray : RoomList["+ i + "] = id = " + roomArray[i].getId() + " " + roomArray[i].getRoom() + " " + roomArray[i].getState());
         }
-        return roomArray;
+        return lightList;
     }
 
 
