@@ -85,7 +85,6 @@ public class CustomAdapter extends BaseAdapter {
     public void roomAdapter(final int position, View vi) {
         TextView roomName = (TextView) vi.findViewById(R.id.roomName);
         Switch roomSwitch = (Switch) vi.findViewById(R.id.roomSwitch);
-
         TextView editRoom = (TextView) vi.findViewById(R.id.touchEditRoom);
 
         System.out.println("Nr " +data[position].getId() + " is " + data[position].getState());
@@ -111,31 +110,30 @@ public class CustomAdapter extends BaseAdapter {
         });
 
 
-            if(data[position].getState().equals("on")) {
-                roomSwitch.setChecked(true);
-        }
+
     /*    roomSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             }
         });*/
 
-            roomSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        roomSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                    if (data[position].getState().equals("on")) {
+                if(data[position].getState().equals("on")){
 
-                        connection.publishRoom(data[position]);
-                        System.out.println(context);
-                    } else {
-                        connection.publishRoom(data[position]);
-                        System.out.println(context);
-                    }
-                });
-
-
-
+                    connection.publishRoom(data[position]);
+                    System.out.println(context);
+                }
+                else{
+                    connection.publishRoom(data[position]);
+                    System.out.println(context);
                 }
             }
+        });
+
+
+
+
     }
 
 
@@ -179,7 +177,7 @@ public class CustomAdapter extends BaseAdapter {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 long pTemp = getItemId(p);
                 int p = (int)pTemp;
-                if(data[position].getState().equals("on")){
+                if(data[position].getState() == "on"){
 
                     connection.publish(data[position]);
                     System.out.println(context);
@@ -193,6 +191,5 @@ public class CustomAdapter extends BaseAdapter {
             }
         });
     }
+
 }
-
-
