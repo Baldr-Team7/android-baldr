@@ -9,15 +9,15 @@ import org.json.JSONObject;
 
 public class MessageHandler {
 
-    MqttConnection connection;
     JSONObject json;
-
     public MessageHandler(){
 
     }
 
+    // Json message to change state of Light or Room
     public JSONObject changeState(LightObject light){
         String state = light.getState();
+
         if(state.equals("on"))
             state = "off";
         else
@@ -30,6 +30,7 @@ public class MessageHandler {
             jsonOuter.put("version", 1);
             jsonOuter.put("protocolName", "baldr");
             jsonOuter.put("lightCommand", json.put("state", state));
+
         }catch(JSONException e){
             System.out.println(e);
         }
@@ -41,20 +42,9 @@ public class MessageHandler {
 
 
 
-    public JSONObject changeStateRoom(LightObject light){
-        String state = light.getRoom();
-
-        LightObject[] temp = new LightObject[0];
-
-        for(int i = 0; i < temp.length; i ++){
-
-
-        }
-
-        if(state.equals("on"))
-            state = "off";
-        else
-            state = "on";
+    // Json message to change color of Light or Room
+    public JSONObject changeColor(LightObject light){
+         String color = light.getColor();
 
         JSONObject jsonOuter = new JSONObject();
         json = new JSONObject();
@@ -62,12 +52,12 @@ public class MessageHandler {
         try {
             jsonOuter.put("version", 1);
             jsonOuter.put("protocolName", "baldr");
-            jsonOuter.put("lightCommand", json.put("state", state));
+            jsonOuter.put("lightCommand", json.put("color", color));
         }catch(JSONException e){
             System.out.println(e);
         }
 
-        light.setState(state);
+        light.setColor(color);
 
         return jsonOuter;
     }
