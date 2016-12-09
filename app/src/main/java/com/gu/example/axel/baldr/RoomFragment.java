@@ -34,9 +34,6 @@ public class RoomFragment extends Fragment implements CustomListener {
         connection = new MqttConnection(getContext(), this);
         connection.connect();
 
-       /* for(int i = 0; i < roomArray.length; i++) {
-            System.out.println(roomArray[i].getRoom());
-        }*/
 
 
         adapter = new CustomAdapter(getContext(), roomArray, connection, 2);

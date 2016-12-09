@@ -33,7 +33,6 @@ public class MqttConnection implements MqttCallback {
 
     private LightObject[] lightList = new LightObject[0];
     private LightObject[] roomArray = new LightObject[0];
-    private int roomCounter = 0;
 
 
     public MqttConnection(Context context, CustomListener cl) {
@@ -56,7 +55,6 @@ public class MqttConnection implements MqttCallback {
         initiateConnection();
         try {
             IMqttToken token = client.connect();
-            //IMqttToken token = client.connect();
             token.setActionCallback(new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
@@ -77,6 +75,8 @@ public class MqttConnection implements MqttCallback {
         }
     }
 
+
+    // Message to change state of a light
     public void publish(LightObject light) {
         MessageHandler messageHandler = new MessageHandler();
         try {
@@ -86,10 +86,6 @@ public class MqttConnection implements MqttCallback {
 
             System.out.println("Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/"+
                     "light/"+light.getId()+"/commands");
-
-
-
-
         } catch (MqttException e) {
             e.printStackTrace();
 
@@ -98,8 +94,7 @@ public class MqttConnection implements MqttCallback {
 
 
 
-
-    //Change Light Color
+    //Message to change Light Color
     public void publishColor(LightObject light) {
         MessageHandler messageHandler = new MessageHandler();
 
@@ -117,10 +112,26 @@ public class MqttConnection implements MqttCallback {
     }
 
 
-    // Change Room Color
-    public void publishColorRoom(LightObject light) {
+
+    //Message to Change state of a Room
+    public void publishRoom(LightObject room) {
         MessageHandler messageHandler = new MessageHandler();
 
+        try {
+            String message = messageHandler.changeState(room).toString();
+            client.publish("lightcontrol/home/"+ homeID +"/room/" + room.getRoom() + "/commands"
+                    , message.getBytes(), 0, false);
+
+            System.out.println("Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/room/" + room.getRoom());
+        } catch (MqttException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    //Message to change Room Color
+    public void publishColorRoom(LightObject light) {
+        MessageHandler messageHandler = new MessageHandler();
 
         try {
             String message = messageHandler.changeColor(light).toString();
@@ -135,27 +146,7 @@ public class MqttConnection implements MqttCallback {
     }
 
 
-
-
-
-    public void publishRoom(LightObject room) {
-        MessageHandler messageHandler = new MessageHandler();
-
-
-        try {
-            String message = messageHandler.changeState(room).toString();
-            client.publish("lightcontrol/home/"+ homeID +"/room/" + room.getRoom() + "/commands"
-                    , message.getBytes(), 0, false);
-
-            System.out.println("Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/room/" + room.getRoom());
-        } catch (MqttException e) {
-            e.printStackTrace();
-
-        }
-    }
-
-    // lightcontrol/home/{homeID}/light/{lightUUID}/commands
-
+    //Subcribe to broker
     public void subscribe() {
 
         try {
@@ -196,9 +187,9 @@ public class MqttConnection implements MqttCallback {
     public void connectionLost(Throwable cause) {
 
     }
-    // {"protocolName":"baldr","version":1,"lightInfo":{"state":"off","color":"#FFFFFF","room":"undefined"}}
 
 
+    // Array of Rooms
     public void setRoomArray(LightObject light) throws IOException {
         LightObject[] temp;
         boolean check = false;
@@ -233,7 +224,6 @@ public class MqttConnection implements MqttCallback {
         }
 
 
-
         for (int i = 0; i < roomArray.length; i++) {
             System.out.println("Rooms in MQTTC class ["+ i + "] = " + roomArray[i].getRoom());
         }
@@ -241,6 +231,7 @@ public class MqttConnection implements MqttCallback {
 
     }
 
+    // Set Array of lights
     public void setLightArray(LightObject light) {
         LightObject[] temp;
         boolean check = false;
@@ -280,6 +271,7 @@ public class MqttConnection implements MqttCallback {
 
 
 
+    // Get array of Rooms
     public LightObject[] getRoomArray() {
         for (int i = 0; i < roomArray.length; i++) {
             System.out.println("In mqttconnection roomArray : RoomList["+ i + "] = id = " + roomArray[i].getId() + " " + roomArray[i].getRoom() + " " + roomArray[i].getState());
@@ -288,6 +280,7 @@ public class MqttConnection implements MqttCallback {
     }
 
 
+    // Get array of Lights
     public LightObject[] getLightArray() {
         for (int i = 0; i < lightList.length; i++) {
             System.out.println("In mqttconnection getLightArray : LightList["+ i + "] = " + lightList[i].getId() + " " + lightList[i].getState() + " "

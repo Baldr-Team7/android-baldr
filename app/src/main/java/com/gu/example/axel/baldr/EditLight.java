@@ -52,12 +52,9 @@ public class EditLight extends Fragment implements CustomListener {
         if(bundle != null){
            // colorStr = bundle.getString("color", light.getColor());
 
-
             System.out.println(colorStr);
-            //colorStr = colorStr.substring(1);
             System.out.println(colorStr);
             lName = bundle.getString("name");
-            //color = Integer.valueOf(colorStr);
 
         }
 
@@ -70,8 +67,8 @@ public class EditLight extends Fragment implements CustomListener {
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
 
+                // Get Hex color code
                  colorStr = "#" +Integer.toHexString(color).substring(2).toUpperCase();
-
 
                 System.out.println("Before set color: " + light.getId() + " had " + light.getColor());
                light.setColor(colorStr);

@@ -9,13 +9,12 @@ import org.json.JSONObject;
 
 public class MessageHandler {
 
-    MqttConnection connection;
     JSONObject json;
-
     public MessageHandler(){
 
     }
 
+    // Json message to change state of Light or Room
     public JSONObject changeState(LightObject light){
         String state = light.getState();
 
@@ -43,6 +42,7 @@ public class MessageHandler {
 
 
 
+    // Json message to change color of Light or Room
     public JSONObject changeColor(LightObject light){
          String color = light.getColor();
 

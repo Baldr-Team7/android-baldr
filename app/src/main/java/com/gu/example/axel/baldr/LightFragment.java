@@ -19,7 +19,6 @@ import java.util.List;
  */
 
 public class LightFragment extends Fragment implements CustomListener {
-    //View v;
     private ListView lList = null;
     private CustomAdapter adapter;
     private LightObject[] lArray = new LightObject[0];
@@ -54,10 +53,9 @@ public class LightFragment extends Fragment implements CustomListener {
         //setHasOptionsMenu(true);
 
 
+        // connect to MQTT to get list of light saved
         connection = new MqttConnection(getContext(), this);
         connection.connect();
-
-        System.out.println("Larry lrngth " + lArray.length);
 
         adapter = new CustomAdapter(getContext(), lArray, connection, 1);
         lList.setAdapter(adapter);
@@ -82,9 +80,6 @@ public class LightFragment extends Fragment implements CustomListener {
         adapter = new CustomAdapter(getContext(), lArray, connection, 1);
         lList.setAdapter(adapter);
     }
-
-
-    //lightList = (ListView)findViewByID(R.layout.light_row);
 
 }
 
