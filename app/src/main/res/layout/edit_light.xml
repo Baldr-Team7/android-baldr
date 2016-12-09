@@ -4,7 +4,9 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Hey yaaaw"
+        android:text="Edit Light Properties"
+        android:textSize="14pt"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lightName" />
@@ -21,22 +23,22 @@
         android:id="@+id/lNameEdit" />
 
     <Button
-        android:text="Color"
+        android:text="Change Color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button4"
+        android:layout_alignTop="@+id/colorBtn"
+        android:layout_alignStart="@+id/colorBtn"
+        android:layout_marginTop="78dp" />
+
+    <Button
+        android:text="Change Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/colorBtn"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="92dp" />
-
-    <Button
-        android:text="Color"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/colorBtn"
-        android:layout_toStartOf="@+id/colorBtn"
-        android:id="@+id/button4" />
-
+        android:layout_marginTop="57dp"
+        android:layout_below="@+id/lNameEdit"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
