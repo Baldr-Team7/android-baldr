@@ -169,6 +169,7 @@ public class CustomAdapter extends BaseAdapter {
                 ma.editLight(data[p]);
 
 
+
             }
         });
 
