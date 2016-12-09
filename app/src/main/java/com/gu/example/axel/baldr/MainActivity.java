@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import android.content.SharedPreferences;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     BottomBar bottomBar;
     private Toolbar toolbar;
     FloatingActionButton fab;
+    SharedPreferences preferences;
 
     public String homeID;
 
@@ -39,9 +41,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
         homeID = preferences.getString("homeID", "");
         if(homeID.equals("")){
+            System.out.println("Homeid was empty ERROR");
             homeID = "asdf";
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("homeID", homeID);
@@ -158,10 +161,38 @@ public class MainActivity extends AppCompatActivity {
         fab.hide();
         setTitle("Edit " + light.getRoom());
     }
+    public void settings(){
+        System.out.println("Got to settings()1");
+        SettingsFragment f = new SettingsFragment();
+        System.out.println("Got to settings()2");
+        this.getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frame, f)
+                .addToBackStack(null)
+                .commit();
+        System.out.println("Got to settings()3");
+        fab.hide();
+        System.out.println("Got to settings()4");
+        setTitle("Settings");
+    }
+
+    public void updateHomeid(String input){
+        homeID = input;
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("homeID", homeID);
+        editor.commit();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        System.out.println("Got to listener");
+        settings();
         return true;
     }
 
@@ -173,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             getSupportFragmentManager().popBackStack();
+            fab.show();
         }
     }
 

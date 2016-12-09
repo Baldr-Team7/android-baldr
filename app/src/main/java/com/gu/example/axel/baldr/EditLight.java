@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 //import android.app.Fragment;
 import android.support.v4.app.Fragment;
 import android.widget.Button;
-import android.widget.EditText;
 
 import java.lang.reflect.Field;
 
@@ -22,7 +21,6 @@ public class EditLight extends Fragment {
 
     private String colorStr;
     private int color;
-    private String lName;
     public AmbilWarnaDialog dialog;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,7 +32,6 @@ public class EditLight extends Fragment {
             System.out.println(colorStr);
             colorStr = colorStr.substring(1);
             System.out.println(colorStr);
-            lName = bundle.getString("name");
             //color = Integer.valueOf(colorStr);
 
         }
@@ -58,10 +55,6 @@ public class EditLight extends Fragment {
                 dialog.show();
             }
         });
-
-        EditText lNameEdit = (EditText) view.findViewById(R.id.lNameEdit);
-        lNameEdit.setText(lName);
-
 
 
         return view;

@@ -14,20 +14,21 @@
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:layout_marginTop="116dp"
-        android:gravity="center"
-        android:id="@+id/lNameEdit"
         android:layout_below="@+id/lightName"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="184dp"
+        android:id="@+id/lNameEdit" />
 
     <Button
         android:text="Color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/colorBtn"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="142dp" />
+        android:layout_below="@+id/lNameEdit"
+        android:layout_alignEnd="@+id/lNameEdit"
+        android:layout_marginEnd="61dp"
+        android:layout_marginTop="122dp"
+        android:id="@+id/colorBtn" />
 
 
 </RelativeLayout>

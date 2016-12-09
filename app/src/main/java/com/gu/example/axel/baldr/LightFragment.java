@@ -25,26 +25,6 @@ public class LightFragment extends Fragment implements CustomListener {
     private LightObject[] lArray = new LightObject[0];
     public MqttConnection connection;
 
-    /*@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-
-            case R.id.activity_menu_item:
-
-                // Do Activity menu item stuff here
-                return true;
-
-            case R.id.fragment_menu_item:
-
-                // Not implemented here
-                return false;
-            default:
-                break;
-        }
-
-        return false;
-    }*/
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
