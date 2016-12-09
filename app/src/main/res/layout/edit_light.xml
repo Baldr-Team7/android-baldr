@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Edit Light Properties"
+        android:text="Edit Properties"
         android:textSize="14pt"
         android:gravity="center"
         android:layout_width="match_parent"

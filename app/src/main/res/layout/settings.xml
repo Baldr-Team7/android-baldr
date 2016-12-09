@@ -5,12 +5,13 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Change your HomeID"
+        android:text="Change HomeID"
         android:textSize="28sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:id="@+id/lightName" />
+
 
 
     <TextView

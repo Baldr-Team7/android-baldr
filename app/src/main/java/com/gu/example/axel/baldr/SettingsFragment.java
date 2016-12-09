@@ -34,7 +34,7 @@ public class SettingsFragment extends Fragment {
 
         text = (TextView) view.findViewById(R.id.houseId);
         houseId = ma.homeID;
-        text.setText(houseId);
+        text.setText("Your Current HomeID is: " + houseId);
 
         input = (EditText)view.findViewById(R.id.editHouseId);
 
