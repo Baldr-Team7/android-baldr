@@ -25,7 +25,6 @@ public class EditLight extends Fragment implements CustomListener {
 
 
     private String colorStr;
-    private int color;
     private String lName;
     public AmbilWarnaDialog dialog;
     Button colorBtn;

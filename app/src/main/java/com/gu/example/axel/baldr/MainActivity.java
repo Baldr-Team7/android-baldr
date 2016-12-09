@@ -146,9 +146,10 @@ public class MainActivity extends AppCompatActivity {
             setTitle("Edit " + light.getId());
     }
 
-   /* public void editRoom(LightObject data){
+    public void editRoom(LightObject data){
         LightObject light = data;
-        EditLight f = new EditLight();
+        String color = light.getColor();
+        EditRoom f = new EditRoom(color, light);
         Bundle bundle = new Bundle();
         bundle.putString("color", light.getColor());
         bundle.putString("name", light.getRoom());
@@ -160,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
         fab.hide();
         setTitle("Edit " + light.getRoom());
-    }*/
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

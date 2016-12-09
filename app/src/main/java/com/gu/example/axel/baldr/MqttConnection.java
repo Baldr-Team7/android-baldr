@@ -99,7 +99,7 @@ public class MqttConnection implements MqttCallback {
 
 
 
-    //del
+    //Change Light Color
     public void publishColor(LightObject light) {
         MessageHandler messageHandler = new MessageHandler();
 
@@ -117,6 +117,25 @@ public class MqttConnection implements MqttCallback {
     }
 
 
+    // Change Room Color
+    public void publishColorRoom(LightObject light) {
+        MessageHandler messageHandler = new MessageHandler();
+
+
+        try {
+            String message = messageHandler.changeColor(light).toString();
+            client.publish("lightcontrol/home/"+ homeID +"/room/" + light.getRoom() + "/commands"
+                    , message.getBytes(), 0, false);
+
+            System.out.println("Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/room/" + light.getRoom() + "/commands");
+        } catch (MqttException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+
+
 
 
     public void publishRoom(LightObject room) {
@@ -128,7 +147,7 @@ public class MqttConnection implements MqttCallback {
             client.publish("lightcontrol/home/"+ homeID +"/room/" + room.getRoom() + "/commands"
                     , message.getBytes(), 0, false);
 
-            System.out.println("Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/" + room.getRoom());
+            System.out.println("Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/room/" + room.getRoom());
         } catch (MqttException e) {
             e.printStackTrace();
 

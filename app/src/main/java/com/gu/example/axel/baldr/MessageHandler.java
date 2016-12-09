@@ -19,7 +19,6 @@ public class MessageHandler {
     public JSONObject changeState(LightObject light){
         String state = light.getState();
 
-        String color = light.getColor();
         if(state.equals("on"))
             state = "off";
         else
@@ -46,11 +45,6 @@ public class MessageHandler {
 
     public JSONObject changeColor(LightObject light){
          String color = light.getColor();
-
-
-        //if
-
-
 
         JSONObject jsonOuter = new JSONObject();
         json = new JSONObject();

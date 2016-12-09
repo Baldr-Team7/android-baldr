@@ -103,7 +103,7 @@ public class CustomAdapter extends BaseAdapter {
                 int p = position;
 
                 MainActivity ma = (MainActivity) context;
-               // ma.editRoom(data[p]);
+                ma.editRoom(data[p]);
 
 
             }
