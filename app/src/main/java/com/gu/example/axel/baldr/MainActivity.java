@@ -129,14 +129,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void editLight(LightObject data){
             LightObject light = data;
-        String color = light.getColor();
+            String color = light.getColor();
             EditLight f = new EditLight(color, light);
             Bundle bundle = new Bundle();
 
-           // bundle.getString(light.getColor());
+            /*bundle.getString(light.getColor());
             bundle.putString("color", light.getColor());
             bundle.putString("name", light.getName());
-            f.setArguments(bundle);
+            f.setArguments(bundle);*/
             this.getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.frame, f)
@@ -150,10 +150,10 @@ public class MainActivity extends AppCompatActivity {
         LightObject light = data;
         String color = light.getColor();
         EditRoom f = new EditRoom(color, light);
-        Bundle bundle = new Bundle();
+        /*Bundle bundle = new Bundle();
         bundle.putString("color", light.getColor());
         bundle.putString("name", light.getRoom());
-        f.setArguments(bundle);
+        f.setArguments(bundle);*/
         this.getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.frame, f)

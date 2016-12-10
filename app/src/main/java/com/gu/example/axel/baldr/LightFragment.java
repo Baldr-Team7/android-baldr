@@ -48,8 +48,8 @@ public class LightFragment extends Fragment implements CustomListener {
     public void callback(String result){
         lArray = connection.getLightArray();
         for (int i = 0; i < lArray.length; i++) {
-            System.out.println("in lightfragment callback : LightList["+ i + "] = " + lArray[i].getId() + " " + lArray[i].getState() + " "
-                    + lArray[i].getColor() + " " + lArray[i].getRoom());
+            System.out.println("in lightfragment callback : LightList["+ i + "] = " + lArray[i].getId() + " " + lArray[i].getName() + " " +
+                    lArray[i].getState() + " " + lArray[i].getColor() + " " + lArray[i].getRoom());
         }
         adapter = new CustomAdapter(getContext(), lArray, connection, 1);
         lList.setAdapter(adapter);

@@ -11,34 +11,34 @@
         android:layout_height="wrap_content"
         android:id="@+id/lightName" />
 
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/lNameEdit"
-        android:layout_above="@+id/button4"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="150dp" />
-
-    <Button
-        android:text="Change Color"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button4"
-        android:layout_alignTop="@+id/colorBtn"
-        android:layout_alignStart="@+id/colorBtn"
-        android:layout_marginTop="78dp" />
+        android:layout_marginTop="88dp"
+        android:layout_below="@+id/lightName"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:text="Change Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/colorBtn"
-        android:layout_marginTop="57dp"
+        android:id="@+id/nameBtn"
+        android:layout_marginTop="150dp"
         android:layout_below="@+id/lNameEdit"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:text="Change Color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/colorBtn"
+        android:layout_below="@id/nameBtn"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"/>
 
 
 </RelativeLayout>

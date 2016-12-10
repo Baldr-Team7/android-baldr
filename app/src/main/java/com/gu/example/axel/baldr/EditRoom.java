@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.lang.reflect.Field;
 
@@ -24,6 +25,8 @@ public class EditRoom extends Fragment implements CustomListener {
     private String lName;
     public AmbilWarnaDialog dialog;
     Button colorBtn;
+    Button saveBtn;
+    TextView input;
 
 
 
@@ -49,7 +52,6 @@ public class EditRoom extends Fragment implements CustomListener {
             // colorStr = bundle.getString("color", light.getColor());
 
 
-            System.out.println(colorStr);
             System.out.println(colorStr);
             lName = bundle.getString("name");
 
@@ -77,8 +79,20 @@ public class EditRoom extends Fragment implements CustomListener {
             }
         });
 
+        input = (TextView) view.findViewById(R.id.lNameEdit);
+        input.setText(light.getName());
 
-        colorBtn = (Button) view.findViewById(R.id.button4);
+        saveBtn = (Button) view.findViewById(R.id.nameBtn);
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                light.setName(input.getText().toString());
+                connection.publishNameChangeRoom(light);
+            }
+        });
+
+
+        colorBtn = (Button) view.findViewById(R.id.colorBtn);
 
         colorBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -86,8 +100,6 @@ public class EditRoom extends Fragment implements CustomListener {
             }
         });
 
-        EditText lNameEdit = (EditText) view.findViewById(R.id.lNameEdit);
-        lNameEdit.setText(lName);
 
         return view;
     }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 
@@ -30,8 +31,7 @@ public class EditLight extends Fragment implements CustomListener {
     public AmbilWarnaDialog dialog;
     Button colorBtn;
     Button saveBtn;
-
-
+    TextView input;
 
     MqttConnection connection;
     LightObject light;
@@ -40,6 +40,7 @@ public class EditLight extends Fragment implements CustomListener {
     public EditLight(String colorStr, LightObject light){
         this.colorStr = colorStr;
         this.light = light;
+        lName = this.light.getName();
     }
 
 
@@ -50,15 +51,15 @@ public class EditLight extends Fragment implements CustomListener {
         connection = new MqttConnection(getContext(), this);
         connection.connect();
 
-        Bundle bundle = this.getArguments();
+        /*Bundle bundle = this.getArguments();
         if(bundle != null){
-           // colorStr = bundle.getString("color", light.getColor());
+            //colorStr = bundle.getString("color", light.getColor());
 
             System.out.println(colorStr);
             System.out.println(colorStr);
             lName = bundle.getString("name");
 
-        }
+        }*/
 
         dialog = new AmbilWarnaDialog(getContext(), 000000, new AmbilWarnaDialog.OnAmbilWarnaListener() {
             @Override
@@ -82,15 +83,19 @@ public class EditLight extends Fragment implements CustomListener {
             }
         });
 
-        saveBtn = (Button) view.findViewById(R.id.saveLightName);
+        input = (TextView) view.findViewById(R.id.lNameEdit);
+        input.setText(light.getName());
+
+        saveBtn = (Button) view.findViewById(R.id.nameBtn);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                light.setName(input.getText().toString());
+                connection.publishNameChange(light);
             }
         });
 
-        colorBtn = (Button) view.findViewById(R.id.button4);
+        colorBtn = (Button) view.findViewById(R.id.colorBtn);
 
         colorBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -98,9 +103,6 @@ public class EditLight extends Fragment implements CustomListener {
             }
         });
 
-
-        EditText lNameEdit = (EditText) view.findViewById(R.id.lNameEdit);
-        lNameEdit.setText(lName);
 
         return view;
     }
