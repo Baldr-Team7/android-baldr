@@ -33,7 +33,6 @@ public class EditLight extends Fragment implements CustomListener {
     public AmbilWarnaDialog dialog;
     Button colorBtn;
     Button saveAll;
-    TextView input;
 
 
 
@@ -91,14 +90,23 @@ public class EditLight extends Fragment implements CustomListener {
             }
         });
 
-        /*input = (TextView) view.findViewById(R.id.editLname);
-        input.setText(light.getName());*/
+
+
+        editLname = (EditText) view.findViewById(R.id.editLname);
+        editLname.setText(light.getName());
+
+        editRname = (EditText) view.findViewById(R.id.editRname);
+        editRname.setText(light.getRoom());
+
+
 
         saveAll = (Button) view.findViewById(R.id.saveAll);
         saveAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                light.setName(input.getText().toString());
+                light.setName(editLname.getText().toString());
+                light.setRoom(editRname.getText().toString());
+
                 connection.publishNameChange(light);
             }
         });
