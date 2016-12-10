@@ -145,6 +145,34 @@ public class MqttConnection implements MqttCallback {
         }
     }
 
+    public void publishNameChange(LightObject light){
+        MessageHandler messageHandler = new MessageHandler();
+
+        try{
+            String message = messageHandler.changeName(light).toString();
+            client.publish("lightcontrol/home/"+ homeID +"/light/" + light.getId() + "/commands"
+                    , message.getBytes(), 0, false);
+            System.out.println("Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/"+
+                    "light/"+light.getId()+"/commands");
+        } catch (MqttException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void publishNameChangeRoom(LightObject light){
+        MessageHandler messageHandler = new MessageHandler();
+
+        try{
+            String message = messageHandler.changeName(light).toString();
+            client.publish("lightcontrol/home/"+ homeID +"/light/" + light.getId() + "/commands"
+                    , message.getBytes(), 0, false);
+            System.out.println("Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/"+
+                    "room/"+light.getRoom()+"/commands");
+        } catch (MqttException e){
+            e.printStackTrace();
+        }
+    }
+
 
     //Subcribe to broker
     public void subscribe() {
@@ -167,9 +195,9 @@ public class MqttConnection implements MqttCallback {
         json = new JSONObject(message.toString()).getJSONObject("lightInfo");
 
         LightObject light = new LightObject(json.getString("id"), json.getString("state")
-                , json.getString("color"), json.getString("room"));
+                , json.getString("color"), json.getString("room"), json.getString("name"));
         LightObject roomLight = new LightObject(json.getString("id"), json.getString("state")
-                , json.getString("color"), json.getString("room"));
+                , json.getString("color"), json.getString("room"), "undefined");
         counter++;
         setRoomArray(roomLight);
         setLightArray(light);

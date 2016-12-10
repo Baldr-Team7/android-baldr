@@ -29,6 +29,7 @@ public class EditLight extends Fragment implements CustomListener {
     private String lName;
     public AmbilWarnaDialog dialog;
     Button colorBtn;
+    Button saveBtn;
 
 
 
@@ -81,6 +82,13 @@ public class EditLight extends Fragment implements CustomListener {
             }
         });
 
+        saveBtn = (Button) view.findViewById(R.id.saveLightName);
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         colorBtn = (Button) view.findViewById(R.id.button4);
 

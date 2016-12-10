@@ -133,7 +133,7 @@ public class CustomAdapter extends BaseAdapter {
         Switch lSwitch = (Switch) vi.findViewById(R.id.lightSwitch);
         TextView editLight = (TextView) vi.findViewById(R.id.touchEditLight);
 
-        lName.setText(data[position].getState() + data[position].getId());
+        lName.setText(data[position].getName());
         lRoom.setText(data[position].getRoom());
 
 

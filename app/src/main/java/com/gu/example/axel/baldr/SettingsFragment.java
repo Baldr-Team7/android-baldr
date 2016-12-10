@@ -53,7 +53,7 @@ public class SettingsFragment extends Fragment {
 
     public String changeHomeId(String input){
 
-        ma.updateHomeid(input);
+        ma.updateHomeId(input);
 
 
         return houseId = input;

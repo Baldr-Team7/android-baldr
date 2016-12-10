@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.frame,f)
-                            .addToBackStack(null)
                             .commit();
                     fab.show();
                     setTitle("Lights");
@@ -109,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.frame,f)
-                            .addToBackStack(null)
                             .commit();
                     fab.show();
                     setTitle("Rooms");
@@ -120,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.frame,f)
-                            .addToBackStack(null)
                             .commit();
                     fab.show();
                     setTitle("Moods");
@@ -138,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
            // bundle.getString(light.getColor());
             bundle.putString("color", light.getColor());
-            bundle.putString("name", light.getState()+light.getId());
+            bundle.putString("name", light.getName());
             f.setArguments(bundle);
             this.getSupportFragmentManager()
                     .beginTransaction()
@@ -146,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                     .addToBackStack(null)
                     .commit();
             fab.hide();
-            setTitle("Edit " + light.getId());
+            setTitle("Edit " + light.getName());
     }
 
     public void editRoom(LightObject data){
@@ -180,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Settings");
     }
 
-    public void updateHomeid(String input){
+    public void updateHomeId(String input){
         homeID = input;
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("homeID", homeID);

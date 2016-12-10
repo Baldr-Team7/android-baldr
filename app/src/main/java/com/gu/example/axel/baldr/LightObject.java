@@ -10,13 +10,15 @@ public class LightObject {
     private String room;
     private String state;
     private String id;
+    private String name;
 
-    public LightObject(String id, String state, String color, String room){
+    public LightObject(String id, String state, String color, String room, String name){
 
         this.id = id;
         this.color = color;
         this.room = room;
         this.state = state;
+        this.name = name;
     }
 
     public String getColor() {
@@ -27,9 +29,13 @@ public class LightObject {
         this.color = color;
     }
 
-   /* public void setName(String color) {
-        this.color = color;
-    }*/
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
 
     public String getRoom() {
         return room;

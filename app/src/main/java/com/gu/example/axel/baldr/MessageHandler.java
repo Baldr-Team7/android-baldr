@@ -62,4 +62,23 @@ public class MessageHandler {
         return jsonOuter;
     }
 
+    public JSONObject changeName(LightObject light){
+        String name = light.getName();
+
+        JSONObject jsonOuter = new JSONObject();
+        json = new JSONObject();
+
+        try {
+            jsonOuter.put("version", 1);
+            jsonOuter.put("protocolName", "baldr");
+            jsonOuter.put("lightCommand", json.put("name", name));
+        }catch(JSONException e){
+            System.out.println(e);
+        }
+
+        light.setName(name);
+
+        return jsonOuter;
+    }
+
 }
