@@ -4,41 +4,82 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Edit Properties"
+        android:text="Edit Light Properties"
         android:textSize="14pt"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/lightName" />
+        android:id="@+id/textView2" />
 
 
     <EditText
+        android:text="TF for Lname change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:id="@+id/lNameEdit"
-        android:layout_marginTop="88dp"
-        android:layout_below="@+id/lightName"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/editLname"
 
-    <Button
-        android:text="Change Name"
+
+        android:layout_marginEnd="38dp"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="118dp" />
+
+    <EditText
+        android:text="TF for Rname change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/nameBtn"
-        android:layout_marginTop="150dp"
-        android:layout_below="@+id/lNameEdit"
-        android:layout_centerHorizontal="true" />
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/editRname"
+
+        android:layout_alignBaseline="@+id/textView"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_alignStart="@+id/editLname" />
+
+    <TextView
+        android:text="Room Name"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/editLname"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="18dp" />
+
+    <Button
+        android:text="Save Changes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/saveAll"
+
+        android:layout_marginTop="43dp"
+        android:layout_below="@+id/editRname"
+        android:layout_alignStart="@+id/colorBtn" />
+
+    <TextView
+        android:text="Light Name"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lightName"
+
+        android:layout_alignBaseline="@+id/editLname"
+        android:layout_alignBottom="@+id/editLname"
+        android:layout_alignStart="@+id/textView" />
 
     <Button
         android:text="Change Color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/colorBtn"
-        android:layout_below="@id/nameBtn"
-        android:layout_marginTop="40dp"
-        android:layout_centerHorizontal="true"/>
+
+        android:layout_marginTop="29dp"
+        android:layout_below="@+id/saveAll"
+        android:layout_alignStart="@+id/editRname" />
 
 
 </RelativeLayout>

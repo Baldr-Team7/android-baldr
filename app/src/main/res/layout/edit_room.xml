@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="Edit Room Properties"
+        android:textSize="14pt"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lightName" />
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/lNameEdit"
+        android:layout_marginTop="88dp"
+        android:layout_below="@+id/lightName"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Change Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nameBtn"
+        android:layout_marginTop="150dp"
+        android:layout_below="@+id/lNameEdit"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Change Color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/colorBtn"
+        android:layout_below="@id/nameBtn"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"/>
+
+
+</RelativeLayout>

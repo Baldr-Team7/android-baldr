@@ -42,7 +42,7 @@ public class EditRoom extends Fragment implements CustomListener {
 
 
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.edit_light, container, false);
+        View view = inflater.inflate(R.layout.edit_room, container, false);
 
         connection = new MqttConnection(getContext(), this);
         connection.connect();

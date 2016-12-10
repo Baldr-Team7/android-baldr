@@ -28,10 +28,18 @@ public class EditLight extends Fragment implements CustomListener {
     private String colorStr;
 
     private String lName;
+    private String rName;
+
     public AmbilWarnaDialog dialog;
     Button colorBtn;
-    Button saveBtn;
+    Button saveAll;
     TextView input;
+
+
+
+    EditText editLname;
+    EditText editRname;
+
 
     MqttConnection connection;
     LightObject light;
@@ -83,11 +91,11 @@ public class EditLight extends Fragment implements CustomListener {
             }
         });
 
-        input = (TextView) view.findViewById(R.id.lNameEdit);
-        input.setText(light.getName());
+        /*input = (TextView) view.findViewById(R.id.editLname);
+        input.setText(light.getName());*/
 
-        saveBtn = (Button) view.findViewById(R.id.nameBtn);
-        saveBtn.setOnClickListener(new View.OnClickListener() {
+        saveAll = (Button) view.findViewById(R.id.saveAll);
+        saveAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 light.setName(input.getText().toString());
