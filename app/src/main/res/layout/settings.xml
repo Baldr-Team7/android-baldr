@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:text="Change HomeID"
+        android:textSize="28sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/lightName" />
 
 
-    <Button
-        android:text="Save"
+
+    <TextView
+        android:text="CurrentHID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/houseId"
+        android:layout_marginBottom="73dp"
+        android:layout_above="@+id/saveHouseId"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="133dp"
-        android:id="@+id/saveHouseId"
-        android:layout_below="@+id/editHouseId"
-        android:layout_centerHorizontal="true" />
+        app:srcCompat="@drawable/logo"
+        android:layout_below="@+id/saveHouseId"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:id="@+id/imageView" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -20,17 +39,19 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/editHouseId"
+        android:layout_below="@+id/lightName"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="224dp" />
+        android:layout_marginTop="233dp" />
 
-    <TextView
-        android:text="TextView"
+    <Button
+        android:text="Save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editHouseId"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="101dp"
-        android:id="@+id/houseId" />
+        android:gravity="center"
+        android:id="@+id/saveHouseId"
+        android:layout_marginTop="85dp"
+        android:layout_below="@+id/editHouseId"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
