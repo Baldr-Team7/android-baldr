@@ -145,6 +145,7 @@ public class MqttConnection implements MqttCallback {
         }
     }
 
+    //Message to change a lights name
     public void publishNameChange(LightObject light){
         MessageHandler messageHandler = new MessageHandler();
 
@@ -159,7 +160,8 @@ public class MqttConnection implements MqttCallback {
         }
     }
 
-    public void publishNameChangeRoom(LightObject light){
+    //Message to change a rooms name
+    /*public void publishNameChangeRoom(LightObject light){
         MessageHandler messageHandler = new MessageHandler();
 
         try{
@@ -167,6 +169,34 @@ public class MqttConnection implements MqttCallback {
             client.publish("lightcontrol/home/"+ homeID +"/light/" + light.getId() + "/commands"
                     , message.getBytes(), 0, false);
             System.out.println("Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/"+
+                    "room/"+light.getRoom()+"/commands");
+        } catch (MqttException e){
+            e.printStackTrace();
+        }
+    }*/
+
+    public void publishLightChangeRoom(LightObject light){
+        MessageHandler messageHandler = new MessageHandler();
+
+        try{
+            String message = messageHandler.changeRoom(light).toString();
+            client.publish("lightcontrol/home/"+ homeID +"/light/" + light.getId() + "/commands"
+                    , message.getBytes(), 0, false);
+            System.out.println("Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/"+
+                    "light/"+light.getId()+"/commands");
+        } catch (MqttException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void publishRoomChangeRoom(LightObject light){
+        MessageHandler messageHandler = new MessageHandler();
+
+        try{
+            String message = messageHandler.changeRoom(light).toString();
+            client.publish("lightcontrol/home/"+ homeID +"/room/" + light.getRoom() + "/commands"
+                    , message.getBytes(), 0, false);
+            System.out.println("this is bill Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/"+
                     "room/"+light.getRoom()+"/commands");
         } catch (MqttException e){
             e.printStackTrace();

@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 public class MessageHandler {
 
-    JSONObject json;
     public MessageHandler(){
 
     }
@@ -24,7 +23,7 @@ public class MessageHandler {
             state = "on";
 
         JSONObject jsonOuter = new JSONObject();
-        json = new JSONObject();
+        JSONObject json = new JSONObject();
 
         try {
             jsonOuter.put("version", 1);
@@ -47,7 +46,7 @@ public class MessageHandler {
          String color = light.getColor();
 
         JSONObject jsonOuter = new JSONObject();
-        json = new JSONObject();
+        JSONObject json = new JSONObject();
 
         try {
             jsonOuter.put("version", 1);
@@ -66,7 +65,7 @@ public class MessageHandler {
         String name = light.getName();
 
         JSONObject jsonOuter = new JSONObject();
-        json = new JSONObject();
+        JSONObject json = new JSONObject();
 
         try {
             jsonOuter.put("version", 1);
@@ -77,6 +76,25 @@ public class MessageHandler {
         }
 
         light.setName(name);
+
+        return jsonOuter;
+    }
+
+    public JSONObject changeRoom(LightObject light){
+        String room = light.getRoom();
+
+        JSONObject jsonOuter = new JSONObject();
+        JSONObject json = new JSONObject();
+
+        try {
+            jsonOuter.put("version", 1);
+            jsonOuter.put("protocolName", "baldr");
+            jsonOuter.put("lightCommand", json.put("room", room));
+        }catch(JSONException e){
+            System.out.println(e);
+        }
+
+        light.setRoom(room);
 
         return jsonOuter;
     }

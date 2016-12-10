@@ -33,7 +33,6 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/editRname"
-
         android:layout_alignBaseline="@+id/textView"
         android:layout_alignBottom="@+id/textView"
         android:layout_alignStart="@+id/editLname" />

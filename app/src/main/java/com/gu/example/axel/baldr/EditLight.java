@@ -104,10 +104,28 @@ public class EditLight extends Fragment implements CustomListener {
         saveAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                light.setName(editLname.getText().toString());
-                light.setRoom(editRname.getText().toString());
 
-                connection.publishNameChange(light);
+                if(!editLname.getText().toString().equals(light.getName()) &&
+                        !editRname.getText().toString().equals(light.getRoom())){
+
+                    light.setName(editLname.getText().toString());
+                    light.setRoom(editRname.getText().toString());
+
+                    connection.publishNameChange(light);
+                    connection.publishLightChangeRoom(light);
+                }
+                else if(!editLname.getText().toString().equals(light.getName())){
+                    light.setName(editLname.getText().toString());
+
+                    connection.publishNameChange(light);
+                }
+                else if(!editRname.getText().toString().equals(light.getRoom())){
+                    light.setRoom(editRname.getText().toString());
+                    connection.publishLightChangeRoom(light);
+                }
+                else{
+                    System.out.println("Nothing changed");
+                }
             }
         });
 

@@ -86,8 +86,8 @@ public class EditRoom extends Fragment implements CustomListener {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                light.setName(input.getText().toString());
-                connection.publishNameChangeRoom(light);
+                light.setRoom(input.getText().toString());
+                connection.publishRoomChangeRoom(light);
             }
         });
 
