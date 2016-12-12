@@ -84,7 +84,7 @@ public class MqttConnection implements MqttCallback {
             client.publish("lightcontrol/home/"+ homeID +"/light/"+light.getId()+"/commands"
                     , message.getBytes(), 0, false);
 
-            System.out.println("Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/"+
+            System.out.println("1Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/"+
                     "light/"+light.getId()+"/commands");
         } catch (MqttException e) {
             e.printStackTrace();
@@ -104,7 +104,7 @@ public class MqttConnection implements MqttCallback {
             client.publish("lightcontrol/home/"+ homeID +"/light/" + light.getId() + "/commands"
                     , message.getBytes(), 0, false);
 
-            System.out.println("Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/light/" + light.getId() + "/commands");
+            System.out.println("2Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/light/" + light.getId() + "/commands");
         } catch (MqttException e) {
             e.printStackTrace();
 
@@ -122,7 +122,7 @@ public class MqttConnection implements MqttCallback {
             client.publish("lightcontrol/home/"+ homeID +"/room/" + room.getRoom() + "/commands"
                     , message.getBytes(), 0, false);
 
-            System.out.println("Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/room/" + room.getRoom());
+            System.out.println("3Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/room/" + room.getRoom());
         } catch (MqttException e) {
             e.printStackTrace();
 
@@ -138,7 +138,7 @@ public class MqttConnection implements MqttCallback {
             client.publish("lightcontrol/home/"+ homeID +"/room/" + light.getRoom() + "/commands"
                     , message.getBytes(), 0, false);
 
-            System.out.println("Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/room/" + light.getRoom() + "/commands");
+            System.out.println("4Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/room/" + light.getRoom() + "/commands");
         } catch (MqttException e) {
             e.printStackTrace();
 
@@ -153,7 +153,7 @@ public class MqttConnection implements MqttCallback {
             String message = messageHandler.changeName(light).toString();
             client.publish("lightcontrol/home/"+ homeID +"/light/" + light.getId() + "/commands"
                     , message.getBytes(), 0, false);
-            System.out.println("Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/"+
+            System.out.println("5Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/"+
                     "light/"+light.getId()+"/commands");
         } catch (MqttException e){
             e.printStackTrace();
@@ -182,22 +182,22 @@ public class MqttConnection implements MqttCallback {
             String message = messageHandler.changeRoom(light).toString();
             client.publish("lightcontrol/home/"+ homeID +"/light/" + light.getId() + "/commands"
                     , message.getBytes(), 0, false);
-            System.out.println("Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/"+
+            System.out.println("6Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/"+
                     "light/"+light.getId()+"/commands");
         } catch (MqttException e){
             e.printStackTrace();
         }
     }
 
-    public void publishRoomChangeRoom(LightObject light){
+    public void publishRoomChangeRoom(LightObject light, String oldRoom){
         MessageHandler messageHandler = new MessageHandler();
 
         try{
             String message = messageHandler.changeRoom(light).toString();
-            client.publish("lightcontrol/home/"+ homeID +"/room/" + light.getRoom() + "/commands"
+            client.publish("lightcontrol/home/"+ homeID +"/room/" + oldRoom + "/commands"
                     , message.getBytes(), 0, false);
             System.out.println("this is bill Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/"+
-                    "room/"+light.getRoom()+"/commands");
+                    "room/"+oldRoom+"/commands");
         } catch (MqttException e){
             e.printStackTrace();
         }
@@ -347,6 +347,14 @@ public class MqttConnection implements MqttCallback {
                     + lightList[i].getColor() + " " + lightList[i].getRoom());
         }
         return lightList;
+    }
+
+    public void publishJSON (String topic, JSONObject json){
+        try{
+            client.publish(topic,json.toString().getBytes(),0,false);
+        } catch (MqttException e){
+            e.printStackTrace();
+        }
     }
 
     public void pingFragment(){

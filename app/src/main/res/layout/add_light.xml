@@ -12,9 +12,28 @@
         android:id="@+id/text"
         android:layout_width="259dp"
         android:layout_height="wrap_content"
-        android:text="Here we'll add lights"
+        android:text="Enter the code printed on your light below"
         android:layout_gravity="center"
         android:layout_weight="0.38" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textCapCharacters"
+        android:text=""
+        android:ems="10"
+        android:id="@+id/discoveryCode"
+        android:selectAllOnFocus="true"
+        android:textAllCaps="true" />
+
+    <Button
+        android:text="Add light"
+        android:layout_width="143dp"
+        android:id="@+id/button3"
+        android:layout_height="wrap_content"
+        android:elevation="0dp"
+        android:visibility="visible"
+        android:onClick="addLight" />
 
     <Button
         android:id="@+id/button"

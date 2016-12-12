@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                             .beginTransaction()
                             .replace(R.id.frame,f)
                             .commit();
-                    fab.show();
+                    fab.hide();
                     setTitle("Rooms");
                 }
                 else if (tabId == R.id.moodTab){

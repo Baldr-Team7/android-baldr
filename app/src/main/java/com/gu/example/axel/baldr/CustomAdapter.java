@@ -173,4 +173,33 @@ public class CustomAdapter extends BaseAdapter {
         });
     }
 
+    public void moodAdapter(final int position, View vi) {
+        TextView moodName = (TextView) vi.findViewById(R.id.roomName);
+        Switch moodSwitch = (Switch) vi.findViewById(R.id.roomSwitch);
+
+
+
+        if(data[position].equals(data[position])) {
+            moodName.setText(data[position].getRoom());
+        }
+
+
+
+
+        moodSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(data[position].getState().equals("on")){
+
+                    connection.publishRoom(data[position]);
+                    System.out.println(context);
+                }
+                else{
+                    connection.publishRoom(data[position]);
+                    System.out.println(context);
+                }
+            }
+        });
+    }
+
 }

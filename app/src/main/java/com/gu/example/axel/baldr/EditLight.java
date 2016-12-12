@@ -105,6 +105,7 @@ public class EditLight extends Fragment implements CustomListener {
             @Override
             public void onClick(View v) {
 
+
                 if(!editLname.getText().toString().equals(light.getName()) &&
                         !editRname.getText().toString().equals(light.getRoom())){
 
