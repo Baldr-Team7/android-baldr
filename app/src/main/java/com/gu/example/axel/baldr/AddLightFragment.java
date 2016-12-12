@@ -1,11 +1,15 @@
 package com.gu.example.axel.baldr;
 
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.EditText;
 import org.json.JSONException;
@@ -15,27 +19,33 @@ import org.json.JSONObject;
  * Created by Axel on 02-Oct-16.
  */
 
-public class AddLightActivity extends AppCompatActivity implements CustomListener{
+public class AddLightFragment extends Fragment implements CustomListener{
 
     private TextView textView;
     private EditText addcode;
     private Button add;
+    MqttConnection conn;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_light);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        Button btn = (Button) findViewById(R.id.button);
-        textView = (TextView) findViewById(R.id.text);
-        addcode   = (EditText)findViewById(R.id.discoveryCode);
-        add = (Button) findViewById(R.id.button3);
+        View view = inflater.inflate(R.layout.add_light, container, false);
+
+
+        conn = new MqttConnection(getContext(), this); // TODO Context and stuff missing
+        conn.connect();
+
+
+        Button btn = (Button) view.findViewById(R.id.button);
+        textView = (TextView) view.findViewById(R.id.text);
+        addcode   = (EditText)view.findViewById(R.id.discoveryCode);
+        add = (Button) view.findViewById(R.id.button3);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                addLight(view);
-
+            public void onClick(View v) {
+                System.out.println("Button clicked");
+                addLight();
             }
         });
 
@@ -46,19 +56,22 @@ public class AddLightActivity extends AppCompatActivity implements CustomListene
 
             }
         });
-        setTitle("New Light");
+
+        return view;
     }
 
-    public void exitAdd(View view) {
+  /*  public void exitAdd(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-    }
-    public void addLight(View view) {
+    }*/
+
+    public void addLight() {
+        System.out.println("Got into addLight");
         JSONObject jin =  new JSONObject();
         JSONObject newLight = new JSONObject();
         String code = addcode.getText().toString();
         // TODO Give error if code isn't correct format
-        String topic="/lightcontrol/discovery/";
+        String topic="/lightcontrol/discovery";
         try {
             String homeid="asdf";
             jin.put("discoveryCode",code);
@@ -66,8 +79,6 @@ public class AddLightActivity extends AppCompatActivity implements CustomListene
             newLight.put("version", 1);
             newLight.put("protocolName", "baldr");
             newLight.put("discovery",jin);
-            MqttConnection conn = new MqttConnection(getApplicationContext(), this); // TODO Context and stuff missing
-            conn.connect();
             conn.publishJSON(topic,newLight);
         }catch(JSONException e){
             System.out.println(e);

@@ -39,7 +39,7 @@
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/lightName"
         android:layout_marginStart="18dp"
-        android:layout_width="210dp" />
+        android:layout_width="180dp" />
 
 
 </RelativeLayout>

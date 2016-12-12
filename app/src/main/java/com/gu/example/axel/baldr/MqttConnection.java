@@ -203,6 +203,19 @@ public class MqttConnection implements MqttCallback {
         }
     }
 
+    public void publishJSON (String topic, JSONObject json){
+
+        System.out.println("in publishJSON got topic: " + topic + "and object: " + json);
+        try{
+            String message = json.toString();
+            client.publish(topic,message.getBytes(),0,false);
+            System.out.println("Hellooooooo");
+            // client.publish("lightcontrol/home/"+ homeID +"/room/" + oldRoom + "/commands", message.getBytes(), 0, false);
+        } catch (MqttException e){
+            e.printStackTrace();
+        }
+    }
+
 
     //Subcribe to broker
     public void subscribe() {
@@ -349,13 +362,7 @@ public class MqttConnection implements MqttCallback {
         return lightList;
     }
 
-    public void publishJSON (String topic, JSONObject json){
-        try{
-            client.publish(topic,json.toString().getBytes(),0,false);
-        } catch (MqttException e){
-            e.printStackTrace();
-        }
-    }
+
 
     public void pingFragment(){
         cl.callback("success");

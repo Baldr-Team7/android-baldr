@@ -70,8 +70,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (fabState == 1) {
                     //Add light
-                    Intent intent = new Intent(MainActivity.this, AddLightActivity.class);
-                    startActivity(intent);
+                    AddLightFragment f = new AddLightFragment();
+                    fabState = 1;
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.frame,f)
+                            .addToBackStack(null)
+                            .commit();
+                    fab.hide();
+                    setTitle("Lights");
                 }
                 else if (fabState == 2){
                     //Add room
