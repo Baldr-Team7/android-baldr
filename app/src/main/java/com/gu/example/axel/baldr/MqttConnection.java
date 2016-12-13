@@ -282,6 +282,8 @@ public class MqttConnection implements MqttCallback {
                 if(roomArray[i].getRoom().equals(light.getRoom())){
                     if(light.getState().equals("off")){
                         roomArray[i].setState("off");
+                    }else{
+                        roomArray[i].setState("on");
                     }
                     check = false;
                 }
