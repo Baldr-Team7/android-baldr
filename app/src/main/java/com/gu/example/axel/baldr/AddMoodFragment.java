@@ -11,6 +11,8 @@ import android.preference.PreferenceManager;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +24,7 @@ import java.util.Set;
 public class AddMoodFragment extends Fragment{
     private Button save;
     private EditText moodname;
+    TextView enterMood;
     MainActivity ma;
 
     @Override
@@ -30,6 +33,9 @@ public class AddMoodFragment extends Fragment{
 
 
         ma = (MainActivity) container.getContext();
+
+        enterMood = (TextView) view.findViewById(R.id.textView1);
+        enterMood.setText("Enter a name for this mood");
 
         Button save = (Button) view.findViewById(R.id.button2);
 
