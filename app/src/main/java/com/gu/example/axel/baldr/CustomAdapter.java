@@ -1,8 +1,6 @@
 package com.gu.example.axel.baldr;
 
-import android.app.Activity;
 import android.content.Context;
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-
-import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.eclipse.paho.client.mqttv3.MqttTopic;
-import org.w3c.dom.Text;
-
-import java.util.List;
 
 /**
  * Created by Axel on 06-Oct-16.
@@ -25,16 +17,16 @@ public class CustomAdapter extends BaseAdapter {
 
     Context context;
     LightObject[] data;
-    MqttConnection connection;
     private int adapterCheck = 0;
+    MainActivity ma;
 
     public LayoutInflater inflater;
 
 
-    public CustomAdapter(Context context, LightObject[] lightItems, MqttConnection connection, int adapterCheck){
-        this.context = context;
+    public CustomAdapter(MainActivity ma, LightObject[] lightItems, int adapterCheck){
+        this.ma = ma;
+        this.context = ma;
         data = lightItems;
-        this.connection = connection;
         this.adapterCheck = adapterCheck;
 
 
@@ -62,16 +54,16 @@ public class CustomAdapter extends BaseAdapter {
     @Override
     public View getView( final int position, View convertView, ViewGroup parent) {
 
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        //LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
 
         View vi = null;
 
         if(adapterCheck == 1) {
-            vi = View.inflate(context, R.layout.light_row, null);
+            vi = View.inflate(ma, R.layout.light_row, null);
             lightAdapter(position, vi);
         }
         else if(adapterCheck == 2) {
-            vi = View.inflate(context, R.layout.room_row, null);
+            vi = View.inflate(ma, R.layout.room_row, null);
             roomAdapter(position, vi);
 
         }
@@ -98,7 +90,6 @@ public class CustomAdapter extends BaseAdapter {
                 // Perform action on click
                 int p = position;
 
-                MainActivity ma = (MainActivity) context;
                 ma.editRoom(data[p]);
 
 
@@ -112,11 +103,11 @@ public class CustomAdapter extends BaseAdapter {
 
                 if(data[position].getState().equals("on")){
 
-                    connection.publishRoom(data[position]);
+                    ma.connection.publishRoom(data[position]);
                     System.out.println(context);
                 }
                 else{
-                    connection.publishRoom(data[position]);
+                    ma.connection.publishRoom(data[position]);
                     System.out.println(context);
                 }
             }
@@ -148,7 +139,7 @@ public class CustomAdapter extends BaseAdapter {
                 // Perform action on click
                 int p = position;
 
-                MainActivity ma = (MainActivity) context;
+                ma = (MainActivity) context;
                 ma.editLight(data[p]);
 
 
@@ -162,44 +153,16 @@ public class CustomAdapter extends BaseAdapter {
                 long pTemp = getItemId(p);
                 if(data[position].getState() == "on"){
 
-                    connection.publish(data[position]);
+                    ma.connection.publish(data[position]);
                     System.out.println(context);
                 }
                 else{
-                    connection.publish(data[position]);
+                    ma.connection.publish(data[position]);
                     System.out.println(context);
                 }
             }
         });
     }
 
-    public void moodAdapter(final int position, View vi) {
-        TextView moodName = (TextView) vi.findViewById(R.id.roomName);
-        Switch moodSwitch = (Switch) vi.findViewById(R.id.roomSwitch);
-
-
-
-        if(data[position].equals(data[position])) {
-            moodName.setText(data[position].getRoom());
-        }
-
-
-
-
-        moodSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                if(data[position].getState().equals("on")){
-
-                    connection.publishRoom(data[position]);
-                    System.out.println(context);
-                }
-                else{
-                    connection.publishRoom(data[position]);
-                    System.out.println(context);
-                }
-            }
-        });
-    }
 
 }

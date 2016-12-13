@@ -21,18 +21,16 @@ public class MoodAdapter extends BaseAdapter {
 
     Context context;
     String[] data;
-    MqttConnection connection;
+    MainActivity ma;
     private int adapterCheck = 0;
 
     public LayoutInflater inflater;
 
 
-    public MoodAdapter(Context context, String[] data, MqttConnection connection){
+    public MoodAdapter(Context context, String[] data){
         this.context = context;
         this.data = data;
-        this.connection = connection;
-
-
+        ma = (MainActivity) this.context;
 
     }
 
@@ -109,7 +107,7 @@ public class MoodAdapter extends BaseAdapter {
                 JSONObject json = new JSONObject();
                 json.put("light", message.substring(0, i - 1)); //anything in the string up to '$' is a json message we send
                 message = message.substring(i + 1);            //then there could remain more which we will iterate on
-                connection.publishJSON(topic,json);
+                ma.connection.publishJSON(topic,json);
             }
             catch (JSONException e){
                 System.out.println(e);

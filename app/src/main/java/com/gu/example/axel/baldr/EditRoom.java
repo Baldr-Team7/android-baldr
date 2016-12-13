@@ -28,10 +28,8 @@ public class EditRoom extends Fragment implements CustomListener {
     Button saveBtn;
     TextView input;
 
-
-
-    MqttConnection connection;
     LightObject light;
+    MainActivity ma;
 
 
     public EditRoom(String colorStr, LightObject light){
@@ -44,8 +42,8 @@ public class EditRoom extends Fragment implements CustomListener {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.edit_room, container, false);
 
-        connection = new MqttConnection(getContext(), this);
-        connection.connect();
+        ma = (MainActivity) container.getContext();
+
 
         Bundle bundle = this.getArguments();
         if(bundle != null){
@@ -72,7 +70,7 @@ public class EditRoom extends Fragment implements CustomListener {
                 System.out.println("Before set color: " + light.getRoom() + " had " + light.getColor());
                 light.setColor(colorStr);
                 System.out.println("After set color: " + light.getRoom() + " has " + light.getColor());
-                connection.publishColorRoom(light);
+                ma.connection.publishColorRoom(light);
 
                 dialog.show();
 
@@ -88,7 +86,7 @@ public class EditRoom extends Fragment implements CustomListener {
             public void onClick(View v) {
                 String oldRoom = light.getRoom();
                 light.setRoom(input.getText().toString());
-                connection.publishRoomChangeRoom(light, oldRoom);
+                ma.connection.publishRoomChangeRoom(light, oldRoom);
             }
         });
 

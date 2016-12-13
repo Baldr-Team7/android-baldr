@@ -1,5 +1,8 @@
 package com.gu.example.axel.baldr;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by Axel on 03-Oct-16.
  */
@@ -59,5 +62,24 @@ public class LightObject {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public JSONObject getJSON (){
+        JSONObject json = new JSONObject();
+        JSONObject jin = new JSONObject();
+        try {
+            jin.put("color",color);
+            jin.put("room",room);
+            jin.put("state",state);
+            jin.put("id",id);
+            jin.put("name",name);
+            json.put("version", 1);
+            json.put("protocolName", "baldr");
+            json.put("lightCommand",jin);
+
+        }catch(JSONException e){
+            System.out.println(e);
+        }
+        return json;
     }
 }

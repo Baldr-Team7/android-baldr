@@ -3,11 +3,14 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Moods fragment"
-        android:textStyle="bold"
-        android:textSize="40dp"/>
+    <ListView
+        android:id="@+id/moodList"
+        android:scrollbars="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:divider="#888888"
+        android:dividerHeight="1dp"
+        android:listSelector="@xml/list_selector">
+    </ListView>
 
 </LinearLayout>

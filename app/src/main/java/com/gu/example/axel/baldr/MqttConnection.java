@@ -13,6 +13,7 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -205,7 +206,7 @@ public class MqttConnection implements MqttCallback {
 
     public void publishJSON (String topic, JSONObject json){
 
-        System.out.println("in publishJSON got topic: " + topic + "and object: " + json);
+        System.out.println("in publishJSON got topic: " + topic + " and object: " + json);
         try{
             String message = json.toString();
             client.publish(topic,message.getBytes(),0,false);
@@ -241,10 +242,13 @@ public class MqttConnection implements MqttCallback {
                 , json.getString("color"), json.getString("room"), json.getString("name"));
         LightObject roomLight = new LightObject(json.getString("id"), json.getString("state")
                 , json.getString("color"), json.getString("room"), "undefined");
-        counter++;
-        setRoomArray(roomLight);
+
+        System.out.println("Got message arrived");
         setLightArray(light);
+        setRoomArray(roomLight);
         pingFragment();
+        System.out.println("Pinged fragments");
+
 
 
     }
@@ -259,44 +263,41 @@ public class MqttConnection implements MqttCallback {
 
     }
 
+    static int rCounter = 0;
 
     // Array of Rooms
     public void setRoomArray(LightObject light) throws IOException {
+
+
         LightObject[] temp;
-        boolean check = false;
-        int pos = 0;
+        boolean check = true;
 
         if (roomArray.length == 0) {
-            roomArray = new LightObject[counter];
-            roomArray[counter -1] = light;
-        } else {
-            for (int i = 0; i < roomArray.length; i++) {
-                if (roomArray[i].getRoom().equals(light.getRoom())) {
-                    pos = i;
-                    check = true;
-                    if(light.getState().equals("off")){
-                        roomArray[i].setState("off");
-                        System.out.println("turn "+roomArray[i].getRoom()+" off");
-                    }
-                    break;
+            roomArray = new LightObject[1];
+            roomArray[0] = light;
+
+        }
+        else{
+            for(int i = 0; i < roomArray.length; i++){
+                if(roomArray[i].getRoom().equals(light.getRoom())){
+                    check = false;
                 }
             }
-        }
+            if(check){
+                temp = roomArray;
+                roomArray = new LightObject[roomArray.length + 1];
+                for (int i = 0; i < temp.length; i++) {
+                    roomArray[i] = temp[i];
+                }
+                roomArray[roomArray.length-1] = light;
 
-        if (check) {
-            roomArray[pos] = light;
-        } else {
-            temp = roomArray;
-            roomArray = new LightObject[counter];
-            for (int i = 0; i < temp.length; i++) {
-                roomArray[i] = temp[i];
+
             }
-            roomArray[counter-1] = light;
         }
 
 
         for (int i = 0; i < roomArray.length; i++) {
-            System.out.println("Rooms in MQTTC class ["+ i + "] = " + roomArray[i].getRoom());
+            System.out.println("Rooms in MQTT class ["+ i + "] = " + roomArray[i].getRoom());
         }
 
 
@@ -304,13 +305,15 @@ public class MqttConnection implements MqttCallback {
 
     // Set Array of lights
     public void setLightArray(LightObject light) {
+
         LightObject[] temp;
         boolean check = false;
+
         int pos = 0;
 
         if (lightList.length == 0) {
-            lightList = new LightObject[counter];
-            lightList[counter-1] = light;
+            lightList = new LightObject[1];
+            lightList[0] = light;
         } else {
             for (int i = 0; i < lightList.length; i++) {
                 if (lightList[i].getId().equals(light.getId())) {
@@ -319,18 +322,19 @@ public class MqttConnection implements MqttCallback {
                     break;
                 }
             }
+            if (check) {
+                lightList[pos] = light;
+            } else {
+                temp = lightList;
+                lightList = new LightObject[lightList.length + 1];
+                for (int i = 0; i < temp.length; i++) {
+                    lightList[i] = temp[i];
+                }
+                lightList[lightList.length-1] = light;
+            }
         }
 
-        if (check) {
-            lightList[pos] = light;
-        } else {
-            temp = lightList;
-            lightList = new LightObject[counter];
-            for (int i = 0; i < temp.length; i++) {
-                lightList[i] = temp[i];
-            }
-            lightList[counter-1] = light;
-        }
+
 
 
         for (int i = 0; i < lightList.length; i++) {

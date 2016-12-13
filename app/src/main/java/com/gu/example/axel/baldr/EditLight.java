@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-//import android.app.Fragment;
 import android.support.v4.app.Fragment;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,13 +33,12 @@ public class EditLight extends Fragment implements CustomListener {
     Button colorBtn;
     Button saveAll;
 
-
+    MainActivity ma;
 
     EditText editLname;
     EditText editRname;
 
 
-    MqttConnection connection;
     LightObject light;
 
 
@@ -55,18 +53,8 @@ public class EditLight extends Fragment implements CustomListener {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.edit_light, container, false);
 
-        connection = new MqttConnection(getContext(), this);
-        connection.connect();
+        ma = (MainActivity) container.getContext();
 
-        /*Bundle bundle = this.getArguments();
-        if(bundle != null){
-            //colorStr = bundle.getString("color", light.getColor());
-
-            System.out.println(colorStr);
-            System.out.println(colorStr);
-            lName = bundle.getString("name");
-
-        }*/
 
         dialog = new AmbilWarnaDialog(getContext(), 000000, new AmbilWarnaDialog.OnAmbilWarnaListener() {
             @Override
@@ -83,7 +71,7 @@ public class EditLight extends Fragment implements CustomListener {
                 System.out.println("Before set color: " + light.getId() + " had " + light.getColor());
                light.setColor(colorStr);
                 System.out.println("After set color: " + light.getId() + " has " + light.getColor());
-                connection.publishColor(light);
+                ma.connection.publishColor(light);
 
                 dialog.show();
 
@@ -112,17 +100,17 @@ public class EditLight extends Fragment implements CustomListener {
                     light.setName(editLname.getText().toString());
                     light.setRoom(editRname.getText().toString());
 
-                    connection.publishNameChange(light);
-                    connection.publishLightChangeRoom(light);
+                    ma.connection.publishNameChange(light);
+                    ma.connection.publishLightChangeRoom(light);
                 }
                 else if(!editLname.getText().toString().equals(light.getName())){
                     light.setName(editLname.getText().toString());
 
-                    connection.publishNameChange(light);
+                    ma.connection.publishNameChange(light);
                 }
                 else if(!editRname.getText().toString().equals(light.getRoom())){
                     light.setRoom(editRname.getText().toString());
-                    connection.publishLightChangeRoom(light);
+                    ma.connection.publishLightChangeRoom(light);
                 }
                 else{
                     System.out.println("Nothing changed");

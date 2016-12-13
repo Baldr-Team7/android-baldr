@@ -24,16 +24,15 @@ public class AddLightFragment extends Fragment implements CustomListener{
     private TextView textView;
     private EditText addcode;
     private Button add;
-    MqttConnection conn;
+    MainActivity ma;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.add_light, container, false);
 
-
-        conn = new MqttConnection(getContext(), this); // TODO Context and stuff missing
-        conn.connect();
+        ma = (MainActivity) container.getContext();
 
 
         Button btn = (Button) view.findViewById(R.id.button);
@@ -71,15 +70,15 @@ public class AddLightFragment extends Fragment implements CustomListener{
         JSONObject newLight = new JSONObject();
         String code = addcode.getText().toString();
         // TODO Give error if code isn't correct format
-        String topic="/lightcontrol/discovery";
+        String topic="lightcontrol/discovery";
         try {
             String homeid="asdf";
             jin.put("discoveryCode",code);
             jin.put("home",homeid);
-            newLight.put("version", 1);
+            newLight.put("version", 1 );
             newLight.put("protocolName", "baldr");
             newLight.put("discovery",jin);
-            conn.publishJSON(topic,newLight);
+            ma.connection.publishJSON(topic,newLight);
         }catch(JSONException e){
             System.out.println(e);
         }

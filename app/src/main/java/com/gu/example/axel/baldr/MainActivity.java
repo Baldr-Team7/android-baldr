@@ -1,6 +1,7 @@
 package com.gu.example.axel.baldr;
 
 
+import android.content.Context;
 import android.content.Intent;
 
 import android.support.annotation.IdRes;
@@ -23,15 +24,20 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CustomListener{
 
     private int fabState = 1;
     BottomBar bottomBar;
     private Toolbar toolbar;
     FloatingActionButton fab;
     SharedPreferences preferences;
+    MqttConnection connection;
 
     public String homeID;
+
+    LightFragment lightFragment;
+    RoomFragment roomFragment;
+    MoodFragment moodFragment;
 
 
 
@@ -39,7 +45,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        lightFragment = new LightFragment();
+        roomFragment = new RoomFragment();
+        moodFragment = new MoodFragment();
+
+
+        System.out.println("heeey ");
         setContentView(R.layout.activity_main);
+
+        Context context = getApplicationContext();
+        System.out.println("heeey " + context);
+
+
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         homeID = preferences.getString("homeID", "");
@@ -52,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
+
         System.out.println("heeey " + getApplicationContext());
 
 
@@ -61,8 +80,14 @@ public class MainActivity extends AppCompatActivity {
         fab = (FloatingActionButton)findViewById(R.id.fab);
         fab.bringToFront();
 
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frame,lightFragment)
+                .commit();
 
 
+        connection = new MqttConnection(this, this);
+        connection.connect();
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -71,14 +96,13 @@ public class MainActivity extends AppCompatActivity {
                 if (fabState == 1) {
                     //Add light
                     AddLightFragment f = new AddLightFragment();
-                    fabState = 1;
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.frame,f)
                             .addToBackStack(null)
                             .commit();
                     fab.hide();
-                    setTitle("Lights");
+                    setTitle("Add mood");
                 }
                 else if (fabState == 2){
                     //Add room
@@ -87,8 +111,14 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if (fabState == 3){
                     //Add mood
-                    Intent intent = new Intent(MainActivity.this, AddMoodActivity.class);
-                    startActivity(intent);
+                    AddMoodActivity f = new AddMoodActivity();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.frame,f)
+                            .addToBackStack(null)
+                            .commit();
+                    fab.hide();
+                    setTitle("Add mood");
                 }
             }
         });
@@ -99,32 +129,31 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(@IdRes int tabId) {
                 if (tabId == R.id.lightTab){
-                    LightFragment f = new LightFragment();
                     fabState = 1;
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.frame,f)
+                            .replace(R.id.frame,lightFragment)
                             .commit();
                     fab.show();
+                    //lightFragment.setLights(connection.getLightArray());
                     setTitle("Lights");
 
                 }
                 else if (tabId == R.id.roomTab){
-                    RoomFragment f = new RoomFragment();
                     fabState = 2;
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.frame,f)
+                            .replace(R.id.frame,roomFragment)
                             .commit();
                     fab.hide();
                     setTitle("Rooms");
+                    //roomFragment.setRooms(connection.getRoomArray());
                 }
                 else if (tabId == R.id.moodTab){
-                    MoodFragment f = new MoodFragment();
                     fabState = 3;
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.frame,f)
+                            .replace(R.id.frame, moodFragment)
                             .commit();
                     fab.show();
                     setTitle("Moods");
@@ -216,4 +245,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void callback(String result) {
+        System.out.println("got to mainactivity");
+        if(fabState == 1){
+            lightFragment.setLights(connection.getLightArray());
+        }
+        else if(fabState == 2) {
+            roomFragment.setRooms(connection.getRoomArray());
+        }
+    }
 }

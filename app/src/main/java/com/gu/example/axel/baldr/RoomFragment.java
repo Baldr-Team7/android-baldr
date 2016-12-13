@@ -14,41 +14,33 @@ import android.widget.ListView;
  *
  */
 
-public class RoomFragment extends Fragment implements CustomListener {
+public class RoomFragment extends Fragment {
 
     private ListView roomList = null;
     private CustomAdapter adapter;
     private LightObject[] roomArray = new LightObject[0];
-    public MqttConnection connection;
+    MainActivity ma;
 
 
-    View v;
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        v = inflater.inflate(R.layout.rooms, container, false);
-        roomList = (ListView) v.findViewById(R.id.roomList);
+        View view = inflater.inflate(R.layout.rooms, container, false);
 
-        connection = new MqttConnection(getContext(), this);
-        connection.connect();
+        roomList = (ListView) view.findViewById(R.id.roomList);
 
+        ma = (MainActivity) container.getContext();
 
+        setRooms(ma.connection.getRoomArray());
 
-        adapter = new CustomAdapter(getContext(), roomArray, connection, 2);
-        roomList.setAdapter(adapter);
-
-        return v;
+        return view;
     }
 
-    @Override
-    public void callback(String result){
-        roomArray = connection.getRoomArray();
-      /*  for (int i = 0; i < roomArray.length; i++) {
-            System.out.println("in Roomfragment callback : RoomList["+ i + "] = " + roomArray[i].getRoom());
-        }*/
-        adapter = new CustomAdapter(getContext(), roomArray, connection, 2);
+    public void setRooms(LightObject[] rooms){
+        System.out.println("got to room fragment");
+        adapter = new CustomAdapter(ma, rooms, 2);
         roomList.setAdapter(adapter);
     }
+
 }

@@ -18,46 +18,29 @@ import java.util.List;
  * Created by Axel on 02-Oct-16.
  */
 
-public class LightFragment extends Fragment implements CustomListener {
+public class LightFragment extends Fragment {
     private ListView lList = null;
     private CustomAdapter adapter;
     private LightObject[] lArray = new LightObject[0];
     public MqttConnection connection;
-
+    MainActivity ma;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.lights, container, false);
         lList = (ListView) view.findViewById(R.id.lightList);
-        //setHasOptionsMenu(true);
 
+         ma = (MainActivity) container.getContext();
 
-        // connect to MQTT to get list of light saved
-        connection = new MqttConnection(getContext(), this);
-        connection.connect();
-
-        adapter = new CustomAdapter(getContext(), lArray, connection, 1);
-        lList.setAdapter(adapter);
-
+        setLights(ma.connection.getLightArray());
 
         return view;
     }
 
-    @Override
-    public void callback(String result){
-        lArray = connection.getLightArray();
-        for (int i = 0; i < lArray.length; i++) {
-            System.out.println("in lightfragment callback : LightList["+ i + "] = " + lArray[i].getId() + " " + lArray[i].getName() + " " +
-                    lArray[i].getState() + " " + lArray[i].getColor() + " " + lArray[i].getRoom());
-        }
-        adapter = new CustomAdapter(getContext(), lArray, connection, 1);
-        lList.setAdapter(adapter);
-    }
-
     public void setLights(LightObject[] lightArray){
-        lArray = lightArray;
-        adapter = new CustomAdapter(getContext(), lArray, connection, 1);
+        System.out.println("got to light fragment");
+        adapter = new CustomAdapter(ma, lightArray, 1);
         lList.setAdapter(adapter);
     }
 
