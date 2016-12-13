@@ -35,7 +35,7 @@ public class AddLightFragment extends Fragment implements CustomListener{
         ma = (MainActivity) container.getContext();
 
 
-        Button btn = (Button) view.findViewById(R.id.button);
+        //Button btn = (Button) view.findViewById(R.id.button);
         textView = (TextView) view.findViewById(R.id.text);
         addcode   = (EditText)view.findViewById(R.id.discoveryCode);
         add = (Button) view.findViewById(R.id.button3);
@@ -48,13 +48,6 @@ public class AddLightFragment extends Fragment implements CustomListener{
             }
         });
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-            }
-        });
 
         return view;
     }
