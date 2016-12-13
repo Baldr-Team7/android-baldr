@@ -71,12 +71,13 @@ public class MoodAdapter extends BaseAdapter {
         TextView moodName = (TextView) vi.findViewById(R.id.roomName);
         Switch moodSwitch = (Switch) vi.findViewById(R.id.roomSwitch);
 
+        int i=0;
+        String mood=data[position];
+        while (!(mood.charAt(i)=='#'))
+            i++;
 
+        moodName.setText(mood.substring(0,i));
 
-        if(data[position].equals(data[position])) {
-
-            moodName.setText("test" + position);
-        }
 
 
 

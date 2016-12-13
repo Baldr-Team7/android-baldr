@@ -280,6 +280,9 @@ public class MqttConnection implements MqttCallback {
         else{
             for(int i = 0; i < roomArray.length; i++){
                 if(roomArray[i].getRoom().equals(light.getRoom())){
+                    if(light.getState().equals("off")){
+                        roomArray[i].setState("off");
+                    }
                     check = false;
                 }
             }

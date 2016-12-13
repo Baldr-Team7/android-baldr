@@ -34,7 +34,6 @@ public class AddMoodActivity extends Fragment{
         Button save = (Button) view.findViewById(R.id.button2);
 
         moodname = (EditText) view.findViewById(R.id.moodName);
-        moodname.setText("test");
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
