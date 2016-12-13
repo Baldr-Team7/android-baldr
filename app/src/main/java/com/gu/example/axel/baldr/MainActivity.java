@@ -104,14 +104,9 @@ public class MainActivity extends AppCompatActivity implements CustomListener{
                     fab.hide();
                     setTitle("Add mood");
                 }
-                else if (fabState == 2){
-                    //Add room
-                    Intent intent = new Intent(MainActivity.this, AddRoomActivity.class);
-                    startActivity(intent);
-                }
                 else if (fabState == 3){
                     //Add mood
-                    AddMoodActivity f = new AddMoodActivity();
+                    AddMoodFragment f = new AddMoodFragment();
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.frame,f)

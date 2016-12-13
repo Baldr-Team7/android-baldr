@@ -24,7 +24,6 @@
         <service android:name="org.eclipse.paho.android.service.MqttService" >
         </service>
         <activity android:name=".LaunchLogo"/>
-        <activity android:name=".AddRoomActivity"/>
         <activity android:name=".AddMoodActivity"/>
 
         <service android:name="org.eclipse.paho.android.service.MqttService" >

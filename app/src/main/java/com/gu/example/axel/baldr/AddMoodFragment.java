@@ -19,7 +19,7 @@ import java.util.Set;
 /* Created by Axel on 02-Oct-16.
  */
 
-public class AddMoodActivity extends Fragment{
+public class AddMoodFragment extends Fragment{
     private Button save;
     private EditText moodname;
     MainActivity ma;
