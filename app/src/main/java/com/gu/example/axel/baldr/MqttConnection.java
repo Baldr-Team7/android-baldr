@@ -47,7 +47,7 @@ public class MqttConnection implements MqttCallback {
     //options.setUserName("USERNAME");
     // options.setPassword("PASSWORD".toCharArray());
 
-    public void initiateConnection() {
+    private void initiateConnection() {
         String clientId = MqttClient.generateClientId();
         client = new MqttAndroidClient(c, "tcp://tann.si:8883", clientId);
     }
@@ -219,7 +219,7 @@ public class MqttConnection implements MqttCallback {
 
 
     //Subcribe to broker
-    public void subscribe() {
+    private void subscribe() {
 
         try {
             client.setCallback(this);
@@ -266,7 +266,7 @@ public class MqttConnection implements MqttCallback {
     static int rCounter = 0;
 
     // Array of Rooms
-    public void setRoomArray(LightObject light) throws IOException {
+    private void setRoomArray(LightObject light) throws IOException {
 
 
         LightObject[] temp;
@@ -309,7 +309,7 @@ public class MqttConnection implements MqttCallback {
     }
 
     // Set Array of lights
-    public void setLightArray(LightObject light) {
+    private void setLightArray(LightObject light) {
 
         LightObject[] temp;
         boolean check = false;
@@ -373,7 +373,7 @@ public class MqttConnection implements MqttCallback {
 
 
 
-    public void pingFragment(){
+    private void pingFragment(){
         cl.callback("success");
     }
 }
