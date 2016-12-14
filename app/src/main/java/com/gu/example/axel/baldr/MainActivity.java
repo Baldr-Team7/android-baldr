@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements CustomListener{
                             .addToBackStack(null)
                             .commit();
                     fab.hide();
-                    setTitle("Add mood");
+                    setTitle("Add Light");
                 }
                 else if (fabState == 3){
                     //Add mood
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements CustomListener{
                             .addToBackStack(null)
                             .commit();
                     fab.hide();
-                    setTitle("Add mood");
+                    setTitle("Add Mood");
                 }
             }
         });
