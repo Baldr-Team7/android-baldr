@@ -72,7 +72,7 @@ public class AddLightFragment extends Fragment implements CustomListener{
         // TODO Give error if code isn't correct format
         String topic="lightcontrol/discovery";
         try {
-            String homeid="asdf";
+            String homeid=ma.homeID;
             jin.put("discoveryCode",code);
             jin.put("home",homeid);
             newLight.put("version", 1 );
