@@ -21,7 +21,7 @@ import yuku.ambilwarna.widget.AmbilWarnaPrefWidgetView;
  * Created by Axel on 06-Oct-16.
  */
 
-public class EditLight extends Fragment implements CustomListener {
+public class EditLight extends Fragment {
 
 
     private String colorStr;
@@ -130,11 +130,5 @@ public class EditLight extends Fragment implements CustomListener {
         return view;
     }
 
-
-
-    @Override
-    public void callback(String result) {
-
-    }
 
 }

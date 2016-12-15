@@ -43,7 +43,11 @@ public class SettingsFragment extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                text.setText(changeHomeId(input.getText().toString()));
+                ma.connection.resetData();
+                ma.connection.unsubscribe();
+                text.setText("Your Current HomeID is: " + changeHomeId(input.getText().toString()));
+                ma.connection.subscribe();
+
 
             }
         });

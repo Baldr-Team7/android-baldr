@@ -19,7 +19,7 @@ import yuku.ambilwarna.widget.AmbilWarnaPrefWidgetView;
  * Created by Axel on 06-Oct-16.
  */
 
-public class EditRoom extends Fragment implements CustomListener {
+public class EditRoom extends Fragment {
 
     private String colorStr;
     private String lName;
@@ -104,10 +104,5 @@ public class EditRoom extends Fragment implements CustomListener {
     }
 
 
-
-    @Override
-    public void callback(String result) {
-
-    }
 
 }

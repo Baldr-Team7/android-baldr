@@ -19,7 +19,7 @@ import org.json.JSONObject;
  * Created by Axel on 02-Oct-16.
  */
 
-public class AddLightFragment extends Fragment implements CustomListener{
+public class AddLightFragment extends Fragment{
 
     private TextView textView;
     private EditText addcode;
@@ -75,11 +75,6 @@ public class AddLightFragment extends Fragment implements CustomListener{
         }catch(JSONException e){
             System.out.println(e);
         }
-
-    }
-
-    @Override
-    public void callback(String result) {
 
     }
 
