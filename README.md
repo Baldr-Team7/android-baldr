@@ -1,4 +1,4 @@
 #Baldr
 ####Android
 
-#### TODO: Everything
+#### Application ready for submission!
