@@ -41,7 +41,7 @@ public class MqttConnection implements MqttCallback {
 
     private void initiateConnection() {
         clientId = MqttClient.generateClientId();
-        client = new MqttAndroidClient(c, "tcp://tann.si:8883", clientId);
+        client = new MqttAndroidClient(c, "tcp://prata.technocreatives.com:1883", clientId);
     }
 
     public void connect() {
