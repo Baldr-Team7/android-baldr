@@ -43,7 +43,9 @@ public class AddMoodFragment extends Fragment{
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveMood(view);
+                if (!moodname.getText().equals("")) {
+                    saveMood(view);
+                }
             }
         });
         return view;

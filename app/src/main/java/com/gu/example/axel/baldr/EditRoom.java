@@ -69,9 +69,11 @@ public class EditRoom extends Fragment {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String oldRoom = light.getRoom();
-                light.setRoom(input.getText().toString());
-                ma.connection.publishRoomChangeRoom(light, oldRoom);
+                if(!input.getText().equals("")) {
+                    String oldRoom = light.getRoom();
+                    light.setRoom(input.getText().toString());
+                    ma.connection.publishRoomChangeRoom(light, oldRoom);
+                }
             }
         });
 
