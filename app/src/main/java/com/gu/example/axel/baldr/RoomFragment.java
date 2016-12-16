@@ -1,9 +1,7 @@
 package com.gu.example.axel.baldr;
 
-import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +9,7 @@ import android.widget.ListView;
 
 /**
  * Created by Axel on 02-Oct-16.
- *
+ * Made by Aras and Axel
  */
 
 public class RoomFragment extends Fragment {
@@ -37,8 +35,8 @@ public class RoomFragment extends Fragment {
         return view;
     }
 
+    //Gets the latest array and populates UI with rooms.
     public void setRooms(LightObject[] rooms){
-        System.out.println("got to room fragment");
         adapter = new CustomAdapter(ma, rooms, 2);
         roomList.setAdapter(adapter);
     }

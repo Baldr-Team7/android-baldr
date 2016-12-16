@@ -1,6 +1,5 @@
 package com.gu.example.axel.baldr;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,14 +7,8 @@ import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import org.eclipse.paho.client.mqttv3.MqttException;
-
-import java.lang.reflect.Field;
-
 import yuku.ambilwarna.AmbilWarnaDialog;
-import yuku.ambilwarna.widget.AmbilWarnaPrefWidgetView;
+
 
 /**
  * Created by Axel on 06-Oct-16.

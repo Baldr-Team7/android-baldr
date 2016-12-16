@@ -1,8 +1,5 @@
 package com.gu.example.axel.baldr;
 
-/**
- * Created by Axel on 12-Dec-16.
- */
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,6 +13,10 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Created by Axel on 12-Dec-16.
+ * made by MAttias and Axel
+ */
 
 public class MoodAdapter extends BaseAdapter {
 
@@ -90,31 +91,38 @@ public class MoodAdapter extends BaseAdapter {
         });
     }
 
-    public void setMood(int index){
-        String message=data[index];
-        String topic="asdf";    //TODO Correct string here. If can't access homeid then modify publish method.
-        int j=0;
-        int i=0;
+    public void setMood(int index) {
+        String message = data[index];
+        String topic, id;
+        int j = 0;
+        int i = 0;
 
-        while (!(message.charAt(j)=='#')){  // First we remove the moodname from the saved string
+        while (!(message.charAt(j) == '#')) {  // First we remove the moodname from the saved string
             j++;
         }
-        message=message.substring(j+1);
-        while (message.length()>1){ // There should be a $ at the end
-            while (!(message.charAt(i)=='$')){
+        message = message.substring(j + 1);
+        while (message.length() > 1) { // There should be a $ at the end
+            i = 0; // start from beginning of string
+            while (!(message.charAt(i) == '$')) {  // step through string until we find $ that marks end of a light
                 i++;
             }
             try {
-                JSONObject json = new JSONObject();
-                json.put("light", message.substring(0, i - 1)); //anything in the string up to '$' is a json message we send
-                message = message.substring(i + 1);            //then there could remain more which we will iterate on
-                ma.connection.publishJSON(topic,json);
-            }
-            catch (JSONException e){
+                JSONObject json = new JSONObject(message.substring(0, i));
+                JSONObject light = new JSONObject();
+                //              json.put("light", message.substring(0, i - 1)); //anything in the string up to '$' is a json message we send
+                if (message.length() > i + 1) { // Is there anything behind the last $?
+                    message = message.substring(i + 1);            // If so cut the string and keep going
+                } else { // there is nothing behind the last $, so just cut anything ahead of it and be done
+                    message = "$";
+                }
+                light = json.getJSONObject("lightCommand");
+                id = light.getString("id");
+                topic = "lightcontrol/home/" + ma.connection.homeID + "/light/" + id + "/commands";
+                ma.connection.publishJSON(topic, json);
+            } catch (JSONException e) {
                 System.out.println(e);
             }
         }
 
     }
-
 }

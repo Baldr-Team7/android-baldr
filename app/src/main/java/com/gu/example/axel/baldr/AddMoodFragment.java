@@ -1,9 +1,7 @@
 package com.gu.example.axel.baldr;
 
 import android.support.v4.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.content.SharedPreferences;
@@ -17,8 +15,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-
-/* Created by Axel on 02-Oct-16.
+/**
+ * Created by Axel on 02-Oct-16.
+ * Made by Mattias and Axel
  */
 
 public class AddMoodFragment extends Fragment{
@@ -65,7 +64,7 @@ public class AddMoodFragment extends Fragment{
             mood+='#';                  // Add # at end of name as delimiter
 
             LightObject[] lights = ma.connection.getLightArray();
-            for (int i=0;i<lights.length-1;i++){          // Go through lightarray and add to string for each
+            for (int i=0;i<lights.length;i++){          // Go through lightarray and add to string for each
                 mood+= lights[i].getJSON().toString()+'$';  // then end with '$'
             }
             Set<String> newMoodSet = new HashSet<String>();
@@ -73,7 +72,6 @@ public class AddMoodFragment extends Fragment{
             newMoodSet.add(mood);
             editor.putStringSet("moods", newMoodSet);
             editor.commit();
-            System.out.println("Mood saved");
         }}
 
 }

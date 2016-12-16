@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 /**
  * Created by Axel on 06-Oct-16.
+ * Made by Aras and Axel
  */
 
 public class CustomAdapter extends BaseAdapter {
@@ -154,11 +155,9 @@ public class CustomAdapter extends BaseAdapter {
                 if(data[position].getState() == "on"){
 
                     ma.connection.publish(data[position]);
-                    System.out.println(context);
                 }
                 else{
                     ma.connection.publish(data[position]);
-                    System.out.println(context);
                 }
             }
         });

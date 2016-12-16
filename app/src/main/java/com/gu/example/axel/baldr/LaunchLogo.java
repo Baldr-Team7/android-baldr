@@ -1,7 +1,7 @@
 package com.gu.example.axel.baldr;
 
 /**
- * Created by arasb on 2016-11-21.
+ * Created by Arasb on 2016-11-21.
  *
  */
 

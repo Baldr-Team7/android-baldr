@@ -2,7 +2,6 @@ package com.gu.example.axel.baldr;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +11,10 @@ import android.widget.ListView;
 
 import java.util.Set;
 import java.util.HashSet;
-import org.json.*;
-import org.json.JSONObject;
 
 /**
  * Created by Axel on 02-Oct-16.
+ * Made by Mattias and Axel.
  */
 
 public class MoodFragment extends Fragment {

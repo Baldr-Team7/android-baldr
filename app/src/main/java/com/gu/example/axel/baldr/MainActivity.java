@@ -2,7 +2,6 @@ package com.gu.example.axel.baldr;
 
 
 import android.content.Context;
-import android.content.Intent;
 
 import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
@@ -14,16 +13,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-
-
-//import com.google.gson.Gson;
+//Roughike BottomBar: https://github.com/roughike/BottomBar
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
-
+/**
+ * Created by Axel on 02-Oct-16.
+ */
 public class MainActivity extends AppCompatActivity implements CustomListener{
 
     private int fabState = 1;
@@ -50,18 +48,15 @@ public class MainActivity extends AppCompatActivity implements CustomListener{
         moodFragment = new MoodFragment();
 
 
-        System.out.println("heeey ");
         setContentView(R.layout.activity_main);
 
         Context context = getApplicationContext();
-        System.out.println("heeey " + context);
 
 
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         homeID = preferences.getString("homeID", "");
         if(homeID.equals("")){
-            System.out.println("Homeid was empty ERROR");
             homeID = "asdf";
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("homeID", homeID);
@@ -69,9 +64,6 @@ public class MainActivity extends AppCompatActivity implements CustomListener{
         }
 
 
-
-
-        System.out.println("heeey " + getApplicationContext());
 
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -130,7 +122,6 @@ public class MainActivity extends AppCompatActivity implements CustomListener{
                             .replace(R.id.frame,lightFragment)
                             .commit();
                     fab.show();
-                    //lightFragment.setLights(connection.getLightArray());
                     setTitle("Lights");
 
                 }
@@ -142,7 +133,6 @@ public class MainActivity extends AppCompatActivity implements CustomListener{
                             .commit();
                     fab.hide();
                     setTitle("Rooms");
-                    //roomFragment.setRooms(connection.getRoomArray());
                 }
                 else if (tabId == R.id.moodTab){
                     fabState = 3;
@@ -162,12 +152,6 @@ public class MainActivity extends AppCompatActivity implements CustomListener{
             LightObject light = data;
             String color = light.getColor();
             EditLight f = new EditLight(color, light);
-            Bundle bundle = new Bundle();
-
-            /*bundle.getString(light.getColor());
-            bundle.putString("color", light.getColor());
-            bundle.putString("name", light.getName());
-            f.setArguments(bundle);*/
             this.getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.frame, f)
@@ -181,10 +165,6 @@ public class MainActivity extends AppCompatActivity implements CustomListener{
         LightObject light = data;
         String color = light.getColor();
         EditRoom f = new EditRoom(color, light);
-        /*Bundle bundle = new Bundle();
-        bundle.putString("color", light.getColor());
-        bundle.putString("name", light.getRoom());
-        f.setArguments(bundle);*/
         this.getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.frame, f)
@@ -194,17 +174,13 @@ public class MainActivity extends AppCompatActivity implements CustomListener{
         setTitle("Edit " + light.getRoom());
     }
     public void settings(){
-        System.out.println("Got to settings()1");
         SettingsFragment f = new SettingsFragment();
-        System.out.println("Got to settings()2");
         this.getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.frame, f)
                 .addToBackStack(null)
                 .commit();
-        System.out.println("Got to settings()3");
         fab.hide();
-        System.out.println("Got to settings()4");
         setTitle("Settings");
     }
 
@@ -223,7 +199,6 @@ public class MainActivity extends AppCompatActivity implements CustomListener{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        System.out.println("Got to listener");
         settings();
         return true;
     }
@@ -242,7 +217,6 @@ public class MainActivity extends AppCompatActivity implements CustomListener{
 
     @Override
     public void callback(String result) {
-        System.out.println("got to mainactivity");
         if(fabState == 1){
             lightFragment.setLights(connection.getLightArray());
         }

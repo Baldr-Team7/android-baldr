@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 /**
@@ -43,6 +42,7 @@ public class SettingsFragment extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Remove local data, and set the subscription to the new homeId.
                 ma.connection.resetData();
                 ma.connection.unsubscribe();
                 text.setText("Your Current HomeID is: " + changeHomeId(input.getText().toString()));
@@ -55,6 +55,7 @@ public class SettingsFragment extends Fragment {
         return view;
     }
 
+    //Changes the homeId saved on the phone and returns the new one.
     public String changeHomeId(String input){
 
         ma.updateHomeId(input);

@@ -1,25 +1,16 @@
 package com.gu.example.axel.baldr;
 
 import android.content.Context;
-import android.view.View;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
-
 import org.eclipse.paho.android.service.MqttAndroidClient;
-import org.eclipse.paho.android.service.MqttService;
 import org.eclipse.paho.client.mqttv3.*;
-import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * Created by Axel on 04-Nov-16.
+ * Made by Aras and Axel
  */
 
 public class MqttConnection implements MqttCallback {
@@ -30,6 +21,7 @@ public class MqttConnection implements MqttCallback {
     private int counter = 0;
     CustomListener cl;
 
+    String clientId;
     String homeID;
 
     private LightObject[] lightArray = new LightObject[0];
@@ -48,7 +40,7 @@ public class MqttConnection implements MqttCallback {
     // options.setPassword("PASSWORD".toCharArray());
 
     private void initiateConnection() {
-        String clientId = MqttClient.generateClientId();
+        clientId = MqttClient.generateClientId();
         client = new MqttAndroidClient(c, "tcp://tann.si:8883", clientId);
     }
 
@@ -61,7 +53,20 @@ public class MqttConnection implements MqttCallback {
                 public void onSuccess(IMqttToken asyncActionToken) {
                     // We are connected
                     System.out.println("Connected");
-
+                    long unixTimestamp = (System.currentTimeMillis() / 1000L);
+                    JSONObject jsonPresence = new JSONObject();
+                    try {
+                        jsonPresence.put("version", 1);
+                        jsonPresence.put("groupName", "Baldr");
+                        jsonPresence.put("groupNumber", "7");
+                        jsonPresence.put("connectedAt", unixTimestamp);
+                        jsonPresence.put("rfcs", "[RFC 1, RFC 17, RFC 18]");
+                        jsonPresence.put("clientVersion", "1.0");
+                        jsonPresence.put("clientSoftware", "Baldr Android Client");
+                        publishJSON("presence/" + clientId, jsonPresence);
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }
                     subscribe();
                 }
 
@@ -110,14 +115,9 @@ public class MqttConnection implements MqttCallback {
         LightObject roomLight = new LightObject(json.getString("id"), json.getString("state")
                 , json.getString("color"), json.getString("room"), "undefined");
 
-        System.out.println("Got message arrived");
         setLightArray(light);
         setRoomArray(roomLight);
         pingFragment();
-        System.out.println("Pinged fragments");
-
-
-
     }
 
     // Message to change state of a light
@@ -126,10 +126,8 @@ public class MqttConnection implements MqttCallback {
         try {
             String message = messageHandler.changeState(light).toString();
             client.publish("lightcontrol/home/"+ homeID +"/light/"+light.getId()+"/commands"
-                    , message.getBytes(), 0, false);
+                    , message.getBytes(), 1, false);
 
-            System.out.println("1Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/"+
-                    "light/"+light.getId()+"/commands");
         } catch (MqttException e) {
             e.printStackTrace();
 
@@ -146,10 +144,9 @@ public class MqttConnection implements MqttCallback {
         try {
             String message = messageHandler.changeColor(light).toString();
             client.publish("lightcontrol/home/"+ homeID +"/light/" + light.getId() + "/commands"
-                    , message.getBytes(), 0, false);
+                    , message.getBytes(), 1, false);
 
-            System.out.println("2Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/light/" + light.getId() + "/commands");
-        } catch (MqttException e) {
+            } catch (MqttException e) {
             e.printStackTrace();
 
         }
@@ -164,10 +161,9 @@ public class MqttConnection implements MqttCallback {
         try {
             String message = messageHandler.changeState(room).toString();
             client.publish("lightcontrol/home/"+ homeID +"/room/" + room.getRoom() + "/commands"
-                    , message.getBytes(), 0, false);
+                    , message.getBytes(), 1, false);
 
-            System.out.println("3Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/room/" + room.getRoom());
-        } catch (MqttException e) {
+            } catch (MqttException e) {
             e.printStackTrace();
 
         }
@@ -180,10 +176,9 @@ public class MqttConnection implements MqttCallback {
         try {
             String message = messageHandler.changeColor(light).toString();
             client.publish("lightcontrol/home/"+ homeID +"/room/" + light.getRoom() + "/commands"
-                    , message.getBytes(), 0, false);
+                    , message.getBytes(), 1, false);
 
-            System.out.println("4Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/room/" + light.getRoom() + "/commands");
-        } catch (MqttException e) {
+            } catch (MqttException e) {
             e.printStackTrace();
 
         }
@@ -196,66 +191,46 @@ public class MqttConnection implements MqttCallback {
         try{
             String message = messageHandler.changeName(light).toString();
             client.publish("lightcontrol/home/"+ homeID +"/light/" + light.getId() + "/commands"
-                    , message.getBytes(), 0, false);
-            System.out.println("5Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/"+
-                    "light/"+light.getId()+"/commands");
-        } catch (MqttException e){
+                    , message.getBytes(), 1, false);
+            } catch (MqttException e){
             e.printStackTrace();
         }
     }
 
-    //Message to change a rooms name
-    /*public void publishNameChangeRoom(LightObject light){
-        MessageHandler messageHandler = new MessageHandler();
 
-        try{
-            String message = messageHandler.changeName(light).toString();
-            client.publish("lightcontrol/home/"+ homeID +"/light/" + light.getId() + "/commands"
-                    , message.getBytes(), 0, false);
-            System.out.println("Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/"+
-                    "room/"+light.getRoom()+"/commands");
-        } catch (MqttException e){
-            e.printStackTrace();
-        }
-    }*/
-
+    //Move light to another room
     public void publishLightChangeRoom(LightObject light){
         MessageHandler messageHandler = new MessageHandler();
 
         try{
             String message = messageHandler.changeRoom(light).toString();
             client.publish("lightcontrol/home/"+ homeID +"/light/" + light.getId() + "/commands"
-                    , message.getBytes(), 0, false);
-            System.out.println("6Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/"+
-                    "light/"+light.getId()+"/commands");
+                    , message.getBytes(), 1, false);
         } catch (MqttException e){
             e.printStackTrace();
         }
     }
 
+    //Change name of a room
     public void publishRoomChangeRoom(LightObject light, String oldRoom){
         MessageHandler messageHandler = new MessageHandler();
 
         try{
             String message = messageHandler.changeRoom(light).toString();
             client.publish("lightcontrol/home/"+ homeID +"/room/" + oldRoom + "/commands"
-                    , message.getBytes(), 0, false);
-            System.out.println("this is bill Sending: " + message + "to topic: lightcontrol/home/"+ homeID +"/"+
-                    "room/"+oldRoom+"/commands");
+                    , message.getBytes(), 1, false);
         } catch (MqttException e){
             e.printStackTrace();
         }
     }
 
+    //Publish JSON that's defined in other classes. Used for moods.
     public void publishJSON (String topic, JSONObject json){
 
-        System.out.println("in publishJSON got topic: " + topic + " and object: " + json);
         try{
             String message = json.toString();
-            client.publish(topic,message.getBytes(),0,false);
-            System.out.println("Hellooooooo");
-            // client.publish("lightcontrol/home/"+ homeID +"/room/" + oldRoom + "/commands", message.getBytes(), 0, false);
-        } catch (MqttException e){
+            client.publish(topic,message.getBytes(),1,false);
+            } catch (MqttException e){
             e.printStackTrace();
         }
     }
@@ -308,10 +283,6 @@ public class MqttConnection implements MqttCallback {
         }
 
 
-        for (int i = 0; i < roomArray.length; i++) {
-            System.out.println("Rooms in MQTT class ["+ i + "] = " + roomArray[i].getRoom());
-        }
-
 
     }
 
@@ -349,10 +320,6 @@ public class MqttConnection implements MqttCallback {
 
 
 
-        for (int i = 0; i < lightArray.length; i++) {
-            System.out.println("lightArray["+ i + "] = " + lightArray[i].getId() + " " + lightArray[i].getState() + " "
-                    + lightArray[i].getColor() + " " + lightArray[i].getRoom());
-        }
 
     }
 
@@ -361,30 +328,24 @@ public class MqttConnection implements MqttCallback {
     // Get array of Rooms
     public LightObject[] getRoomArray() {
 
-        for (int i = 0; i < roomArray.length; i++) {
-            System.out.println("In mqttconnection roomArray : RoomList["+ i + "] = id = " + roomArray[i].getId() + " " + roomArray[i].getRoom() + " " + roomArray[i].getState());
-        }
-
         return roomArray;
     }
 
 
     // Get array of Lights
     public LightObject[] getLightArray() {
-        for (int i = 0; i < lightArray.length; i++) {
-            System.out.println("In mqttconnection getLightArray : lightArray["+ i + "] = " + lightArray[i].getId() + " " + lightArray[i].getState() + " "
-                    + lightArray[i].getColor() + " " + lightArray[i].getRoom());
-        }
+
         return lightArray;
     }
 
+    //When homeId is changed, we empty room and light arrays to make space for the ones in the new home.
     public void resetData(){
         lightArray = new LightObject[0];
         roomArray = new LightObject[0];
     }
 
 
-
+    //Uses the callback function from interface to inform MainActivity that new data is ready to use.
     private void pingFragment(){
         cl.callback("success");
     }
